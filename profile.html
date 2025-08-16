@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .sidebar {
+            background-color: #4c51bf;
+            color: white;
+        }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        .menu-item.active {
+            background-color: #5a64d1;
+        }
+        .profile-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .profile-field {
+            margin-bottom: 1rem;
+        }
+        .profile-field label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .profile-field p {
+            background-color: #e5e7eb;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #4a5568;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .toggle-slider {
+            background-color: #4c51bf;
+        }
+        input:checked + .toggle-slider:before {
+            transform: translateX(20px);
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+
+    <!-- Sidebar -->
+<aside class="w-64 text-white flex flex-col p-4 shadow-lg fixed h-full" style="background-color: #1470F9;">
+  <div class="flex-grow">
+    <h1 class="text-2xl font-bold mb-8">
+      <a href="#" class="text-white hover:text-indigo-200 transition duration-300">Lorem Ipsum</a>
+    </h1>
+
+    <nav>
+      <ul class="space-y-2">
+        <li>
+          <!-- aktif + hover putih -->
+          <a href="index.html"
+             class="flex items-center p-3 rounded-lg 
+                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
+            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M16 8v8m-4-4v4m-4-4v4m-2-12h10a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"></path>
+            </svg>
+            Dashboard
+          </a>
+        </li>
+
+        <li>
+          <a href="profilgayabelajar.html"
+             class="flex items-center p-3 rounded-lg
+                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
+            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+            </svg>
+            Profil Gaya Belajar
+          </a>
+        </li>
+
+        <li>
+          <a href="rekomendasipembelajaran.html"
+             class="flex items-center p-3 rounded-lg
+                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
+            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 6.253v13m0-13C10.832 5.435 9.177 5 7.5 5S4.168 5.435 3 6.253v13C4.168 18.435 5.823 18 7.5 18s3.332.435 4.5 1.253m0-13C13.168 5.435 14.823 5 16.5 5S19.832 5.435 21 6.253v13C19.832 18.435 18.177 18 16.5 18s-3.332.435-4.5 1.253"></path>
+            </svg>
+            Rekomendasi Pembelajaran
+          </a>
+        </li>
+
+        <li>
+          <a href="remedial.html"
+             class="flex items-center p-3 rounded-lg
+                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
+            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21H6.737a2 2 0 01-1.789-2.894l3.5-7A2 2 0 019.263 9h5.474a2 2 0 012 2v.894"></path>
+            </svg>
+            Materi Remedial
+          </a>
+        </li>
+
+        <li>
+          <a href="formatkonten.html"
+             class="flex items-center p-3 rounded-lg
+                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
+            <img class="w-5 h-5 mr-3" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS10YWJsZS1vZi1jb250ZW50cy1pY29uIGx1Y2lkZS10YWJsZS1vZi1jb250ZW50cyI+PHBhdGggZD0iTTE2IDEySDMiLz48cGF0aCBkPSJNMTYgMThIMyIvPjxwYXRoIGQ9Ik0xNiA2SDMiLz48cGF0aCBkPSJNMjEgMTJoLjAxIi8+PHBhdGggZD0iTTIxIDE4aC4wMSIvPjxwYXRoIGQ9Ik0yMSA2aC4wMSIvPjxwYXRoIGQ9Ik0xNiAxMkgzIi8+PHBhdGggZD0iTTE2IDE4SDMiLz48cGF0aCBkPSJNMTYgNkgzIi8+PHBhdGggZD0iTTIxIDEyaC4wMSIvPjxwYXRoIGQ9Ik0yMSAxOGguMDEiLz48cGF0aCBkPSJNMjEgNmgwLjAxIi8+PC9zdmc+" alt="Materi Remedial Icon">
+            Format Konten
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+         <!-- Bagian bawah sidebar -->
+<div class="mt-auto pt-4 border-t ">
+    <div class="flex items-center justify-between mb-4">
+        <span class="text-sm font-medium">Lite Mode</span>
+        <label class="toggle-switch">
+            <input type="checkbox">
+            <span class="toggle-slider"></span>
+        </label>
+    </div>
+
+    <!-- Card Profil -->
+    <a href="profile.html"
+       class="p-3 rounded-lg flex items-center justify-start  text-white
+              hover:bg-white hover:text-blue-600 transition-colors duration-200">
+        <img src="https://placehold.co/40x40/94a3b8/ffffff?text=U" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
+        <div class="flex-grow">
+            <p class="font-medium">Culaccino_</p>
+            <p class="text-sm">UX Designer</p>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+        </svg>
+    </a>
+
+    <!-- Tombol Keluar -->
+    <button id="logoutButton"
+            class="w-full p-3 text-left rounded-lg bg-red-500 text-white
+            transition-colors duration-200 flex items-center justify-center mt-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+        </svg>
+        Keluar
+    </button>
+</div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow p-8 md:p-12 ml-64">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-gray-800">Profile</h1>
+            <button class="bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                Edit
+            </button>
+        </div>
+
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+            <!-- Profile Header -->
+            <div class="flex items-center space-x-4 mb-8">
+                <img src="https://placehold.co/80x80/94a3b8/ffffff?text=C" alt="User Avatar" class="w-20 h-20 rounded-full object-cover">
+                <div>
+                    <h2 class="text-xl font-bold">Culacino</h2>
+                    <p class="text-gray-600">Culacino@gmail.com</p>
+                </div>
+            </div>
+
+            <!-- Profile Details Grid -->
+            <div class="profile-info">
+                <div class="profile-field">
+                    <label for="nama-panjang">Nama Panjang</label>
+                    <p id="nama-panjang">Nama Panjang Kamu</p>
+                </div>
+                <div class="profile-field">
+                    <label for="nama-panggilan">Nama Panggilan</label>
+                    <p id="nama-panggilan">Nama Panggilan Kamu</p>
+                </div>
+                <div class="profile-field">
+                    <label for="asal-universitas">Asal Universitas</label>
+                    <p id="asal-universitas">Asal Universitas</p>
+                </div>
+                <div class="profile-field">
+                    <label for="jurusan">Jurusan</label>
+                    <p id="jurusan">Jurusan Kamu</p>
+                </div>
+                <div class="profile-field">
+                    <label for="hobby">Hobby</label>
+                    <p id="hobby">Hobby Kamu</p>
+                </div>
+                <div class="profile-field">
+                    <label for="asal-daerah">Asal Daerah</label>
+                    <p id="asal-daerah">Asal Daerah Kamu</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // JavaScript untuk menangani fungsi logout
+        const logoutButton = document.getElementById('logoutButton');
+        if (logoutButton) {
+            logoutButton.addEventListener('click', function() {
+                window.location.href = 'login.html';
+            });
+        }
+    </script>
+</body>
+</html>
