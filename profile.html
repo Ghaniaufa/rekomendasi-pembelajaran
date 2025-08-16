@@ -82,6 +82,37 @@
         input:checked + .toggle-slider:before {
             transform: translateX(20px);
         }
+        /* Modal styling */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+.modal-bell-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
     </style>
 </head>
 <body class="flex min-h-screen">
@@ -210,7 +241,7 @@
                     <p class="text-gray-600">Culacino@gmail.com</p>
                 </div>
             </div>
-
+            
             <!-- Profile Details Grid -->
             <div class="profile-info">
                 <div class="profile-field">
@@ -239,16 +270,34 @@
                 </div>
             </div>
         </div>
+        <!-- Modal Notifikasi Logout -->
+<div id="logout-modal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-bell-icon">
+            <!-- SVG icon here -->
+             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">Anda Berhasil Logout</h3>
+        <p class="text-gray-600 text-sm">Anda akan dialihkan ke halaman login.</p>
+    </div>
+</div>
     </main>
+    
 
     <script>
-        // JavaScript untuk menangani fungsi logout
-        const logoutButton = document.getElementById('logoutButton');
-        if (logoutButton) {
-            logoutButton.addEventListener('click', function() {
-                window.location.href = 'login.html';
-            });
-        }
+      // JavaScript untuk menangani fungsi logout
+const logoutButton = document.getElementById('logoutButton');
+const logoutModal = document.getElementById('logout-modal');
+if (logoutButton) {
+    logoutButton.addEventListener('click', function() {
+        // Tampilkan modal notifikasi logout
+        logoutModal.style.display = 'flex';
+        // Mengarahkan pengguna kembali ke halaman login setelah 3 detik
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 3000);
+    });
+}
     </script>
 </body>
 </html>

@@ -300,6 +300,18 @@
             <p class="text-gray-600 text-sm">Silahkan cek di Halaman Dashboard</p>
         </div>
     </div>
+
+    <!-- Modal Notifikasi Logout -->
+<div id="logout-modal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-bell-icon">
+            <!-- SVG icon here -->
+             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">Anda Berhasil Logout</h3>
+        <p class="text-gray-600 text-sm">Anda akan dialihkan ke halaman login.</p>
+    </div>
+
     <!-- Modal Notifikasi Lite Mode-->
     <div id="lite-mode-modal" class="modal-overlay">
         <div class="modal-content">
@@ -313,6 +325,7 @@
         </div>
 
     <script>
+        
         // Array of questions
         const questions = [
             "1. Saya lebih paham jika mencoba langsung daripada hanya membaca teori.",
@@ -351,6 +364,7 @@
                 // Anda bisa menambahkan lebih banyak logika di sini untuk mengganti tema, dll.
             });
         }
+        
 
         // Function to update the question and navigation UI
         function updateUI() {
@@ -406,12 +420,18 @@
         });
 
         // JavaScript untuk menangani fungsi logout
-        const logoutButton = document.getElementById('logoutButton');
-        if (logoutButton) {
-            logoutButton.addEventListener('click', function() {
-                window.location.href = 'login.html';
-            });
-        }
+const logoutButton = document.getElementById('logoutButton');
+const logoutModal = document.getElementById('logout-modal');
+if (logoutButton) {
+    logoutButton.addEventListener('click', function() {
+        // Tampilkan modal notifikasi logout
+        logoutModal.style.display = 'flex';
+        // Mengarahkan pengguna kembali ke halaman login setelah 3 detik
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 3000);
+    });
+}
         
         // Initial UI setup
         updateUI();
