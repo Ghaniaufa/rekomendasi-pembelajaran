@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
+ <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rekomendasi Pembelajaran</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -118,8 +118,7 @@
             justify-content: center;
             align-items: center;
         }
-
-    </style>
+  </style>
 </head>
 <body class="flex min-h-screen">
 
@@ -300,7 +299,8 @@
                 </div>
             </div>
         </div>
-             <!-- RIGHT: ONLY 2 CARDS (tanpa kalender) -->
+
+     <!-- RIGHT: ONLY 2 CARDS (tanpa kalender) -->
 <aside class="flex flex-col gap-6 mt-8">
   <!-- Card Profil Gaya Belajar -->
   <div class="bg-white rounded-xl shadow p-5">
@@ -310,10 +310,10 @@
       <div>
         <div class="flex justify-between items-center text-sm text-gray-600">
           <span>Audiotori</span>
-          <span>0%</span>
+          <span>15%</span>
         </div>
         <div class="w-full bg-gray-200 h-2 rounded-full">
-          <div class="h-2 rounded-full bg-indigo-600" style="width:0%"></div>
+          <div class="h-2 rounded-full bg-indigo-600" style="width:15%"></div>
         </div>
       </div>
 
@@ -321,10 +321,10 @@
       <div>
         <div class="flex justify-between items-center text-sm text-gray-600">
           <span>Kinestetik</span>
-          <span>0%</span>
+          <span>35%</span>
         </div>
         <div class="w-full bg-gray-200 h-2 rounded-full">
-          <div class="h-2 rounded-full bg-orange-500" style="width:0%"></div>
+          <div class="h-2 rounded-full bg-orange-500" style="width:35%"></div>
         </div>
       </div>
 
@@ -332,10 +332,10 @@
       <div>
         <div class="flex justify-between items-center text-sm text-gray-600">
           <span>Visual</span>
-          <span>0%</span>
+          <span>50%</span>
         </div>
         <div class="w-full bg-gray-200 h-2 rounded-full">
-          <div class="h-2 rounded-full bg-pink-600" style="width:0%"></div>
+          <div class="h-2 rounded-full bg-pink-600" style="width:50%"></div>
         </div>
       </div>
     </div>
@@ -360,29 +360,11 @@
     </div>
   </div>
 </aside>
-        <!-- Modal Notifikasi Logout -->
-<div id="logout-modal" class="modal-overlay">
-    <div class="modal-content">
-        <div class="modal-bell-icon">
-            <!-- SVG icon here -->
-             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
-        </div>
-        <h3 class="text-lg font-semibold mb-2">Anda Berhasil Logout</h3>
-        <p class="text-gray-600 text-sm">Anda akan dialihkan ke halaman login.</p>
-    </div>
-        <div id="lite-mode-modal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-bell-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-blue-600">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.964 3.785 1.517 5.455 1.31A23.847 23.847 0 0018 17.082" />
-                </svg>
-            </div>
-            <h3 class="text-lg font-semibold mb-2">Lite Mode Sudah Diaktifkan</h3>
-            <p class="text-gray-600 text-sm">Silahkan akses kembali materi tersebut</p>
-        </div>
-    </main>
 
-    <script>
+  </main>
+
+  <!-- Scripts -->
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
     const tabButtons = document.querySelectorAll('.tab-button');
     const cards = document.querySelectorAll('#rekomendasi-container .card'); // <- perbaikan
@@ -441,6 +423,5 @@ if (logoutButton) {
     });
 }
 </script>
-
 </body>
 </html>
