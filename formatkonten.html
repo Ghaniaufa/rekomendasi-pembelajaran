@@ -305,6 +305,13 @@
                     </button>
                 </div>
             </div>
+            <div id="format-modal" class="modal-overlay">
+  <div class="modal-content">
+    <div id="format-icon" class="modal-bell-icon"></div>
+    <h3 id="format-title" class="text-lg font-semibold mb-2"></h3>
+    <p class="text-gray-600 text-sm">Format konten berhasil dipilih!</p>
+  </div>
+</div>
             <!-- Modal Notifikasi Logout -->
 <div id="logout-modal" class="modal-overlay">
     <div class="modal-content">
@@ -330,6 +337,43 @@
     </main>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+  // ... kode sebelumnya
+
+  // Modal Format
+  const formatModal = document.getElementById('format-modal');
+  const formatIcon = document.getElementById('format-icon');
+  const formatTitle = document.getElementById('format-title');
+
+  // Daftar ikon sesuai format
+  const icons = {
+    teks: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scroll-icon lucide-scroll"><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/></svg>',
+    gambar: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-icon lucide-image"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>',
+    video: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-play-icon lucide-square-play"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"/></svg>',
+    praktik: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open-text-icon lucide-book-open-text"><path d="M12 7v14"/><path d="M16 12h2"/><path d="M16 8h2"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/><path d="M6 12h2"/><path d="M6 8h2"/></svg>'
+  };
+
+  // Event listener untuk tombol "Pilih Format Konten"
+  document.querySelectorAll('#konten-container .card button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.card');
+      const format = card.dataset.format;
+      
+      // isi modal
+      formatIcon.innerHTML = icons[format] || '';
+      formatTitle.textContent = `Format ${format.charAt(0).toUpperCase() + format.slice(1)} dipilih`;
+
+      // tampilkan modal
+      formatModal.style.display = 'flex';
+
+      // otomatis hilang setelah 3 detik
+      setTimeout(() => {
+        formatModal.style.display = 'none';
+      }, 3000);
+    });
+  });
+});
+
         document.addEventListener('DOMContentLoaded', () => {
             const tabButtons = document.querySelectorAll('#tabs .tab-button');
             const recommendationCards = document.querySelectorAll('#konten-container .card');
