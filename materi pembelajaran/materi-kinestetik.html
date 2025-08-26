@@ -111,7 +111,7 @@
       <ul class="space-y-2">
         <li>
           <!-- aktif + hover putih -->
-          <a href="index.html"
+          <a href="/index.html"
              class="flex items-center p-3 rounded-lg 
                     hover:bg-white hover:text-blue-600 transition-colors duration-200">
             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -123,7 +123,7 @@
         </li>
 
         <li>
-          <a href="profilgayabelajar.html"
+          <a href="/profilgayabelajar.html"
              class="flex items-center p-3 rounded-lg
                     hover:bg-white hover:text-blue-600 transition-colors duration-200">
             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -135,7 +135,7 @@
         </li>
 
         <li>
-          <a href="rekomendasipembelajaran.html"
+          <a href="/rekomendasipembelajaran.html"
              class="flex items-center p-3 rounded-lg
                     hover:bg-white hover:text-blue-600 transition-colors duration-200">
             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -146,7 +146,7 @@
           </a>
         </li>
        <li>
-            <a href="materi-pembelajaran.html"
+            <a href="/materi-pembelajaran.html"
                 class="flex items-center p-3 rounded-lg
                         hover:bg-white hover:text-blue-600 transition-colors duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3 lucide lucide-files">
@@ -158,7 +158,7 @@
         </li>
 
         <li>
-          <a href="riwayat-pembelajaran.html"
+          <a href="/riwayat-pembelajaran.html"
              class="flex items-center p-3 rounded-lg
                     hover:bg-white hover:text-blue-600 transition-colors duration-200">
             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -170,7 +170,7 @@
         </li>
 
         <li>
-          <a href="formatkonten.html"
+          <a href="/formatkonten.html"
              class="flex items-center p-3 rounded-lg
                     hover:bg-white hover:text-blue-600 transition-colors duration-200">
             <img class="w-5 h-5 mr-3" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS10YWJsZS1vZi1jb250ZW50cy1pY29uIGx1Y2lkZS10YWJsZS1vZi1jb250ZW50cyI+PHBhdGggZD0iTTE2IDEySDMiLz48cGF0aCBkPSJNMTYgMThIMyIvPjxwYXRoIGQ9Ik0xNiA2SDMiLz48cGF0aCBkPSJNMjEgMTJoLjAxIi8+PHBhdGggZD0iTTIxIDE4aC4wMSIvPjxwYXRoIGQ9Ik0yMSA2aC4wMSIvPjxwYXRoIGQ9Ik0xNiAxMkgzIi8+PHBhdGggZD0iTTE2IDE4SDMiLz48cGF0aCBkPSJNMTYgNkgzIi8+PHBhdGggZD0iTTIxIDEyaC4wMSIvPjxwYXRoIGQ9Ik0yMSAxOGguMDEiLz48cGF0aCBkPSJNMjEgNmgwLjAxIi8+PC9zdmc+" alt="Materi Remedial Icon">
@@ -221,12 +221,12 @@
     <main class="flex-grow p-8 md:p-12 ml-64">
         <!-- Breadcrumb -->
         <div class="text-sm text-gray-500 mb-4">
-            Rekomendasi Pembelajaran > <span class="text-blue-600">Dasar Pemrograman C</span>
+            Rekomendasi Pembelajaran > <span class="text-blue-600">Dasar Pemrogramman </span>
         </div>
 
         <!-- Judul Materi dan Video -->
         <div class="card p-8">
-            <h1 class="text-4xl font-bold text-gray-800 mb-2">Dasar Pemrograman C</h1>
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">Dasar Pemrogramman </h1>
             <p class="text-gray-500 mb-6">Beginner's Guide To Becoming A Professional Frontend Developer</p>
             
             <div class="video-player">
@@ -393,26 +393,28 @@
             }
 
             // Menambahkan fungsionalitas untuk tombol "Kirim Jawaban"
-            const submitButton = document.getElementById('submitButton');
-            const successModal = document.getElementById('success-modal');
-            if (submitButton) {
-                submitButton.addEventListener('click', function() {
-                    const answer1 = document.getElementById('answer-q1').value;
-                    const answer2 = document.getElementById('answer-q2').value;
+const submitButton = document.getElementById('submitButton');
+const successModal = document.getElementById('success-modal');
+if (submitButton) {
+    submitButton.addEventListener('click', function() {
+        const answer1 = document.getElementById('answer-q1').value;
+        const answer2 = document.getElementById('answer-q2').value;
 
-                    if (answer1.trim() === '' || answer2.trim() === '') {
-                        // Menggunakan modal kustom untuk notifikasi jika ada input kosong
-                        alert('Mohon lengkapi semua jawaban sebelum mengirim.');
-                    } else {
-                        // Tampilkan modal notifikasi sukses
-                        successModal.style.display = 'flex';
-                        // Mengarahkan kembali ke halaman rekomendasi pembelajaran setelah 3 detik
-                        setTimeout(() => {
-                            window.location.href = 'rekomendasipembelajaran.html';
-                        }, 3000);
-                    }
-                });
-            }
+        if (answer1.trim() === '' || answer2.trim() === '') {
+            alert('Mohon lengkapi semua jawaban sebelum mengirim.');
+        } else {
+            successModal.style.display = 'flex';
+            setTimeout(() => {
+                // ======= GANTI INI SESUAI TUJUAN =======
+                // contoh: kembali ke rekomendasi pembelajaran
+                window.location.href = '/materi-pembelajaran.html';
+
+                // contoh: kalau file target ada di folder lain
+                // window.location.href = '../rekomendasipembelajaran.html';
+            }, 3000);
+        }
+    });
+}
         });
     </script>
 </body>
