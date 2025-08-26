@@ -3,53 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <!-- Tailwind CSS CDN untuk styling -->
+    <title>Halaman Detail Materi</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-         body {
+        body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
+            background-color: #F8F9FA;
         }
-        .sidebar {
-            background-color: #1470F9;
-            color: white;
-        }
-        .menu-item {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            transition: background-color 0.2s;
-        }
-        .menu-item.active {
-            background-color: #5a64d1;
-        }
-        .tab-button {
-            padding: 0.75rem 1.5rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: color 0.2s, border-bottom-color 0.2s;
-            border-bottom: 2px solid transparent;
-        }
-        .tab-button.active {
-            color: #4c51bf;
-            border-bottom-color: #4c51bf;
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
         }
         .card {
-            background-color: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .progress-bar-container {
+            background-color: #E2E8F0;
+            border-radius: 9999px;
+            height: 8px;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
         }
-        .card img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
+        .progress-bar {
+            height: 100%;
+            background-color: #8C9EFF;
+            transition: width 0.3s ease-in-out;
         }
+        .collapse-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .rotated {
+            transform: rotate(180deg);
+        }
+         
         .toggle-switch {
             position: relative;
             display: inline-block;
@@ -122,7 +113,7 @@
         }
     </style>
 </head>
-<body class="flex min-h-screen">
+<body class="flex min-h-screen bg-gray-100">
 
    <!-- Sidebar -->
 <aside class="w-64 text-white flex flex-col p-4 shadow-lg fixed h-full" style="background-color: #1470F9;">
@@ -131,7 +122,7 @@
       <a href="#" class="text-white hover:text-indigo-200 transition duration-300">Lorem Ipsum</a>
     </h1>
 
-    <nav>
+       <nav>
       <ul class="space-y-2">
         <li>
           <!-- aktif + hover putih -->
@@ -229,7 +220,7 @@
         </svg>
     </a>
 
-    <!-- Tombol Keluar -->
+     <!-- Tombol Keluar -->
     <button id="logoutButton"
             class="w-full p-3 text-left rounded-lg bg-red-500 text-white
             transition-colors duration-200 flex items-center justify-center mt-2">
@@ -239,125 +230,7 @@
         Keluar
     </button>
 </div>
-
-    </aside>
-
-    <!-- Konten Utama -->
-    <main class="flex-grow p-8 md:p-12 ml-64">
-        <h1 class="text-4xl font-bold text-gray-800 mb-8">Dashboard</h1>
-        
-        <!-- Gaya Belajar Kamu Section -->
-        <div class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Gaya Belajar Kamu</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-blue-200 p-6 rounded-lg text-center shadow-md">
-                    <p class="text-4xl font-bold text-blue-800 mb-2">0%</p>
-                    <p class="text-blue-800 font-medium">Audiotori</p>
-                </div>
-                <div class="bg-red-200 p-6 rounded-lg text-center shadow-md">
-                    <p class="text-4xl font-bold text-red-800 mb-2">0%</p>
-                    <p class="text-red-800 font-medium">Kinesthetik</p>
-                </div>
-                <div class="bg-purple-200 p-6 rounded-lg text-center shadow-md">
-                    <p class="text-4xl font-bold text-purple-800 mb-2">0%</p>
-                    <p class="text-purple-800 font-medium">Visual</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Rekomendasi Section -->
-        <div class="mb-8">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-2xl font-bold text-gray-800">Rekomendasi untuk kamu</h2>
-                <a href="rekomendasipembelajaran.html" class="text-sm text-indigo-600 hover:underline">See All ></a>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Card 1 -->
-                <div class="bg-white p-4 rounded-lg shadow-md overflow-hidden">
-                    <img src="https://placehold.co/600x400/1e293b/ffffff?text=Kode" alt="Gambar Kode" class="w-full h-48 object-cover rounded-lg mb-4">
-                    <p class="text-xs font-semibold text-gray-500 mb-2">FRONTEND</p>
-                    <h3 class="text-lg font-bold text-gray-800 mb-2">Beginner's Guide To Becoming A Professional Frontend Developer</h3>
-                    <div class="flex items-center">
-                        <img src="https://placehold.co/32x32/94a3b8/ffffff?text=P" alt="Avatar Penulis" class="w-8 h-8 rounded-full mr-2">
-                        <div>
-                            <p class="text-sm font-medium text-gray-700">Prabhani Kumar Singh</p>
-                            <p class="text-xs text-gray-500">Software developer</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card 2 -->
-                <div class="bg-white p-4 rounded-lg shadow-md overflow-hidden">
-                    <img src="https://placehold.co/600x400/1e293b/ffffff?text=Laptop" alt="Gambar Laptop" class="w-full h-48 object-cover rounded-lg mb-4">
-                    <p class="text-xs font-semibold text-gray-500 mb-2">FRONTEND</p>
-                    <h3 class="text-lg font-bold text-gray-800 mb-2">Beginner's Guide To Becoming A Professional Frontend Developer</h3>
-                    <div class="flex items-center">
-                        <img src="https://placehold.co/32x32/94a3b8/ffffff?text=P" alt="Avatar Penulis" class="w-8 h-8 rounded-full mr-2">
-                        <div>
-                            <p class="text-sm font-medium text-gray-700">Prabhani Kumar Singh</p>
-                            <p class="text-xs text-gray-500">Software developer</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card 3 -->
-                <div class="bg-white p-4 rounded-lg shadow-md overflow-hidden">
-                    <img src="https://placehold.co/600x400/1e293b/ffffff?text=Tampilan+Kode" alt="Gambar Tampilan Kode" class="w-full h-48 object-cover rounded-lg mb-4">
-                    <p class="text-xs font-semibold text-gray-500 mb-2">FRONTEND</p>
-                    <h3 class="text-lg font-bold text-gray-800 mb-2">Beginner's Guide To Becoming A Professional Frontend Developer</h3>
-                    <div class="flex items-center">
-                        <img src="https://placehold.co/32x32/94a3b8/ffffff?text=P" alt="Avatar Penulis" class="w-8 h-8 rounded-full mr-2">
-                        <div>
-                            <p class="text-sm font-medium text-gray-700">Prabhani Kumar Singh</p>
-                            <p class="text-xs text-gray-500">Software developer</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Materi Remedial & Progres Section -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Materi Remedial Table -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl font-bold text-gray-800">Materi Remedial</h2>
-                    <a href="remedial.html" class="text-sm text-indigo-600 hover:underline">See All ></a>
-                </div>
-                <table class="min-w-full">
-                    <thead>
-                        <tr>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Nama Materi</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Format konten materi</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Hasil</th>
-                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Status</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-
-            <!-- Progres Section -->
-            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl font-bold text-gray-800">Progres</h2>
-                </div>
-                <div class="space-y-4">
-                    <!-- Progress Bar 1 -->
-                    <div>
-                        <p class="text-sm text-gray-600 mb-1">Lorem Ipsum</p>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="bg-indigo-600 h-2.5 rounded-full" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <!-- Progress Bar 2 -->
-                    <div>
-                        <p class="text-sm text-gray-600 mb-1">Lorem Ipsum</p>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="bg-indigo-600 h-2.5 rounded-full" style="width: 0%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal Notifikasi Lite Mode -->
+<!-- Modal Notifikasi Lite Mode -->
     <div id="lite-mode-modal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-bell-icon">
@@ -380,8 +253,128 @@
         <p class="text-gray-600 text-sm">Anda akan dialihkan ke halaman login.</p>
     </div>
 </div>
-    </main>
- <script>
+
+    </aside>
+
+    <!-- Konten Utama (disesuaikan agar tidak tertutup sidebar) -->
+    <div class="flex-1 ml-64 p-8">
+        
+        <!-- Bagian Utama Materi -->
+        <div class="card p-8">
+            <div class="flex flex-col md:flex-row items-start md:space-x-8">
+                <div class="mb-6 md:mb-0 w-full md:w-1/3">
+                    <img src="https://placehold.co/400x300/E2E8F0/A0AEC0?text=Video+Materi" alt="Video Placeholder" class="rounded-lg w-full">
+                </div>
+                <div class="w-full md:w-2/3">
+                    <h1 class="text-4xl font-bold text-gray-800 mb-2">Dasar Pemrogramman B </h1>
+                    <div class="flex items-center text-gray-500 mb-4 text-sm">
+                        <span class="text-purple-500 font-medium mr-2">Visual</span>
+                        <div class="flex items-center text-yellow-400 mr-2">
+                        </div>
+                    </div>
+                    <div class="flex space-x-4">
+                    <button class="bg-[#4182F9] text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-[#3469d6] transition duration-300" onclick="window.location.href='materi-visual-b.html'">Mulai Belajar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Bagian Deskripsi & Bab Materi -->
+            <div class="md:col-span-2">
+                <div class="card">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Deskripsi</h2>
+                    <p class="text-gray-600 leading-relaxed">Materi ini dirancang untuk pembelajaran visual berbasis diagram dan konsep nyata. Misalkan visual terkadang lebih mudah dimengerti untuk setiap ide dengan menyatukan materi interaktif dan audio-suara nyata. Mari kita mulai!</p>
+                </div>
+
+                <div class="card">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Bab & Submateri</h2>
+                    <div class="space-y-4">
+                        <!-- Accordion Bab 1 -->
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200 cursor-pointer transition-all duration-300" onclick="toggleAccordion('bab1')">
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-medium text-gray-800">Bab 1: Pengenalan Algoritma</h3>
+                                <svg id="icon-bab1" class="w-5 h-5 text-gray-500 collapse-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                            <div id="content-bab1" class="hidden mt-2 text-gray-600">
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>Apa itu algoritma?</li>
+                                    <li>Konsep dasar visualisasi</li>
+                                    <li>Studi kasus sederhana</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Accordion Bab 2 -->
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200 cursor-pointer transition-all duration-300" onclick="toggleAccordion('bab2')">
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-medium text-gray-800">Bab 2: Struktur Kontrol</h3>
+                                <svg id="icon-bab2" class="w-5 h-5 text-gray-500 collapse-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                            <div id="content-bab2" class="hidden mt-2 text-gray-600">
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>Struktur sekuensial</li>
+                                    <li>Struktur pemilihan (if-else)</li>
+                                    <li>Struktur pengulangan (for, while)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Tambahkan lebih banyak bab di sini -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kolom Samping -->
+            <div class="md:col-span-1 space-y-6">
+                <!-- Bagian Pengajar -->
+                <div class="card">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Pengajar</h2>
+                    <div class="flex items-center space-x-4">
+                        <img src="https://placehold.co/60x60/B28CFF/FFFFFF?text=BS" alt="Foto Pengajar" class="w-16 h-16 rounded-full">
+                        <div>
+                            <p class="font-medium text-gray-800">Budi Santoso</p>
+                            <p class="text-sm text-gray-500">Software Engineer</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bagian Progres Belajar -->
+                <div class="card">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Progres Belajar</h2>
+                    <p class="text-gray-600 mb-2">0% Selesai</p>
+                    <div class="progress-bar-container">
+                        <div id="learning-progress" class="progress-bar" style="width: 0%;"></div>
+                    </div>
+                </div>
+                <!-- Bagian Rekomendasi -->
+                <div class="card">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Rekomendasi</h2>
+                    <div class="flex items-center space-x-4">
+                        <img src="https://placehold.co/100x70/FF8C9C/FFFFFF?text=Rekomendasi" alt="Gambar Rekomendasi" class="w-24 h-auto rounded-lg">
+                        <div>
+                            <p class="font-medium text-gray-800">Dasar Pemrograman Visual</p>
+                            <p class="text-sm text-gray-500">Tingkat Lanjut</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    <script>
+        // Fungsi untuk mengontrol accordion (bab materi)
+        function toggleAccordion(id) {
+            const content = document.getElementById('content-' + id);
+            const icon = document.getElementById('icon-' + id);
+            
+            // Toggle visibility
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotated');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotated');
+            }
+        }
         // JavaScript untuk menangani fungsi logout
 const logoutButton = document.getElementById('logoutButton');
 const logoutModal = document.getElementById('logout-modal');
@@ -413,5 +406,6 @@ if (logoutButton) {
             });
         }
     </script>
+
 </body>
 </html>

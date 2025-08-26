@@ -11,43 +11,12 @@
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6;
         }
-        .sidebar {
-            background-color: #4c51bf; /* Indigo-800 from the other code */
-            color: white;
-        }
-        .menu-item {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            transition: background-color 0.2s;
-        }
-        .menu-item.active {
-            background-color: #5a64d1;
-        }
-        .tab-button {
-            padding: 0.75rem 1.5rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: color 0.2s, border-bottom-color 0.2s;
-            border-bottom: 2px solid transparent;
-        }
-        .tab-button.active {
-            color: #4c51bf;
-            border-bottom-color: #4c51bf;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: grid;
-        }
         .card {
             background-color: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            cursor: pointer; /* Menambahkan cursor pointer untuk menunjukkan elemen dapat diklik */
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
         }
         .toggle-switch {
             position: relative;
@@ -83,12 +52,11 @@
             border-radius: 50%;
         }
         input:checked + .toggle-slider {
-            background-color: #4c51bf;
+            background-color: #20235c;
         }
         input:checked + .toggle-slider:before {
             transform: translateX(20px);
         }
-        /* Modal styling */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -131,66 +99,79 @@
             </h1>
 
             <nav>
-                <ul class="space-y-2">
-                    <li>
-                        <a href="index.html"
-                            class="flex items-center p-3 rounded-lg 
-                                   hover:bg-white hover:text-blue-600 transition-colors duration-200">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M16 8v8m-4-4v4m-4-4v4m-2-12h10a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"></path>
-                            </svg>
-                            Dashboard
-                        </a>
-                    </li>
+      <ul class="space-y-2">
+        <li>
+          <!-- aktif + hover putih -->
+          <a href="index.html"
+             class="flex items-center p-3 rounded-lg 
+                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
+            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M16 8v8m-4-4v4m-4-4v4m-2-12h10a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"></path>
+            </svg>
+            Dashboard
+          </a>
+        </li>
 
-                    <li>
-                        <a href="profilgayabelajar.html"
-                            class="flex items-center p-3 rounded-lg
-                                   hover:bg-white hover:text-blue-600 transition-colors duration-200">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
-                            </svg>
-                            Profil Gaya Belajar
-                        </a>
-                    </li>
+        <li>
+          <a href="profilgayabelajar.html"
+             class="flex items-center p-3 rounded-lg
+                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
+            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+            </svg>
+            Profil Gaya Belajar
+          </a>
+        </li>
 
-                    <li>
-                        <a href="rekomendasipembelajaran.html"
-                            class="flex items-center p-3 rounded-lg bg-white text-blue-600 transition-colors duration-200">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M12 6.253v13m0-13C10.832 5.435 9.177 5 7.5 5S4.168 5.435 3 6.253v13C4.168 18.435 5.823 18 7.5 18s3.332.435 4.5 1.253m0-13C13.168 5.435 14.823 5 16.5 5S19.832 5.435 21 6.253v13C19.832 18.435 18.177 18 16.5 18s-3.332.435-4.5 1.253"></path>
-                            </svg>
-                            Rekomendasi Pembelajaran
-                        </a>
-                    </li>
+        <li>
+          <a href="rekomendasipembelajaran.html"
+             class="flex items-center p-3 rounded-lg
+                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
+            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 6.253v13m0-13C10.832 5.435 9.177 5 7.5 5S4.168 5.435 3 6.253v13C4.168 18.435 5.823 18 7.5 18s3.332.435 4.5 1.253m0-13C13.168 5.435 14.823 5 16.5 5S19.832 5.435 21 6.253v13C19.832 18.435 18.177 18 16.5 18s-3.332.435-4.5 1.253"></path>
+            </svg>
+            Rekomendasi Pembelajaran
+          </a>
+        </li>
+        <li>
+            <a href="materi-pembelajaran.html"
+                class="flex items-center p-3 rounded-lg
+                        hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3 lucide lucide-files">
+                    <path d="M15.5 2H8.6c-.6 0-1.1.2-1.4.6-.3.4-.6.9-.6 1.4V20c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V7.5L15.5 2Z"/>
+                    <path d="M8 4v11c0 .6.4 1 1 1h10"/>
+                    </svg>
+                    <span class="ml-3">Materi Pembelajaran</span>
+            </a>
+        </li>
 
-                    <li>
-                        <a href="remedial.html"
-                            class="flex items-center p-3 rounded-lg
-                                   hover:bg-white hover:text-blue-600 transition-colors duration-200">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21H6.737a2 2 0 01-1.789-2.894l3.5-7A2 2 0 019.263 9h5.474a2 2 0 012 2v.894"></path>
-                            </svg>
-                            Materi Remedial
-                        </a>
-                    </li>
+        <li>
+          <a href="riwayat-pembelajaran.html"
+             class="flex items-center p-3 rounded-lg
+                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
+            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21H6.737a2 2 0 01-1.789-2.894l3.5-7A2 2 0 019.263 9h5.474a2 2 0 012 2v.894"></path>
+            </svg>
+            Riwayat Pembelajaran
+          </a>
+        </li>
 
-                    <li>
-                        <a href="formatkonten.html"
-                            class="flex items-center p-3 rounded-lg
-                                   hover:bg-white hover:text-blue-600 transition-colors duration-200">
-                            <img class="w-5 h-5 mr-3" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS10YWJsZS1vZi1jb250ZW50cy1pY29uIGx1Y2lkZS10YWJsZS1vZi1jb250ZW50cyI+PHBhdGggZD0iTTE2IDEySDMiLz48cGF0aCBkPSJNMTYgMThIMyIvPjxwYXRoIGQ9Ik0xNiA2SDMiLz48cGF0aCBkPSJNMjEgMTJoLjAxIi8+PHBhdGggZD0iTTIxIDE4aC4wMSIvPjxwYXRoIGQ9Ik0yMSA2aC4wMSIvPjxwYXRoIGQ9Ik0xNiAxMkgzIi8+PHBhdGggZD0iTTE2IDE4SDMiLz48cGF0aCBkPSJNMTYgNkgzIi8+PHBhdGggZD0iTTIxIDEyaC4wMSIvPjxwYXRo IGQ9Ik0yMSAxOGguMDEiLz48cGF0aCBkPSJNMjEgNmgwLjAxIi8+PC9zdmc+" alt="Materi Remedial Icon">
-                            Format Konten
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        
+        <li>
+          <a href="formatkonten.html"
+             class="flex items-center p-3 rounded-lg
+                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
+            <img class="w-5 h-5 mr-3" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS10YWJsZS1vZi1jb250ZW50cy1pY29uIGx1Y2lkZS10YWJsZS1vZi1jb250ZW50cyI+PHBhdGggZD0iTTE2IDEySDMiLz48cGF0aCBkPSJNMTYgMThIMyIvPjxwYXRoIGQ9Ik0xNiA2SDMiLz48cGF0aCBkPSJNMjEgMTJoLjAxIi8+PHBhdGggZD0iTTIxIDE4aC4wMSIvPjxwYXRoIGQ9Ik0yMSA2aC4wMSIvPjxwYXRoIGQ9Ik0xNiAxMkgzIi8+PHBhdGggZD0iTTE2IDE4SDMiLz48cGF0aCBkPSJNMTYgNkgzIi8+PHBhdGggZD0iTTIxIDEyaC4wMSIvPjxwYXRoIGQ9Ik0yMSAxOGguMDEiLz48cGF0aCBkPSJNMjEgNmgwLjAxIi8+PC9zdmc+" alt="Materi Remedial Icon">
+            Format Konten
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
         <!-- Bagian bawah sidebar -->
         <div class="mt-auto pt-4 border-t border-indigo-700">
             <div class="flex items-center justify-between mb-4">
@@ -228,136 +209,77 @@
     </aside>
 
     <!-- Main Content Area -->
-    <main class="flex-grow p-8 md:p-12 ml-64 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Main Content (Left/Center Column) -->
-        <div class="lg:col-span-2">
-            <h1 class="text-4xl font-bold text-gray-800 mb-4">Rekomendasi Pembelajaran</h1>
-            <!-- Tabs for filtering -->
-            <div class="flex space-x-4 border-b border-gray-300 mb-8">
-                <button class="tab-button active" data-tab="all">All</button>
-                <button class="tab-button" data-tab="audiotori">Audiotori</button>
-                <button class="tab-button" data-tab="visual">Visual</button>
-                <button class="tab-button" data-tab="kinestetik">Kinestetik</button>
+    <main class="flex-grow p-8 md:p-12 ml-64">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">Rekomendasi Pembelajaran</h1>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Bagian Kiri: Daftar Rekomendasi -->
+            <div class="lg:col-span-2 space-y-4">
+                <!-- Header Rekomendasi -->
+                <h2 class="text-xl font-semibold text-gray-800">Rekomendasi Untuk Kamu belum ada, silahkan isi di profil gaya belajar kamu ! </h2>
             </div>
-            <!-- Content Area with tabs -->
-            <div id="rekomendasi-container" class="grid grid-cols-1 gap-6">
-                <!-- Card Audiotori -->
-                <div class="card p-4 flex items-start space-x-4" data-category="audiotori" onclick="goToPage('materi-audiotori.html')">
-                    <img src="https://placehold.co/150x100/1e293b/ffffff?text=Audiotori" alt="Konten Audiotori" class="w-48 h-28 object-cover rounded-lg">
-                    <div class="flex-1">
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="text-xl font-bold">Programming A</h3>
+
+            <!-- Bagian Kanan -->
+            <div class="lg:col-span-1 space-y-6">
+                <!-- Card Profil Gaya Belajar -->
+                <div class="bg-white rounded-xl shadow p-5">
+                    <h3 class="font-bold text-gray-800 mb-3">Profil Gaya Belajar Kamu</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between items-center text-sm text-gray-600">
+                                <span>Audiotori</span>
+                                <span>0%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2 rounded-full">
+                                <div class="h-2 rounded-full bg-indigo-600" style="width:0%"></div>
+                            </div>
                         </div>
-                        <p class="text-gray-600 mb-2">Beginner's Guide To Becoming A Professional Frontend Developer</p>
-                        <div class="flex space-x-2 mt-4">
-                            <span class="px-3 py-1 text-sm rounded-full bg-blue-100 text-blue-700">Audiotori</span>
+                        <div>
+                            <div class="flex justify-between items-center text-sm text-gray-600">
+                                <span>Kinestetik</span>
+                                <span>0%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2 rounded-full">
+                                <div class="h-2 rounded-full bg-orange-500" style="width:0%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center text-sm text-gray-600">
+                                <span>Visual</span>
+                                <span>0%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2 rounded-full">
+                                <div class="h-2 rounded-full bg-pink-600" style="width:0%"></div>
+                            </div>
                         </div>
                     </div>
-                    <button class="self-center p-3 rounded-full hover:bg-gray-100 transition-colors">
-                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </button>
                 </div>
-                <!-- Card Visual -->
-                <div class="card p-4 flex items-start space-x-4" data-category="visual" onclick="goToPage('materi-visual.html')">
-                    <img src="https://placehold.co/150x100/1e293b/ffffff?text=Visual" alt="Konten Visual" class="w-48 h-28 object-cover rounded-lg">
-                    <div class="flex-1">
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="text-xl font-bold">Pemrograman B</h3>
+                <!-- Card Learning Progress -->
+                <div class="bg-white rounded-xl shadow p-5">
+                    <h3 class="font-bold text-gray-800 mb-3">Progress Pembelajaran Kamu</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="text-sm text-gray-600 mb-1">Hari ini</div>
+                            <div class="w-full bg-gray-200 h-2 rounded-full">
+                                <div class="h-2 rounded-full bg-green-500" style="width:0%"></div>
+                            </div>
                         </div>
-                        <p class="text-gray-600 mb-2">Beginner's Guide To Becoming A Professional Frontend Developer</p>
-                        <div class="flex space-x-2 mt-4">
-                            <span class="px-3 py-1 text-sm rounded-full bg-purple-100 text-purple-700">Visual</span>
-                        </div>
-                    </div>
-                    <button class="self-center p-3 rounded-full hover:bg-gray-100 transition-colors">
-                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </button>
-                </div>
-                <!-- Card Kinestetik -->
-                <div class="card p-4 flex items-start space-x-4" data-category="kinestetik" onclick="goToPage('materi-kinestetik.html')">
-                    <img src="https://placehold.co/150x100/1e293b/ffffff?text=Kinestetik" alt="Konten Kinestetik" class="w-48 h-28 object-cover rounded-lg">
-                    <div class="flex-1">
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="text-xl font-bold">Pemrograman Dasar</h3>
-                        </div>
-                        <p class="text-gray-600 mb-2">Beginner's Guide To Becoming A Professional Frontend Developer</p>
-                        <div class="flex space-x-2 mt-4">
-                            <span class="px-3 py-1 text-sm rounded-full bg-red-100 text-red-700">Kinestetik</span>
+                        <div>
+                            <div class="text-sm text-gray-600 mb-1">Minggu ini</div>
+                            <div class="w-full bg-gray-200 h-2 rounded-full">
+                                <div class="h-2 rounded-full bg-green-500" style="width:0%"></div>
+                            </div>
                         </div>
                     </div>
-                    <button class="self-center p-3 rounded-full hover:bg-gray-100 transition-colors">
-                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </button>
                 </div>
             </div>
         </div>
-        <!-- RIGHT: ONLY 2 CARDS (tanpa kalender) -->
-        <aside class="flex flex-col gap-6 mt-8">
-            <!-- Card Profil Gaya Belajar -->
-            <div class="bg-white rounded-xl shadow p-5">
-                <h3 class="font-bold text-gray-800 mb-3">Profil Gaya Belajar Kamu</h3>
-                <div class="space-y-3">
-                    <!-- Audiotori -->
-                    <div>
-                        <div class="flex justify-between items-center text-sm text-gray-600">
-                            <span>Audiotori</span>
-                            <span>0%</span>
-                        </div>
-                        <div class="w-full bg-gray-200 h-2 rounded-full">
-                            <div class="h-2 rounded-full bg-indigo-600" style="width:0%"></div>
-                        </div>
-                    </div>
-        
-                    <!-- Kinestetik -->
-                    <div>
-                        <div class="flex justify-between items-center text-sm text-gray-600">
-                            <span>Kinestetik</span>
-                            <span>0%</span>
-                        </div>
-                        <div class="w-full bg-gray-200 h-2 rounded-full">
-                            <div class="h-2 rounded-full bg-orange-500" style="width:0%"></div>
-                        </div>
-                    </div>
-        
-                    <!-- Visual -->
-                    <div>
-                        <div class="flex justify-between items-center text-sm text-gray-600">
-                            <span>Visual</span>
-                            <span>0%</span>
-                        </div>
-                        <div class="w-full bg-gray-200 h-2 rounded-full">
-                            <div class="h-2 rounded-full bg-pink-600" style="width:0%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <!-- Card Learning Progress -->
-            <div class="bg-white rounded-xl shadow p-5">
-                <h3 class="font-bold text-gray-800 mb-3">Progress Pembelajaran Kamu</h3>
-                <div class="space-y-3">
-                    <div>
-                        <div class="text-sm text-gray-600 mb-1">Hari ini</div>
-                        <div class="w-full bg-gray-200 h-2 rounded-full">
-                            <div class="h-2 rounded-full bg-[var(--brand)]" style="width:80%"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="text-sm text-gray-600 mb-1">Minggu ini</div>
-                        <div class="w-full bg-gray-200 h-2 rounded-full">
-                            <div class="h-2 rounded-full bg-[var(--brand)]" style="width:40%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </aside>
     </main>
 
     <!-- Modal Notifikasi Logout -->
     <div id="logout-modal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-bell-icon">
-                <!-- SVG icon here -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
             </div>
             <h3 class="text-lg font-semibold mb-2">Anda Berhasil Logout</h3>
@@ -376,38 +298,78 @@
             <p class="text-gray-600 text-sm">Silahkan akses kembali materi tersebut</p>
         </div>
     </div>
-    
+
     <script>
-        // Fungsi untuk mengarahkan ke halaman baru
-        function goToPage(url) {
-            window.location.href = url;
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const cards = document.querySelectorAll('#rekomendasi-container .card');
+            const logoutButton = document.getElementById('logoutButton');
+            const logoutModal = document.getElementById('logout-modal');
+            const liteModeToggle = document.getElementById('lite-mode-toggle');
+            const liteModeModal = document.getElementById('lite-mode-modal');
+            const rekomendasiContainer = document.getElementById('rekomendasi-container');
 
-            function applyFilter(filter) {
-                cards.forEach(card => {
-                    const cat = card.dataset.category;
-                    card.style.display = (filter === 'all' || cat === filter) ? 'flex' : 'none';
+            const allCards = [
+                {
+                    title: 'Dasar Pemrograman A',
+                    desc: "Beginner's Guide To Becoming A Professional Frontend Developer",
+                    category: 'visual',
+                    image: 'https://placehold.co/150x100/1e293b/ffffff?text=Visual'
+                },
+                {
+                    title: 'Dasar Pemrograman B',
+                    desc: "Beginner's Guide To Becoming A Professional Frontend Developer",
+                    category: 'kinestetik',
+                    image: 'https://placehold.co/150x100/1e293b/ffffff?text=Kinestetik'
+                },
+                {
+                    title: 'Dasar Pemrograman C',
+                    desc: "Beginner's Guide To Becoming A Professional Frontend Developer",
+                    category: 'audiotori',
+                    image: 'https://placehold.co/150x100/1e293b/ffffff?text=Audiotori'
+                }
+            ];
+
+            // Render cards based on the filter
+            function renderCards(filter) {
+                rekomendasiContainer.innerHTML = '';
+                const filteredCards = allCards.filter(card => card.category === filter || filter === 'all');
+
+                filteredCards.forEach(card => {
+                    const cardElement = document.createElement('div');
+                    cardElement.className = 'card p-4 flex items-start space-x-4 cursor-pointer hover:bg-gray-50 transition-colors';
+                    cardElement.onclick = () => window.location.href = 'isi-materi.html';
+                    cardElement.innerHTML = `
+                        <img src="${card.image}" alt="Konten ${card.category}" class="w-48 h-28 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold">${card.title}</h3>
+                            <p class="text-gray-600 mb-2">${card.desc}</p>
+                            <div class="flex space-x-2 mt-4">
+                                <span class="px-3 py-1 text-sm rounded-full 
+                                    ${card.category === 'visual' ? 'bg-purple-100 text-purple-700' : ''}
+                                    ${card.category === 'kinestetik' ? 'bg-red-100 text-red-700' : ''}
+                                    ${card.category === 'audiotori' ? 'bg-blue-100 text-blue-700' : ''}">
+                                    ${card.category.charAt(0).toUpperCase() + card.category.slice(1)}
+                                </span>
+                            </div>
+                        </div>
+                        <button class="self-center p-3 rounded-full hover:bg-gray-100 transition-colors">
+                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </button>
+                    `;
+                    rekomendasiContainer.appendChild(cardElement);
                 });
             }
 
-            tabButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    tabButtons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
+            renderCards('all');
 
-                    const filter = btn.dataset.tab;
-                    applyFilter(filter);
+            // Fungsionalitas modal
+            if (logoutButton) {
+                logoutButton.addEventListener('click', function() {
+                    logoutModal.style.display = 'flex';
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 3000);
                 });
-            });
-
-            applyFilter('all');
-
-            const liteModeToggle = document.getElementById('lite-mode-toggle');
-            const liteModeModal = document.getElementById('lite-mode-modal');
+            }
             if (liteModeToggle) {
                 liteModeToggle.addEventListener('change', () => {
                     if (liteModeToggle.checked) {
@@ -416,17 +378,6 @@
                             liteModeModal.style.display = 'none';
                         }, 3000);
                     }
-                });
-            }
-            
-            const logoutButton = document.getElementById('logoutButton');
-            const logoutModal = document.getElementById('logout-modal');
-            if (logoutButton) {
-                logoutButton.addEventListener('click', function() {
-                    logoutModal.style.display = 'flex';
-                    setTimeout(() => {
-                        window.location.href = 'login.html';
-                    }, 3000);
                 });
             }
         });
