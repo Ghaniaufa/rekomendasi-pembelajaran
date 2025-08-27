@@ -3,46 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Profile Mahasiswa</title>
+    <!-- Memuat Tailwind CSS untuk styling -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat font Inter dari Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Gaya dasar untuk font dan warna latar belakang */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6;
         }
-        .sidebar {
-            background-color: #4c51bf;
-            color: white;
+        /* Gaya dasar untuk card dengan bayangan dan sudut membulat */
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
         }
-        .menu-item {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            transition: background-color 0.2s;
-        }
-        .menu-item.active {
-            background-color: #5a64d1;
-        }
-        .profile-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        .profile-field {
-            margin-bottom: 1rem;
-        }
-        .profile-field label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        .profile-field p {
-            background-color: #e5e7eb;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-        }
+        /* Gaya untuk toggle switch */
         .toggle-switch {
             position: relative;
             display: inline-block;
@@ -77,238 +57,550 @@
             border-radius: 50%;
         }
         input:checked + .toggle-slider {
-            background-color: #4c51bf;
+            background-color: #20235c;
         }
         input:checked + .toggle-slider:before {
             transform: translateX(20px);
         }
-        /* Modal styling */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-.modal-content {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 0.75rem;
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-}
-.modal-bell-icon {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 1rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        /* Gaya untuk modal overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        .modal-bell-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 <body class="flex min-h-screen">
 
     <!-- Sidebar -->
-<aside class="w-64 text-white flex flex-col p-4 shadow-lg fixed h-full" style="background-color: #1470F9;">
-  <div class="flex-grow">
-    <h1 class="text-2xl font-bold mb-8">
-      <a href="#" class="text-white hover:text-indigo-200 transition duration-300">Lorem Ipsum</a>
-    </h1>
-
-    <nav>
-      <ul class="space-y-2">
-        <li>
-          <!-- aktif + hover putih -->
-          <a href="index.html"
-             class="flex items-center p-3 rounded-lg 
-                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
-            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M16 8v8m-4-4v4m-4-4v4m-2-12h10a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"></path>
-            </svg>
-            Dashboard
-          </a>
-        </li>
-
-        <li>
-          <a href="profilgayabelajar.html"
-             class="flex items-center p-3 rounded-lg
-                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
-            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
-            </svg>
-            Profil Gaya Belajar
-          </a>
-        </li>
-
-        <li>
-          <a href="rekomendasipembelajaran.html"
-             class="flex items-center p-3 rounded-lg
-                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
-            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 6.253v13m0-13C10.832 5.435 9.177 5 7.5 5S4.168 5.435 3 6.253v13C4.168 18.435 5.823 18 7.5 18s3.332.435 4.5 1.253m0-13C13.168 5.435 14.823 5 16.5 5S19.832 5.435 21 6.253v13C19.832 18.435 18.177 18 16.5 18s-3.332.435-4.5 1.253"></path>
-            </svg>
-            Rekomendasi Pembelajaran
-          </a>
-        </li>
-        <li>
-          <a href="rekomendasipembelajaran.html"
-             class="flex items-center p-3 rounded-lg
-                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
-            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 6.253v13m0-13C10.832 5.435 9.177 5 7.5 5S4.168 5.435 3 6.253v13C4.168 18.435 5.823 18 7.5 18s3.332.435 4.5 1.253m0-13C13.168 5.435 14.823 5 16.5 5S19.832 5.435 21 6.253v13C19.832 18.435 18.177 18 16.5 18s-3.332.435-4.5 1.253"></path>
-            </svg>
-            Rekomendasi Pembelajaran
-          </a>
-        </li>
-
-        <li>
-          <a href="riwayat-pembelajaran.html"
-             class="flex items-center p-3 rounded-lg
-                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
-            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21H6.737a2 2 0 01-1.789-2.894l3.5-7A2 2 0 019.263 9h5.474a2 2 0 012 2v.894"></path>
-            </svg>
-            Riwayat Pembelajaran
-          </a>
-        </li>
-
-        <li>
-          <a href="formatkonten.html"
-             class="flex items-center p-3 rounded-lg
-                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
-            <img class="w-5 h-5 mr-3" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS10YWJsZS1vZi1jb250ZW50cy1pY29uIGx1Y2lkZS10YWJsZS1vZi1jb250ZW50cyI+PHBhdGggZD0iTTE2IDEySDMiLz48cGF0aCBkPSJNMTYgMThIMyIvPjxwYXRoIGQ9Ik0xNiA2SDMiLz48cGF0aCBkPSJNMjEgMTJoLjAxIi8+PHBhdGggZD0iTTIxIDE4aC4wMSIvPjxwYXRoIGQ9Ik0yMSA2aC4wMSIvPjxwYXRoIGQ9Ik0xNiAxMkgzIi8+PHBhdGggZD0iTTE2IDE4SDMiLz48cGF0aCBkPSJNMTYgNkgzIi8+PHBhdGggZD0iTTIxIDEyaC4wMSIvPjxwYXRoIGQ9Ik0yMSAxOGguMDEiLz48cGF0aCBkPSJNMjEgNmgwLjAxIi8+PC9zdmc+" alt="Materi Remedial Icon">
-            Format Konten
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-
-         <!-- Bagian bawah sidebar -->
-<div class="mt-auto pt-4 border-t ">
-    <div class="flex items-center justify-between mb-4">
-        <span class="text-sm font-medium">Lite Mode</span>
-        <label class="toggle-switch">
-            <input type="checkbox">
-            <span class="toggle-slider"></span>
-        </label>
-    </div>
-
-    <!-- Card Profil -->
-    <a href="profile.html"
-       class="p-3 rounded-lg flex items-center justify-start  text-white
-              hover:bg-white hover:text-blue-600 transition-colors duration-200">
-        <img src="https://placehold.co/40x40/94a3b8/ffffff?text=U" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
+    <aside class="w-64 text-white flex flex-col p-4 shadow-lg fixed h-full" style="background-color: #1470F9;">
         <div class="flex-grow">
-            <p class="font-medium">Culaccino_</p>
-            <p class="text-sm">UX Designer</p>
+            <h1 class="text-2xl font-bold mb-8">
+                <a href="#" onclick="showPage('main')" class="text-white hover:text-indigo-200 transition duration-300">Lorem Ipsum</a>
+            </h1>
+
+            <nav>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="index.html" onclick="showPage('main')" class="flex items-center p-3 rounded-lg hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M16 8v8m-4-4v4m-4-4v4m-2-12h10a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"></path>
+                            </svg>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profilgayabelajar.html" onclick="showPage('profile')" class="flex items-center p-3 rounded-lg hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                            </svg>
+                            Profil Gaya Belajar
+                        </a>
+                    </li>
+                    <li>
+                        <a href="rekomendasipembelajaran.html" onclick="showPage('main')" class="flex items-center p-3 rounded-lg hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M12 6.253v13m0-13C10.832 5.435 9.177 5 7.5 5S4.168 5.435 3 6.253v13C4.168 18.435 5.823 18 7.5 18s3.332.435 4.5 1.253m0-13C13.168 5.435 14.823 5 16.5 5S19.832 5.435 21 6.253v13C19.832 18.435 18.177 18 16.5 18s-3.332.435-4.5 1.253"></path>
+                            </svg>
+                            Rekomendasi Pembelajaran
+                        </a>
+                    </li>
+                    <li>
+                        <a href="materi-pembelajaran.html" onclick="showPage('main')" class="flex items-center p-3 rounded-lg hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3 lucide lucide-files">
+                                <path d="M15.5 2H8.6c-.6 0-1.1.2-1.4.6-.3.4-.6.9-.6 1.4V20c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V7.5L15.5 2Z"/>
+                                <path d="M8 4v11c0 .6.4 1 1 1h10"/>
+                            </svg>
+                            <span class="ml-3">Materi Pembelajaran</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="riwayat-pembelajaran.html" onclick="showPage('main')" class="flex items-center p-3 rounded-lg hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21H6.737a2 2 0 01-1.789-2.894l3.5-7A2 2 0 019.263 9h5.474a2 2 0 012 2v.894"></path>
+                            </svg>
+                            Riwayat Pembelajaran
+                        </a>
+                    </li>
+                    <li>
+                        <a href="formatkonten.html" onclick="showPage('main')" class="flex items-center p-3 rounded-lg hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                            <img class="w-5 h-5 mr-3" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS10YWJsZS1vZi1jb250ZW50cy1pY29uIGx1Y2lkZS10YWJsZS1vZi1jb250ZW50cyI+PHBhdGggZD0iTTE2IDEySDMiLz48cGF0aCBkPSJNMTYgMThIMyIvPjxwYXRoIGQ9Ik0xNiA2SDMiLz48cGF0aCBkPSJNMjEgMTJoLjAxIi8+PHBhdGggZD0iTTIxIDE4aC4wMSIvPjxwYXRoIGQ9Ik0yMSA2aC4wMSIvPjxwYXRoIGQ9Ik0xNiAxMkgzIi8+PHBhdGggZD0iTTE2IDE4SDMiLz48cGF0aCBkPSJNMTYgNkgzIi8+PHBhdGggZD0iTTIxIDEyaC4wMSIvPjxwYXRoIGQ9Ik0yMSAxOGguMDEiLz48cGF0aCBkPSJNMjEgNmgwLjAxIi8+PC9zdmc+" alt="Materi Remedial Icon">
+                            Format Konten
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
-        </svg>
-    </a>
+        
+        <!-- Bagian bawah sidebar -->
+        <div class="mt-auto pt-4 border-t border-indigo-700">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-sm font-medium">Lite Mode</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="lite-mode-toggle">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
 
-    <!-- Tombol Keluar -->
-    <button id="logoutButton"
-            class="w-full p-3 text-left rounded-lg bg-red-500 text-white
-            transition-colors duration-200 flex items-center justify-center mt-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-        </svg>
-        Keluar
-    </button>
-</div>
-    </aside>
+            <!-- Card Profil -->
+            <a href="#" class="p-3 rounded-lg flex items-center justify-start text-white hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                <img src="https://placehold.co/40x40/94a3b8/ffffff?text=U" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
+                <div class="flex-grow">
+                    <p class="font-medium">Culaccino_</p>
+                    <p class="text-sm">UX Designer</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+                </svg>
+            </a>
 
-    <!-- Main Content Area -->
-    <main class="flex-grow p-8 md:p-12 ml-64">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-4xl font-bold text-gray-800">Profile</h1>
-            <button class="bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-200">
-                Edit
+            <!-- Tombol Keluar -->
+            <button id="logoutButton" class="w-full p-3 text-left rounded-lg bg-red-500 text-white transition-colors duration-200 flex items-center justify-center mt-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                </svg>
+                Keluar
             </button>
         </div>
+    </aside>
 
-        <div class="bg-white p-8 rounded-xl shadow-lg">
-            <!-- Profile Header -->
-            <div class="flex items-center space-x-4 mb-8">
-                <img src="https://placehold.co/80x80/94a3b8/ffffff?text=C" alt="User Avatar" class="w-20 h-20 rounded-full object-cover">
-                <div>
-                    <h2 class="text-xl font-bold">Culacino</h2>
-                    <p class="text-gray-600">Culacino@gmail.com</p>
-                </div>
-            </div>
-            
-            <!-- Profile Details Grid -->
-            <div class="profile-info">
-                <div class="profile-field">
-                    <label for="nama-panjang">Nama Panjang</label>
-                    <p id="nama-panjang">Nama Panjang Kamu</p>
-                </div>
-                <div class="profile-field">
-                    <label for="nama-panggilan">Nama Panggilan</label>
-                    <p id="nama-panggilan">Nama Panggilan Kamu</p>
-                </div>
-                <div class="profile-field">
-                    <label for="asal-universitas">Asal Universitas</label>
-                    <p id="asal-universitas">Asal Universitas</p>
-                </div>
-                <div class="profile-field">
-                    <label for="jurusan">Jurusan</label>
-                    <p id="jurusan">Jurusan Kamu</p>
-                </div>
-                <div class="profile-field">
-                    <label for="hobby">Hobby</label>
-                    <p id="hobby">Hobby Kamu</p>
-                </div>
-                <div class="profile-field">
-                    <label for="asal-daerah">Asal Daerah</label>
-                    <p id="asal-daerah">Asal Daerah Kamu</p>
-                </div>
-            </div>
-        </div>
-        <!-- Modal Notifikasi Logout -->
-<div id="logout-modal" class="modal-overlay">
-    <div class="modal-content">
-        <div class="modal-bell-icon">
-            <!-- SVG icon here -->
-             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
-        </div>
-        <h3 class="text-lg font-semibold mb-2">Anda Berhasil Logout</h3>
-        <p class="text-gray-600 text-sm">Anda akan dialihkan ke halaman login.</p>
-    </div>
-</div>
+    <!-- Main Content Area yang akan diubah secara dinamis -->
+    <main id="main-content" class="flex-grow p-8 md:p-12 ml-64">
+        <!-- Konten utama akan dimuat di sini oleh JavaScript -->
     </main>
-    
+
+    <!-- Modal Notifikasi Logout -->
+    <div id="logout-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-bell-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Anda Berhasil Logout</h3>
+            <p class="text-gray-600 text-sm">Anda akan dialihkan ke halaman login.</p>
+        </div>
+    </div>
+    <!-- Modal Notifikasi Lite Mode -->
+    <div id="lite-mode-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-bell-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-blue-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.964 3.785 1.517 5.455 1.31A23.847 23.847 0 0018 17.082" />
+                </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Lite Mode Sudah Diaktifkan</h3>
+            <p class="text-gray-600 text-sm">Silahkan akses kembali materi tersebut</p>
+        </div>
+    </div>
 
     <script>
-      // JavaScript untuk menangani fungsi logout
-const logoutButton = document.getElementById('logoutButton');
-const logoutModal = document.getElementById('logout-modal');
-if (logoutButton) {
-    logoutButton.addEventListener('click', function() {
-        // Tampilkan modal notifikasi logout
-        logoutModal.style.display = 'flex';
-        // Mengarahkan pengguna kembali ke halaman login setelah 3 detik
-        setTimeout(() => {
-            window.location.href = 'login.html';
-        }, 3000);
-    });
-}
+        // Data untuk halaman utama (Rekomendasi Pembelajaran)
+        const allCards = [
+            {
+                id: 'auditori',
+                title: 'Dasar Pemrograman A',
+                desc: "Beginner's Guide To Becoming A Professional Frontend Developer",
+                category: 'audiotori',
+                image: 'https://placehold.co/150x100/1e293b/ffffff?text=Audiotori'
+            },
+            {
+                id: 'visual',
+                title: 'Dasar Pemrograman B',
+                desc: "A Visual Journey into Web Development",
+                category: 'visual',
+                image: 'https://placehold.co/150x100/1e293b/ffffff?text=Visual'
+            },
+            {
+                id: 'kinestetik',
+                title: 'Dasar Pemrograman C',
+                desc: "Hands-on Projects for Practical Learning",
+                category: 'kinestetik',
+                image: 'https://placehold.co/150x100/1e293b/ffffff?text=Kinestetik'
+            }
+        ];
+
+        // Data konten detail untuk setiap kartu materi
+        const materiDetails = {
+            'auditori': `
+                <div class="lg:col-span-2">
+                    <div class="text-sm text-gray-500 mb-4">
+                        <button onclick="showPage('main')" class="text-blue-600 hover:underline">Rekomendasi Pembelajaran</button> > <span class="text-blue-600">Dasar Pemrograman A</span>
+                    </div>
+                    <div class="card p-8">
+                        <h1 class="text-4xl font-bold text-gray-800 mb-2">Dasar Pemrograman A</h1>
+                        <p class="text-gray-500 mb-6">Beginner's Guide To Becoming A Professional Frontend Developer</p>
+                        <div class="video-player">
+                            <img src="https://placehold.co/800x450/000000/FFFFFF?text=Video+Materi+Audiotori" alt="Video Materi" class="absolute inset-0 w-full h-full object-cover">
+                            <div class="play-button" id="play-btn">
+                                <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div class="card p-6">
+                            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Deskripsi</h2>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Materi ini dirancang khusus untuk pembelajar audiotori. Kamu akan belajar melalui podcast, audio, dan penjelasan verbal yang mendalam.
+                            </p>
+                            <p class="text-gray-600 leading-relaxed">
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </div>
+                        <div class="card p-6">
+                            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Pengajar</h2>
+                            <div class="flex items-center space-x-4">
+                                <img src="https://placehold.co/60x60/B28CFF/FFFFFF?text=BS" alt="Foto Pengajar" class="w-16 h-16 rounded-full">
+                                <div>
+                                    <p class="font-medium text-gray-800">Budi Santoso</p>
+                                    <p class="text-sm text-gray-500">Software Engineer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            'visual': `
+                <div class="lg:col-span-2">
+                    <div class="text-sm text-gray-500 mb-4">
+                        <button onclick="showPage('main')" class="text-blue-600 hover:underline">Rekomendasi Pembelajaran</button> > <span class="text-blue-600">Dasar Pemrograman B</span>
+                    </div>
+                    <div class="card p-8">
+                        <h1 class="text-4xl font-bold text-gray-800 mb-2">Dasar Pemrograman B</h1>
+                        <p class="text-gray-500 mb-6">A Visual Journey into Web Development</p>
+                        <div class="video-player">
+                            <img src="https://placehold.co/800x450/000000/FFFFFF?text=Video+Materi+Visual" alt="Video Materi" class="absolute inset-0 w-full h-full object-cover">
+                            <div class="play-button" id="play-btn">
+                                <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div class="card p-6">
+                            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Deskripsi</h2>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Materi ini dirancang khusus untuk pembelajar visual, menggunakan diagram, infografis, dan contoh-contoh kode yang diwarnai untuk membantu kamu memahami konsep-konsep pemrograman dengan lebih mudah.
+                            </p>
+                            <p class="text-gray-600 leading-relaxed">
+                                Setiap modul dilengkapi dengan video demonstrasi dan visualisasi interaktif untuk memperkuat pemahaman.
+                            </p>
+                        </div>
+                        <div class="card p-6">
+                            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Pengajar</h2>
+                            <div class="flex items-center space-x-4">
+                                <img src="https://placehold.co/60x60/B28CFF/FFFFFF?text=SN" alt="Foto Pengajar" class="w-16 h-16 rounded-full">
+                                <div>
+                                    <p class="font-medium text-gray-800">Siti Nurhayati</p>
+                                    <p class="text-sm text-gray-500">UI/UX Designer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            'kinestetik': `
+                <div class="lg:col-span-2">
+                    <div class="text-sm text-gray-500 mb-4">
+                        <button onclick="showPage('main')" class="text-blue-600 hover:underline">Rekomendasi Pembelajaran</button> > <span class="text-blue-600">Dasar Pemrograman C</span>
+                    </div>
+                    <div class="card p-8">
+                        <h1 class="text-4xl font-bold text-gray-800 mb-2">Dasar Pemrograman C</h1>
+                        <p class="text-gray-500 mb-6">Hands-on Projects for Practical Learning</p>
+                        <div class="video-player">
+                            <img src="https://placehold.co/800x450/000000/FFFFFF?text=Video+Materi+Kinestetik" alt="Video Materi" class="absolute inset-0 w-full h-full object-cover">
+                            <div class="play-button" id="play-btn">
+                                <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div class="card p-6">
+                            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Deskripsi</h2>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Bagi kamu yang suka belajar sambil praktik, materi ini menyediakan berbagai proyek langsung yang bisa kamu kerjakan. Mulai dari membuat aplikasi sederhana hingga game kecil, kamu akan belajar dengan melakukan.
+                            </p>
+                            <p class="text-gray-60acxed">
+                                Setiap pelajaran dilengkapi dengan tantangan coding yang akan menguji keterampilanmu.
+                            </p>
+                        </div>
+                        <div class="card p-6">
+                            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Pengajar</h2>
+                            <div class="flex items-center space-x-4">
+                                <img src="https://placehold.co/60x60/B28CFF/FFFFFF?text=AW" alt="Foto Pengajar" class="w-16 h-16 rounded-full">
+                                <div>
+                                    <p class="font-medium text-gray-800">Arif Wibowo</p>
+                                    <p class="text-sm text-gray-500">Full Stack Developer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+        };
+        
+        // Template HTML untuk halaman profil
+        const profilePageHtml = `
+            <div id="profile-page" class="lg:col-span-2">
+                <div class="flex justify-between items-center mb-4">
+                    <h1 class="text-4xl font-bold text-gray-800">Profile Mahasiswa</h1>
+                    <button id="editProfileBtn" class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Edit</button>
+                </div>
+                
+                <div class="card p-8">
+                    <div class="flex items-center space-x-6 mb-8">
+                        <img src="https://placehold.co/80x80/94a3b8/ffffff?text=U" alt="User Avatar" class="w-20 h-20 rounded-full">
+                        <div>
+                            <p class="text-2xl font-medium text-gray-800">Culaccino_</p>
+                            <p class="text-gray-500">Culaccino@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                        <div class="space-y-2">
+                            <label class="text-gray-600 text-sm">Nama Panjang</label>
+                            <input type="text" id="namaPanjang" value="Nama Panjang kamu" disabled class="w-full p-3 border rounded-lg bg-gray-100 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-gray-600 text-sm">Nama Panggilan</label>
+                            <input type="text" id="namaPanggilan" value="Nama Panggilan kamu" disabled class="w-full p-3 border rounded-lg bg-gray-100 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-gray-600 text-sm">Asal Universitas</label>
+                            <input type="text" id="asalUniversitas" value="Asal Universitas" disabled class="w-full p-3 border rounded-lg bg-gray-100 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-gray-600 text-sm">Asal Daerah</label>
+                            <select id="asalDaerah" disabled class="w-full p-3 border rounded-lg bg-gray-100 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="DIY">D.I.Y</option>
+                                <option value="Jawa Barat">Jawa Barat</option>
+                                <option value="Jawa Tengah">Jawa Tengah</option>
+                                <option value="Jawa Timur">Jawa Timur</option>
+                                <option value="NTT">NTT</option>
+                                <option value="NTB">NTB</option>
+                                <option value="Sumatra">Sumatra</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Template HTML untuk halaman utama Rekomendasi
+        const mainPageHtml = `
+            <div id="rekomendasi-page" class="lg:col-span-2">
+                <h1 class="text-4xl font-bold text-gray-800 mb-4">Rekomendasi Pembelajaran</h1>
+                <div class="flex space-x-4 border-b border-gray-300 mb-8">
+                    <button class="tab-button active" data-tab="all">All</button>
+                    <button class="tab-button" data-tab="visual">Visual</button>
+                    <button class="tab-button" data-tab="kinestetik">Kinestetik</button>
+                    <button class="tab-button" data-tab="audiotori">Audiotori</button>
+                </div>
+                <div id="rekomendasi-container" class="grid grid-cols-1 gap-6"></div>
+            </div>
+        `;
+
+        const asideHtml = `
+            <aside class="flex flex-col gap-6 mt-8">
+                <div class="bg-white rounded-xl shadow p-5">
+                    <h3 class="font-bold text-gray-800 mb-3">Profil Gaya Belajar Kamu</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between items-center text-sm text-gray-600"><span>Audiotori</span><span>0%</span></div>
+                            <div class="w-full bg-gray-200 h-2 rounded-full"><div class="h-2 rounded-full bg-indigo-600" style="width:0%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center text-sm text-gray-600"><span>Kinestetik</span><span>0%</span></div>
+                            <div class="w-full bg-gray-200 h-2 rounded-full"><div class="h-2 rounded-full bg-orange-500" style="width:0%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center text-sm text-gray-600"><span>Visual</span><span>0%</span></div>
+                            <div class="w-full bg-gray-200 h-2 rounded-full"><div class="h-2 rounded-full bg-pink-600" style="width:0%"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow p-5">
+                    <h3 class="font-bold text-gray-800 mb-3">Progress Pembelajaran Kamu</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="text-sm text-gray-600 mb-1">Hari ini</div>
+                            <div class="w-full bg-gray-200 h-2 rounded-full"><div class="h-2 rounded-full bg-green-500" style="width:0%"></div></div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-600 mb-1">Minggu ini</div>
+                            <div class="w-full bg-gray-200 h-2 rounded-full"><div class="h-2 rounded-full bg-green-500" style="width:0%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        `;
+
+        const mainContent = document.getElementById('main-content');
+        
+        // Fungsi untuk merender kartu-kartu materi
+        function renderCards(cardsToRender) {
+            const rekomendasiContainer = document.getElementById('rekomendasi-container');
+            if (rekomendasiContainer) {
+                rekomendasiContainer.innerHTML = '';
+                cardsToRender.forEach(card => {
+                    const cardElement = document.createElement('div');
+                    cardElement.className = 'card p-4 flex items-start space-x-4 cursor-pointer hover:bg-gray-50 transition-colors';
+                    cardElement.onclick = () => showCardDetails(card.id);
+                    
+                    let tagColor = '';
+                    if (card.category === 'visual') tagColor = 'bg-purple-100 text-purple-700';
+                    else if (card.category === 'kinestetik') tagColor = 'bg-red-100 text-red-700';
+                    else if (card.category === 'audiotori') tagColor = 'bg-blue-100 text-blue-700';
+                    
+                    cardElement.innerHTML = `
+                        <img src="${card.image}" alt="Konten ${card.category}" class="w-48 h-28 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold">${card.title}</h3>
+                            <p class="text-gray-600 mb-2">${card.desc}</p>
+                            <div class="flex space-x-2 mt-4">
+                                <span class="px-3 py-1 text-sm rounded-full ${tagColor}">${card.category.charAt(0).toUpperCase() + card.category.slice(1)}</span>
+                            </div>
+                        </div>
+                        <button class="self-center p-3 rounded-full hover:bg-gray-100 transition-colors">
+                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </button>
+                    `;
+                    rekomendasiContainer.appendChild(cardElement);
+                });
+            }
+        }
+
+        
+
+        // Fungsi untuk menampilkan halaman utama rekomendasi
+        function showMainPage() {
+            mainContent.innerHTML = mainPageHtml + asideHtml;
+            setupEventListeners();
+            renderCards(allCards);
+        }
+
+        // Fungsi untuk menampilkan halaman profil
+        function showProfilePage() {
+            mainContent.innerHTML = profilePageHtml + asideHtml;
+            setupProfileEventListeners();
+        }
+
+        // Fungsi untuk mengaktifkan/menonaktifkan mode edit
+        function toggleEditMode() {
+            const editBtn = document.getElementById('editProfileBtn');
+            const inputs = document.querySelectorAll('#profile-page input, #profile-page select');
+            const isEditing = editBtn.textContent === 'Edit';
+
+            inputs.forEach(input => {
+                input.disabled = !isEditing;
+                if (isEditing) {
+                    input.classList.remove('bg-gray-100');
+                    input.classList.add('bg-white');
+                } else {
+                    input.classList.add('bg-gray-100');
+                    input.classList.remove('bg-white');
+                }
+            });
+
+            editBtn.textContent = isEditing ? 'Simpan' : 'Edit';
+            if (isEditing) {
+                 editBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                 editBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+            } else {
+                editBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                editBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
+            }
+        }
+
+        // Fungsi untuk menginisialisasi event listener halaman profil
+        function setupProfileEventListeners() {
+            const editBtn = document.getElementById('editProfileBtn');
+            if (editBtn) {
+                editBtn.addEventListener('click', toggleEditMode);
+            }
+        }
+
+        // Fungsi utama untuk menginisialisasi event listener
+        function setupEventListeners() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const filter = btn.dataset.tab;
+                    if (filter === 'all') {
+                        renderCards(allCards);
+                    } else {
+                        const filteredCards = allCards.filter(card => card.category === filter);
+                        renderCards(filteredCards);
+                    }
+                });
+            });
+
+            const logoutButton = document.getElementById('logoutButton');
+            const logoutModal = document.getElementById('logout-modal');
+            if (logoutButton) {
+                logoutButton.addEventListener('click', function() {
+                    logoutModal.style.display = 'flex';
+                    setTimeout(() => {
+                        // Aksi logout di sini
+                    }, 3000);
+                });
+            }
+            
+            const liteModeToggle = document.getElementById('lite-mode-toggle');
+            const liteModeModal = document.getElementById('lite-mode-modal');
+            if (liteModeToggle) {
+                liteModeToggle.addEventListener('change', () => {
+                    if (liteModeToggle.checked) {
+                        liteModeModal.style.display = 'flex';
+                        setTimeout(() => {
+                            liteModeModal.style.display = 'none';
+                        }, 3000);
+                    }
+                });
+            }
+        }
+
+        // Fungsi untuk berpindah halaman
+        function showPage(page) {
+            if (page === 'main') {
+                showMainPage();
+            } else if (page === 'profile') {
+                showProfilePage();
+            }
+            // Tambahkan logika untuk halaman lain di sini
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('profile'); // Tampilkan halaman profil saat dimuat
+        });
     </script>
 </body>
 </html>
