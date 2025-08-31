@@ -31,7 +31,7 @@
         }
         .progress-bar {
             height: 100%;
-            background-color: #8C9EFF;
+            background-color: #1470F9;
             transition: width 0.3s ease-in-out;
         }
         .collapse-icon {
@@ -40,7 +40,6 @@
         .rotated {
             transform: rotate(180deg);
         }
-         
         .toggle-switch {
             position: relative;
             display: inline-block;
@@ -114,92 +113,89 @@
     </style>
 </head>
 <body class="flex min-h-screen bg-gray-100">
-
-       <!-- Sidebar -->
+    <!-- Sidebar -->
     <aside class="w-64 text-white flex flex-col p-4 shadow-lg fixed h-full" style="background-color: #1470F9;">
         <div class="flex-grow">
             <h1 class="text-2xl font-bold mb-8">
                 <a href="/indexhasil.html" class="text-white hover:text-indigo-200 transition duration-300">Lorem Ipsum</a>
             </h1>
-      <ul class="space-y-2">
-        <li>
-          <!-- Link navigasi Dashboard -->
-          <a href="/index.html"
-              class="flex items-center p-3 rounded-lg 
-                     hover:bg-white hover:text-blue-600 transition-colors duration-200">
-            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M16 8v8m-4-4v4m-4-4v4m-2-12h10a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"></path>
-            </svg>
-            Dashboard
-          </a>
-        </li>
+            <ul class="space-y-2">
+                <li>
+                    <!-- Link navigasi Dashboard -->
+                    <a href="/index.html"
+                        class="flex items-center p-3 rounded-lg 
+                                hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 8v8m-4-4v4m-4-4v4m-2-12h10a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"></path>
+                        </svg>
+                        Dashboard
+                    </a>
+                </li>
 
-        <li>
-          <!-- Link navigasi Profil Gaya Belajar -->
-          <a href="/profilgayabelajar.html"
-              class="flex items-center p-3 rounded-lg
-                     hover:bg-white hover:text-blue-600 transition-colors duration-200">
-            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
-            </svg>
-            Profil Gaya Belajar
-          </a>
-        </li>
+                <li>
+                    <!-- Link navigasi Profil Gaya Belajar -->
+                    <a href="/profilgayabelajar.html"
+                        class="flex items-center p-3 rounded-lg
+                                hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                        </svg>
+                        Profil Gaya Belajar
+                    </a>
+                </li>
 
-        <li>
-          <!-- Link navigasi Rekomendasi Pembelajaran -->
-          <a href="/rekomendasipembelajaran.html"
-              class="flex items-center p-3 rounded-lg
-                     hover:bg-white hover:text-blue-600 transition-colors duration-200">
-            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 6.253v13m0-13C10.832 5.435 9.177 5 7.5 5S4.168 5.435 3 6.253v13C4.168 18.435 5.823 18 7.5 18s3.332.435 4.5 1.253m0-13C13.168 5.435 14.823 5 16.5 5S19.832 5.435 21 6.253v13C19.832 18.435 18.177 18 16.5 18s-3.332.435-4.5 1.253"></path>
-            </svg>
-            Rekomendasi Pembelajaran
-          </a>
-        </li>
-        <li>
-          <!-- Link navigasi Materi Pembelajaran -->
-          <a href="/materi-pembelajaran.html"
-                 class="flex items-center p-3 rounded-lg
-                         hover:bg-white hover:text-blue-600 transition-colors duration-200">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3 lucide lucide-files">
-                  <path d="M15.5 2H8.6c-.6 0-1.1.2-1.4.6-.3.4-.6.9-.6 1.4V20c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V7.5L15.5 2Z"/>
-                  <path d="M8 4v11c0 .6.4 1 1 1h10"/>
-                  </svg>
-                  <span class="ml-3">Materi Pembelajaran</span>
-          </a>
-        </li>
-        <li>
-          <!-- Link navigasi Riwayat Pembelajaran -->
-          <a href="/riwayat-pembelajaran.html"
-              class="flex items-center p-3 rounded-lg
-                     hover:bg-white hover:text-blue-600 transition-colors duration-200">
-            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21H6.737a2 2 0 01-1.789-2.894l3.5-7A2 2 0 019.263 9h5.474a2 2 0 012 2v.894"></path>
-            </svg>
-            Riwayat Pembelajaran
-          </a>
-        </li>
+                <li>
+                    <!-- Link navigasi Rekomendasi Pembelajaran -->
+                    <a href="/rekomendasipembelajaran.html"
+                        class="flex items-center p-3 rounded-lg
+                                hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.435 9.177 5 7.5 5S4.168 5.435 3 6.253v13C4.168 18.435 5.823 18 7.5 18s3.332.435 4.5 1.253m0-13C13.168 5.435 14.823 5 16.5 5S19.832 5.435 21 6.253v13C19.832 18.435 18.177 18 16.5 18s-3.332.435-4.5 1.253"></path>
+                        </svg>
+                        Rekomendasi Pembelajaran
+                    </a>
+                </li>
+                <li>
+                    <!-- Link navigasi Materi Pembelajaran -->
+                    <a href="/materi-pembelajaran.html"
+                            class="flex items-center p-3 rounded-lg
+                                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3 lucide lucide-files">
+                            <path d="M15.5 2H8.6c-.6 0-1.1.2-1.4.6-.3.4-.6.9-.6 1.4V20c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V7.5L15.5 2Z"/>
+                            <path d="M8 4v11c0 .6.4 1 1 1h10"/>
+                        </svg>
+                        <span class="ml-3">Materi Pembelajaran</span>
+                    </a>
+                </li>
+                <li>
+                    <!-- Link navigasi Riwayat Pembelajaran -->
+                    <a href="/riwayat-pembelajaran.html"
+                        class="flex items-center p-3 rounded-lg
+                                hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21H6.737a2 2 0 01-1.789-2.894l3.5-7A2 2 0 019.263 9h5.474a2 2 0 012 2v.894"></path>
+                        </svg>
+                        Riwayat Pembelajaran
+                    </a>
+                </li>
+                <li>
+                    <!-- Link navigasi Format Konten -->
+                    <a href="/formatkonten.html"
+                        class="flex items-center p-3 rounded-lg
+                                hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                        <img class="w-5 h-5 mr-3" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS10YWJsZS1vZi1jb250ZW50cy1pY29uIGx1Y2lkZS10YWJsZS1vZi1jb250ZW50cyI+PHBhdGggZD0iTTE2IDEySDMiLz48cGF0aCBkPSJNMTYgMThIMyIvPjxwYXRoIGQ9Ik0xNiA2SDMiLz48cGF0aCBkPSJNMjEgMTJoLjAxIi8+PHBhdGggZD0iTTIxIDE4aC4wMSIvPjxwYXRoIGQ9Ik0yMSA2aC4wMSIvPjxwYXRoIGQ9Ik0xNiAxMkgzIi8+PHBhdGggZD0iTTE2IDE4SDMiLz48cGF0aCBkPSJNMTYgNkgzIi8+PHBhdGggZD0iTTIxIDEyaC4wMSIvPjxwYXRoIGQ9Ik0yMSAxOGguMDEiLz48cGF0aCBkPSJNMjEgNmgwLjAxIi8+PC9zdmc+" alt="Materi Remedial Icon">
+                        Format Konten
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        </div>
 
-        <li>
-          <!-- Link navigasi Format Konten -->
-          <a href="/formatkonten.html"
-              class="flex items-center p-3 rounded-lg
-                     hover:bg-white hover:text-blue-600 transition-colors duration-200">
-            <img class="w-5 h-5 mr-3" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS10YWJsZS1vZi1jb250ZW50cy1pY29uIGx1Y2lkZS10YWJsZS1vZi1jb250ZW50cyI+PHBhdGggZD0iTTE2IDEySDMiLz48cGF0aCBkPSJNMTYgMThIMyIvPjxwYXRoIGQ9Ik0xNiA2SDMiLz48cGF0aCBkPSJNMjEgMTJoLjAxIi8+PHBhdGggZD0iTTIxIDE4aC4wMSIvPjxwYXRoIGQ9Ik0yMSA2aC4wMSIvPjxwYXRoIGQ9Ik0xNiAxMkgzIi8+PHBhdGggZD0iTTE2IDE4SDMiLz48cGF0aCBkPSJNMTYgNkgzIi8+PHBhdGggZD0iTTIxIDEyaC4wMSIvPjxwYXRoIGQ9Ik0yMSAxOGguMDEiLz48cGF0aCBkPSJNMjEgNmgwLjAxIi8+PC9zdmc+" alt="Materi Remedial Icon">
-            Format Konten
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-
-
-    <!-- Bagian bawah sidebar -->
+        <!-- Bagian bawah sidebar -->
         <div class="mt-auto pt-4 border-t border-indigo-700">
             <div class="flex items-center justify-between mb-4">
                 <span class="text-sm font-medium">Lite Mode</span>
@@ -209,54 +205,54 @@
                 </label>
             </div>
 
-    <!-- Card Profil -->
-    <a href="profile.html"
-       class="p-3 rounded-lg flex items-center justify-start  text-white
-              hover:bg-white hover:text-blue-600 transition-colors duration-200">
-        <img src="https://placehold.co/40x40/94a3b8/ffffff?text=U" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
-        <div class="flex-grow">
-            <p class="font-medium">Culaccino_</p>
-            <p class="text-sm">UX Designer</p>
-        </div>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
-        </svg>
-    </a>
-
-     <!-- Tombol Keluar -->
-    <button id="logoutButton"
-            class="w-full p-3 text-left rounded-lg bg-red-500 text-white
-            transition-colors duration-200 flex items-center justify-center mt-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-        </svg>
-        Keluar
-    </button>
-</div>
-<!-- Modal Notifikasi Lite Mode -->
-    <div id="lite-mode-modal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-bell-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-blue-600">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.964 3.785 1.517 5.455 1.31A23.847 23.847 0 0018 17.082" />
+            <!-- Card Profil -->
+            <a href="profile.html"
+                class="p-3 rounded-lg flex items-center justify-start  text-white
+                        hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                <img src="https://placehold.co/40x40/94a3b8/ffffff?text=U" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
+                <div class="flex-grow">
+                    <p class="font-medium">Culaccino_</p>
+                    <p class="text-sm">UX Designer</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
                 </svg>
-            </div>
-            <h3 class="text-lg font-semibold mb-2">Lite Mode Sudah Diaktifkan</h3>
-            <p class="text-gray-600 text-sm">Silahkan akses kembali materi tersebut</p>
+            </a>
+            
+            <!-- Tombol Keluar -->
+            <button id="logoutButton"
+                    class="w-full p-3 text-left rounded-lg bg-red-500 text-white
+                    transition-colors duration-200 flex items-center justify-center mt-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                </svg>
+                Keluar
+            </button>
         </div>
-    </div>
-    <!-- Modal Notifikasi Logout -->
-<div id="logout-modal" class="modal-overlay">
-    <div class="modal-content">
-        <div class="modal-bell-icon">
-            <!-- SVG icon here -->
-             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
-        </div>
-        <h3 class="text-lg font-semibold mb-2">Anda Berhasil Logout</h3>
-        <p class="text-gray-600 text-sm">Anda akan dialihkan ke halaman login.</p>
-    </div>
-</div>
 
+        <!-- Modal Notifikasi Lite Mode -->
+        <div id="lite-mode-modal" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-bell-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-blue-600">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.964 3.785 1.517 5.455 1.31A23.847 23.847 0 0018 17.082" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Lite Mode Sudah Diaktifkan</h3>
+                <p class="text-gray-600 text-sm">Silahkan akses kembali materi tersebut</p>
+            </div>
+        </div>
+        <!-- Modal Notifikasi Logout -->
+        <div id="logout-modal" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-bell-icon">
+                    <!-- SVG icon here -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Anda Berhasil Logout</h3>
+                <p class="text-gray-600 text-sm">Anda akan dialihkan ke halaman login.</p>
+            </div>
+        </div>
     </aside>
 
     <!-- Konten Utama (disesuaikan agar tidak tertutup sidebar) -->
@@ -266,17 +262,18 @@
         <div class="card p-8">
             <div class="flex flex-col md:flex-row items-start md:space-x-8">
                 <div class="mb-6 md:mb-0 w-full md:w-1/3">
-                    <img src="https://placehold.co/400x300/E2E8F0/A0AEC0?text=Video+Materi" alt="Video Placeholder" class="rounded-lg w-full">
+                    <!-- Image of headphones on a book -->
+                    <img src="https://placehold.co/400x300/E2E8F0/A0AEC0?text=Visualisasi+Data" alt="Video Placeholder" class="rounded-lg w-full">
                 </div>
                 <div class="w-full md:w-2/3">
-                    <h1 class="text-4xl font-bold text-gray-800 mb-2">Programming A </h1>
+                    <h1 class="text-4xl font-bold text-gray-800 mb-2">Dasar Pemrograman A</h1>
                     <div class="flex items-center text-gray-500 mb-4 text-sm">
                         <span class="text-purple-500 font-medium mr-2">Auditori</span>
                         <div class="flex items-center text-yellow-400 mr-2">
                         </div>
                     </div>
                     <div class="flex space-x-4">
-                    <button class="bg-[#4182F9] text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-[#3469d6] transition duration-300" onclick="window.location.href='materi-audiotori.html'">Mulai Belajar</button>
+                        <button class="bg-[#1470F9] text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-[#3469d6] transition duration-300" onclick="window.location.href='/format konten/audio-a.html'">Mulai Belajar</button>
                     </div>
                 </div>
             </div>
@@ -339,12 +336,12 @@
                         </div>
                     </div>
                 </div>
-                <!-- Bagian Progres Belajar -->
+                <!-- Bagian Progress Belajar -->
                 <div class="card">
-                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Progres Belajar</h2>
-                    <p class="text-gray-600 mb-2">0% Selesai</p>
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Progress Belajar</h2>
+                    <div class="text-sm font-medium text-gray-600 mb-2">0% Selesai</div>
                     <div class="progress-bar-container">
-                        <div id="learning-progress" class="progress-bar" style="width: 0%;"></div>
+                        <div class="progress-bar w-[0%]"></div>
                     </div>
                 </div>
                 <!-- Bagian Rekomendasi -->
@@ -353,16 +350,15 @@
                     <div class="flex items-center space-x-4">
                         <img src="https://placehold.co/100x70/FF8C9C/FFFFFF?text=Rekomendasi" alt="Gambar Rekomendasi" class="w-24 h-auto rounded-lg">
                         <div>
-                            <p class="font-medium text-gray-800">Dasar Pemrograman Visual</p>
+                            <p class="font-medium text-gray-800">Dasar Teknik Pemrograman</p>
                             <p class="text-sm text-gray-500">Tingkat Lanjut</p>
                         </div>
                     </div>
                 </div>
             </div>
-            
         </div>
-        
     </div>
+
     <script>
         // Fungsi untuk mengontrol accordion (bab materi)
         function toggleAccordion(id) {
@@ -379,18 +375,18 @@
             }
         }
         // JavaScript untuk menangani fungsi logout
-const logoutButton = document.getElementById('logoutButton');
-const logoutModal = document.getElementById('logout-modal');
-if (logoutButton) {
-    logoutButton.addEventListener('click', function() {
-        // Tampilkan modal notifikasi logout
-        logoutModal.style.display = 'flex';
-        // Mengarahkan pengguna kembali ke halaman login setelah 3 detik
-        setTimeout(() => {
-            window.location.href = 'login.html';
-        }, 3000);
-    });
-}
+        const logoutButton = document.getElementById('logoutButton');
+        const logoutModal = document.getElementById('logout-modal');
+        if (logoutButton) {
+            logoutButton.addEventListener('click', function() {
+                // Tampilkan modal notifikasi logout
+                logoutModal.style.display = 'flex';
+                // Mengarahkan pengguna kembali ke halaman login setelah 3 detik
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 3000);
+            });
+        }
         
         // Event listener for Lite Mode toggle
         const liteModeToggle = document.getElementById('lite-mode-toggle');
@@ -405,10 +401,8 @@ if (logoutButton) {
                         liteModeModal.style.display = 'none';
                     }, 3000);
                 }
-                // Anda bisa menambahkan lebih banyak logika di sini untuk mengganti tema, dll.
             });
         }
     </script>
-
 </body>
 </html>

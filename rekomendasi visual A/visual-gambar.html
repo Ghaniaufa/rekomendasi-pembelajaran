@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Halaman Materi Gambar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body{font-family:'Inter',sans-serif;background:#F8F9FA;color:#333;overflow:hidden;}
+        .main-container{display:flex;height:100vh;}
+        .sidebar{width:25%;background:#1470F9;border-right:1px solid #E2E8F0;overflow-y:auto;display:flex;flex-direction:column;padding:1rem;color:#fff}
+        .sidebar a{color:#fff}
+        .sidebar a:hover{background-color:rgba(255,255,255,.18)}
+        .playlist-item{display:flex;align-items:center;border-radius:.5rem;padding:.75rem;margin-bottom:.75rem;cursor:pointer;transition:all .2s;position:relative}
+        .playlist-item:hover{background:#E2E8F0}
+        .playlist-item.active{background:#3B82F6;color:#fff;box-shadow:0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1)}
+        .playlist-item .video-progress-bar{height:4px;background:#6B7280;position:absolute;left:0;bottom:0;transition:width .3s}
+        .content-container{flex:1;display:flex;flex-direction:column;background:#fff}
+        .content-scroll{padding:1.5rem;flex-grow:1;overflow-y:auto}
+        .image-container{flex-shrink: 0; display: flex; justify-content: center; align-items: center; padding: 2rem;}
+        .image-container img { max-width: 100%; height: auto; border-radius: 0.5rem; }
+        .toggle-switch{position:relative;display:inline-block;width:44px;height:24px}
+        .toggle-switch input{opacity:0;width:0;height:0}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#4a5568;transition:.4s;border-radius:24px}
+        .toggle-slider:before{content:'';position:absolute;height:20px;width:20px;left:2px;bottom:2px;background:#fff;transition:.4s;border-radius:50%}
+        input:checked + .toggle-slider{background:#20235c}
+        input:checked + .toggle-slider:before{transform:translateX(20px)}
+        .badge{font-size:.75rem}
+    </style>
+</head>
+<body class="main-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2 class="text-2xl font-bold mb-4">Daftar Materi</h2>
+        <div id="playlist" class="flex-grow overflow-y-auto"></div>
+
+        <div class="mt-auto pt-4 border-t border-white/30">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-sm font-medium">Lite Mode</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="lite-mode-toggle">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <a href="profile.html"
+               class="p-3 rounded-lg flex items-center hover:bg-white/20 transition-colors">
+                <img src="https://placehold.co/40x40/94a3b8/ffffff?text=U"
+                     class="w-10 h-10 rounded-full mr-3" alt="User"/>
+                <div class="flex-grow">
+                    <p class="font-medium">Culaccino_</p>
+                    <p class="text-sm text-white/80">UX Designer</p>
+                </div>
+            </a>
+
+            <button id="logoutButton"
+                    class="w-full p-3 rounded-lg bg-red-500 text-white mt-2 flex items-center justify-center">
+                <i class="fa-solid fa-right-from-bracket mr-2"></i> Keluar
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="content-container">
+        <!-- Header dengan tombol kembali dan format switcher -->
+        <div class="p-4 flex items-center justify-between bg-gray-200 border-b border-gray-300">
+            <!-- BACK BUTTON (selalu ke halaman yang ditentukan, tidak pakai history) -->
+            <button type="button" onclick="goBack('/rekomendasi-pembelajaran-hasil.html')"
+               class="bg-gray-300 text-gray-800 p-3 rounded-full hover:bg-gray-400">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <div class="flex justify-center space-x-4">
+                <a href="/rekomendasi visual A/materi-visual-rekomendasi.html"
+                   class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100">Video</a>
+                   <a href="/rekomendasi visual A/visual-audio.html" class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100">Audio</a>
+                <a href="/rekomendasi visual A/visual-gambar.html"
+                   class="px-6 py-2 rounded-full font-medium text-white bg-[#1470F9] shadow-md hover:bg-[#0f54b6]">Gambar</a>
+                <a href="/rekomendasi visual A/visual-teks.html"
+                   class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100">Teks</a>
+                <a href="/rekomendasi visual A/visual-praktik.html"
+                   class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100">Praktik Langsung</a>
+            </div>
+        </div>
+
+        <div class="image-container">
+            <img id="materi-gambar" src="https://placehold.co/800x450/B0E0E6/000?text=Gambar+Materi" alt="Gambar Materi">
+        </div>
+        
+        <div class="content-scroll">
+            <h1 id="materi-title" class="text-3xl font-bold text-gray-800 mb-2"></h1>
+            <p id="materi-desc" class="text-gray-600 mb-4"></p>
+
+            <!-- Navigasi -->
+            <div class="mt-8 p-4 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-between">
+                <button id="prev-btn" class="bg-gray-300 text-gray-800 p-3 rounded-full hover:bg-gray-400">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <div class="flex items-center space-x-4">
+                    <img id="next-thumb" src="https://placehold.co/80x50/FFF/000?text=Next" class="rounded-md" alt="Next"/>
+                    <div>
+                        <p class="text-sm text-gray-600 font-medium">Selanjutnya</p>
+                        <p id="next-title" class="font-semibold text-gray-800">Materi Selanjutnya</p>
+                    </div>
+                </div>
+                <button id="next-btn" class="bg-gray-300 text-gray-800 p-3 rounded-full hover:bg-gray-400">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ====== Tombol Back: selalu ke URL yang ditentukan ======
+        // options.replace === true => gunakan window.location.replace
+        function goBack(url = '/materi-pembelajaran.html', options = { replace: false }) {
+            // Encode spasi agar path seperti "/format konten/.." aman
+            const safeUrl = url.replace(/\s/g, '%20');
+            if (options.replace) {
+                window.location.replace(safeUrl);
+            } else {
+                window.location.href = safeUrl;
+            }
+        }
+
+        // ====== Data contoh playlist ======
+        const playlistData = [
+            {
+                id: '1',
+                title: 'BAB 1 : Pengenalan Algoritma',
+                description: 'Gambar ini menjelaskan konsep pengenalan Algoritma.',
+                progress: 100,
+                thumbnail: 'https://placehold.co/160x90/B0E0E6/000?text=GAMBAR',
+                imageUrl: 'https://placehold.co/800x450/B0E0E6/000?text=Konsep+Vektor'
+            },
+            {
+                id: '2',
+                title: 'BAB 2 : Struktur Kontrol Algoritma',
+                description: 'Gambar ini menjelaskan konsep kontrol Algoritma.',
+                progress: 50,
+                thumbnail: 'https://placehold.co/160x90/ADD8E6/000?text=GAMBAR',
+                imageUrl: 'https://placehold.co/800x450/ADD8E6/000?text=Penguraian+Vektor'
+            },
+        ];
+
+        let currentIndex = 0;
+
+        const playlistEl = document.getElementById('playlist');
+        const materiImageEl = document.getElementById('materi-gambar');
+        const titleEl = document.getElementById('materi-title');
+        const descEl = document.getElementById('materi-desc');
+        const nextTitleEl = document.getElementById('next-title');
+        const nextThumbEl = document.getElementById('next-thumb');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        
+        function renderPlaylist() {
+            playlistEl.innerHTML = '';
+            playlistData.forEach((p, idx) => {
+                const item = document.createElement('div');
+                item.className = `playlist-item ${idx === currentIndex ? 'active' : ''}`;
+                item.id = `pl-${idx}`;
+                item.innerHTML = `
+                    <div class="relative w-24 h-16 mr-4 flex-shrink-0">
+                        <img src="${p.thumbnail}" class="w-full h-full object-cover rounded-md" alt="thumb">
+                        <div class="absolute inset-0 bg-black/30 rounded-md flex items-center justify-center">
+                            <i class="fa-solid fa-image text-white text-xl"></i>
+                        </div>
+                        <div class="video-progress-bar" style="width:${p.progress}%;"></div>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="font-medium text-sm">${p.title}</p>
+                    </div>`;
+                item.addEventListener('click', () => loadMateri(idx));
+                playlistEl.appendChild(item);
+            });
+        }
+
+        function loadMateri(idx) {
+            const p = playlistData[idx];
+            if(!p) return;
+            currentIndex = idx;
+            
+            // Update active item in playlist
+            document.querySelectorAll('.playlist-item').forEach(i => i.classList.remove('active'));
+            document.getElementById(`pl-${idx}`).classList.add('active');
+
+            // Update main content
+            materiImageEl.src = p.imageUrl;
+            titleEl.textContent = p.title;
+            descEl.textContent = p.description;
+
+            // Update next/prev buttons
+            if (idx + 1 < playlistData.length) {
+                nextTitleEl.textContent = playlistData[idx + 1].title;
+                nextThumbEl.src = playlistData[idx + 1].thumbnail;
+                nextBtn.style.display = 'block';
+            } else {
+                nextTitleEl.textContent = 'Tidak ada materi selanjutnya';
+                nextThumbEl.src = 'https://placehold.co/80x50/FFF/000?text=Next';
+                nextBtn.style.display = 'none';
+            }
+
+            if (idx > 0) {
+                prevBtn.style.display = 'block';
+            } else {
+                prevBtn.style.display = 'none';
+            }
+
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        
+        nextBtn.addEventListener('click', () => loadMateri(currentIndex + 1));
+        prevBtn.addEventListener('click', () => loadMateri(currentIndex - 1));
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPlaylist();
+            loadMateri(0);
+        });
+
+        // ====== Logout Notifikasi demo ======
+        document.getElementById('logoutButton')?.addEventListener('click', () => {
+            const notif = document.createElement('div');
+            notif.innerHTML = `
+                <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+                    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                        <div class="mt-3 text-center">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">Notifikasi</h3>
+                            <div class="mt-2 px-7 py-3">
+                                <p class="text-sm text-gray-500">Anda berhasil logout. (Contoh notifikasi)</p>
+                            </div>
+                            <div class="items-center px-4 py-3">
+                                <button onclick="goBack('/materi-pembelajaran.html')" class="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
+                                    OK
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            document.body.appendChild(notif);
+        });
+    </script>
+</body>
+</html>
