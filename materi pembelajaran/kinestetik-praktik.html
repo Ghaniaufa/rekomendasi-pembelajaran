@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Format Konten • Praktik Langsung</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body{font-family:'Inter',sans-serif;background:#F8F9FA;color:#333;overflow:hidden;}
+        .main-container{display:flex;height:100vh;}
+        .sidebar{width:25%;background:#1470F9;border-right:1px solid #E2E8F0;overflow-y:auto;display:flex;flex-direction:column;padding:1rem;color:#fff}
+        .sidebar a{color:#fff}
+        .sidebar a:hover{background-color:rgba(255,255,255,.18)}
+        .playlist-item{display:flex;align-items:center;border-radius:.5rem;padding:.75rem;margin-bottom:.75rem;cursor:pointer;transition:all .2s;position:relative}
+        .playlist-item:hover{background:#E2E8F0}
+        .playlist-item.active{background:#3B82F6;color:#fff;box-shadow:0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1)}
+        .playlist-item .video-progress-bar{height:4px;background:#6B7280;position:absolute;left:0;bottom:0;transition:width .3s}
+        .video-player-container{flex:1;display:flex;flex-direction:column;background:#fff}
+        .video-wrapper{position:relative;padding-top:40%;background:#000}
+        .video-wrapper video{position:absolute;inset:0;width:100%;height:100%}
+        .content-scroll{padding:1.5rem;flex-grow:1;overflow-y:auto}
+        .toggle-switch{position:relative;display:inline-block;width:44px;height:24px}
+        .toggle-switch input{opacity:0;width:0;height:0}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#4a5568;transition:.4s;border-radius:24px}
+        .toggle-slider:before{content:'';position:absolute;height:20px;width:20px;left:2px;bottom:2px;background:#fff;transition:.4s;border-radius:50%}
+        input:checked + .toggle-slider{background:#20235c}
+        input:checked + .toggle-slider:before{transform:translateX(20px)}
+        .badge{font-size:.75rem}
+        .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:50}
+    </style>
+</head>
+<body class="main-container">
+
+    <aside class="sidebar">
+        <h2 class="text-2xl font-bold mb-4">Daftar Materi</h2>
+        <div id="playlist" class="flex-grow overflow-y-auto"></div>
+
+        <div class="mt-auto pt-4 border-t border-white/30">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-sm font-medium">Lite Mode</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="lite-mode-toggle">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <a href="profile.html"
+               class="p-3 rounded-lg flex items-center hover:bg-white/20 transition-colors">
+                <img src="https://placehold.co/40x40/94a3b8/ffffff?text=U"
+                     class="w-10 h-10 rounded-full mr-3" alt="User"/>
+                <div class="flex-grow">
+                    <p class="font-medium">Culaccino_</p>
+                    <p class="text-sm text-white/80">UX Designer</p>
+                </div>
+            </a>
+
+            <button id="logoutButton"
+                    class="w-full p-3 rounded-lg bg-red-500 text-white mt-2 flex items-center justify-center">
+                <i class="fa-solid fa-right-from-bracket mr-2"></i> Keluar
+            </button>
+        </div>
+    </aside>
+
+    <main class="video-player-container">
+        <!-- Toolbar: Back + Switcher -->
+        <div class="p-4 flex items-center justify-between bg-gray-200 border-b border-gray-300">
+            <!-- Tombol Back ke halaman tertentu (bukan history.back) -->
+            <button type="button"
+                    onclick="goBack('/materi-pembelajaran.html')"
+                    class="bg-gray-300 text-gray-800 p-3 rounded-full hover:bg-gray-400">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <div class="flex justify-center space-x-4">
+                <a href="/materi pembelajaran/materi-kinestetik.html"
+                   class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100">Video</a>
+                <a href="/materi pembelajaran/kinestetik-audio.html" 
+                class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100">Audio</a>
+                <a href="/materi pembelajaran/kinestetik-gambar.html"
+                   class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100">Gambar</a>
+                <a href="/materi pembelajaran/kinestetik-teks.html"
+                   class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100">Teks</a>
+                <a href="/materi pembelajaran/kinestetik-praktik.html"
+                   class="px-6 py-2 rounded-full font-medium text-white bg-[#1470F9] shadow-md hover:bg-[#0f54b6]">Praktik Langsung</a>
+            </div>
+        </div>
+
+        <div class="relative w-full">
+            <div class="video-wrapper">
+                <video id="video-player" controls>
+                    <source src="praktik-1.mp4" type="video/mp4"/>
+                    Browser Anda tidak mendukung video.
+                </video>
+            </div>
+        </div>
+
+        <div class="content-scroll">
+            <h1 id="practice-title" class="text-3xl font-bold text-gray-800 mb-2">Praktik Langsung: Teks Argumentasi</h1>
+            <p id="practice-desc" class="text-gray-600 mb-4">
+                Uji pemahaman Anda setelah menonton video, kemudian jawab pertanyaan di bawah ini.
+            </p>
+
+            <!-- (DIHAPUS) Baris poin & kesulitan -->
+
+            <section id="quiz" class="space-y-4"></section>
+
+            <div class="mt-6 flex flex-wrap gap-3">
+                <button id="submitQuiz"
+                        class="bg-[#1470F9] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#0f54b6]">
+                    Periksa Jawaban
+                </button>
+                <button id="resetQuiz"
+                        class="bg-gray-200 text-gray-800 font-semibold px-6 py-3 rounded-lg hover:bg-gray-300">
+                    Coba Lagi
+                </button>
+            </div>
+
+            <div class="mt-8 p-4 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img id="next-thumb" src="https://placehold.co/80x50/FFF/000?text=Next" class="rounded-md" alt="Next"/>
+                    <div>
+                        <p class="text-sm text-gray-600 font-medium">Selanjutnya</p>
+                        <p id="next-title" class="font-semibold text-gray-800">Materi Selanjutnya</p>
+                    </div>
+                </div>
+                <button id="next-btn" class="bg-gray-300 text-gray-800 p-3 rounded-full hover:bg-gray-400">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <div id="score-modal" class="modal-overlay">
+        <div class="bg-white rounded-xl p-6 w-[90%] max-w-md text-center">
+            <div id="score-icon"
+                 class="w-16 h-16 mx-auto mb-3 rounded-full flex items-center justify-center border"></div>
+            <h3 id="score-title" class="text-xl font-semibold mb-1"></h3>
+            <p id="score-desc" class="text-gray-600"></p>
+            <button id="close-modal"
+                    class="mt-5 px-5 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 font-medium">
+                Tutup
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ===== Tombol Back: arahkan ke URL tertentu =====
+        function goBack(url = '/materi-pembelajaran.html', options = { replace: false }) {
+            const safeUrl = url.replace(/\s/g, '%20'); // encode spasi
+            if (options.replace) window.location.replace(safeUrl);
+            else window.location.href = safeUrl;
+        }
+
+        // ===== Data =====
+        const practices = [
+    {
+        id: 'p1',
+        title: 'BAB 1 : Pengenalan Algoritma',
+        description: 'Gambar ini menjelaskan konsep pengenalan Algoritma.',
+        progress: 60,
+        thumbnail: 'https://placehold.co/160x90/1f2937/ffffff?text=PRAKTIK',
+        videoUrl: 'praktik-1.mp4',
+        quiz: [
+            {
+                q: 'Apa yang dimaksud dengan algoritma?',
+                options: [
+                    'Bahasa pemrograman tingkat tinggi',
+                    'Langkah-langkah sistematis untuk menyelesaikan masalah',
+                    'Instruksi komputer berbentuk kode mesin',
+                    'Hanya perintah dalam bentuk diagram alir'
+                ],
+                answer: 1
+            },
+            {
+                q: 'Ciri utama dari algoritma yang baik adalah…',
+                options: [
+                    'Langkah-langkahnya jelas dan berurutan',
+                    'Menggunakan bahasa pemrograman tertentu',
+                    'Hanya bisa dijalankan oleh komputer',
+                    'Harus selalu dalam bentuk diagram'
+                ],
+                answer: 0
+            },
+            {
+                q: 'Contoh penerapan algoritma dalam kehidupan sehari-hari adalah…',
+                options: [
+                    'Membaca buku cerita',
+                    'Membuat resep masakan dengan langkah-langkah urut',
+                    'Menonton televisi',
+                    'Menggambar bebas tanpa aturan'
+                ],
+                answer: 1
+            },
+            {
+                q: 'Struktur penyajian algoritma dapat dituliskan dalam bentuk…',
+                options: [
+                    'Puisi dan cerita',
+                    'Pseudocode atau diagram alir',
+                    'Gambar pemandangan',
+                    'Hanya bahasa pemrograman Python'
+                ],
+                answer: 1
+            },
+            {
+                q: 'Tujuan utama mempelajari algoritma adalah…',
+                options: [
+                    'Menambah koleksi kode program',
+                    'Memahami cara berpikir logis dalam pemecahan masalah',
+                    'Meningkatkan kemampuan menggambar',
+                    'Menghafal semua bahasa pemrograman'
+                ],
+                answer: 1
+            }
+        ]
+    },
+    {
+        id: 'p2',
+        title: 'BAB 2 : Struktur Kontrol Algoritma',
+        description: 'Gambar ini menjelaskan konsep kontrol Algoritma.',
+        progress: 10,
+        thumbnail: 'https://placehold.co/160x90/334155/ffffff?text=PRAKTIK',
+        videoUrl: 'praktik-2.mp4',
+        quiz: [
+            {
+                q: 'Struktur kontrol percabangan digunakan untuk…',
+                options: [
+                    'Menjalankan perintah secara berulang',
+                    'Menentukan pilihan jalannya algoritma berdasarkan kondisi',
+                    'Mengurutkan data secara otomatis',
+                    'Menghentikan program secara paksa'
+                ],
+                answer: 1
+            },
+            {
+                q: 'Struktur kontrol perulangan (looping) berfungsi untuk…',
+                options: [
+                    'Mengulang instruksi sampai kondisi tertentu terpenuhi',
+                    'Menjalankan hanya satu instruksi sekali saja',
+                    'Mengatur tampilan antarmuka program',
+                    'Menentukan variabel dalam algoritma'
+                ],
+                answer: 0
+            }
+        ]
+    }
+];
+
+
+        // ===== Elements =====
+        const playlistEl = document.getElementById('playlist');
+        const videoEl = document.getElementById('video-player');
+        const titleEl = document.getElementById('practice-title');
+        const descEl = document.getElementById('practice-desc');
+        const quizEl = document.getElementById('quiz');
+        const nextTitleEl = document.getElementById('next-title');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submitQuiz');
+        const resetBtn = document.getElementById('resetQuiz');
+        const scoreModal = document.getElementById('score-modal');
+        const scoreIcon = document.getElementById('score-icon');
+        const scoreTitle = document.getElementById('score-title');
+        const scoreDesc = document.getElementById('score-desc');
+        const closeModal = document.getElementById('close-modal');
+
+        let currentIndex = 0;
+
+        // ===== Render Playlist =====
+        function renderPlaylist() {
+            playlistEl.innerHTML = '';
+            practices.forEach((p, idx) => {
+                const item = document.createElement('div');
+                item.className = `playlist-item ${idx === currentIndex ? 'active' : ''}`;
+                item.id = `pl-${idx}`;
+                item.innerHTML = `
+                    <div class="relative w-24 h-16 mr-4 flex-shrink-0">
+                        <img src="${p.thumbnail}" class="w-full h-full object-cover rounded-md" alt="thumb">
+                        <div class="absolute inset-0 bg-black/30 rounded-md flex items-center justify-center">
+                            <i class="fa-solid fa-graduation-cap text-white text-xl"></i>
+                        </div>
+                        <div class="video-progress-bar" style="width:${p.progress}%;"></div>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="font-medium text-sm">${p.title}</p>
+                        <!-- (DIHAPUS) badge coins & star -->
+                    </div>`;
+                item.addEventListener('click', () => loadPractice(idx));
+                playlistEl.appendChild(item);
+            });
+        }
+
+        // ===== Load Practice =====
+        function loadPractice(idx) {
+            const p = practices[idx];
+            if (!p) return;
+            currentIndex = idx;
+
+            // Active item
+            document.querySelectorAll('.playlist-item').forEach(i => i.classList.remove('active'));
+            document.getElementById(`pl-${idx}`).classList.add('active');
+
+            // Meta
+            titleEl.textContent = p.title;
+            descEl.textContent = p.description;
+
+            // Video
+            videoEl.src = p.videoUrl;
+
+            // Next
+            if (idx + 1 < practices.length) {
+                nextTitleEl.textContent = practices[idx + 1].title;
+                nextBtn.style.display = 'block';
+            } else {
+                nextTitleEl.textContent = 'Tidak ada materi selanjutnya';
+                nextBtn.style.display = 'none';
+            }
+
+            // Quiz
+            renderQuiz(p.quiz);
+            resetQuiz();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ===== Render Quiz =====
+        function renderQuiz(questions) {
+            quizEl.innerHTML = '';
+            questions.forEach((q, qi) => {
+                const card = document.createElement('div');
+                card.className = 'bg-gray-100 rounded-xl border border-gray-200';
+                card.id = `card-${qi}`;
+                card.innerHTML = `
+                    <div class="p-4 border-b border-gray-200 flex items-start justify-between">
+                        <p class="font-semibold text-gray-800">${qi + 1}. ${q.q}</p>
+                        <span id="mark-${qi}" class="hidden ml-3 shrink-0"></span>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        ${q.options.map((opt, oi) => `
+                            <label class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-200 cursor-pointer">
+                                <input type="radio" name="q-${qi}" value="${oi}" class="h-4 w-4">
+                                <span>${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>`;
+                quizEl.appendChild(card);
+            });
+        }
+
+        // ===== Evaluate Quiz =====
+        function evaluate() {
+            const qList = practices[currentIndex].quiz;
+            let correct = 0;
+            qList.forEach((q, qi) => {
+                const selected = document.querySelector(`input[name="q-${qi}"]:checked`);
+                const card = document.getElementById(`card-${qi}`);
+                const mark = document.getElementById(`mark-${qi}`);
+                card.classList.remove('ring-2', 'ring-red-400', 'ring-green-500', 'bg-red-50', 'bg-green-50');
+                mark.className = 'ml-3 shrink-0';
+
+                if (selected && Number(selected.value) === q.answer) {
+                    correct++;
+                    card.classList.add('ring-2', 'ring-green-500', 'bg-green-50');
+                    mark.innerHTML = `<span class="inline-flex items-center text-green-700 text-sm"><i class="fa-solid fa-circle-check mr-1"></i> Benar</span>`;
+                } else {
+                    card.classList.add('ring-2', 'ring-red-400', 'bg-red-50');
+                    mark.innerHTML = `<span class="inline-flex items-center text-red-700 text-sm"><i class="fa-solid fa-circle-xmark mr-1"></i> Salah</span>`;
+                }
+                mark.classList.remove('hidden');
+            });
+
+            const total = qList.length;
+            const full = correct === total;
+            scoreModal.style.display = 'flex';
+
+            scoreIcon.className = `w-16 h-16 mx-auto mb-3 rounded-full flex items-center justify-center border ${
+                full ? 'bg-green-50 border-green-200 text-green-600' : 'bg-yellow-50 border-yellow-200 text-yellow-600'
+            }`;
+            scoreIcon.innerHTML = `<i class="fa-solid ${full ? 'fa-check' : 'fa-circle-exclamation'} text-2xl"></i>`;
+            scoreTitle.textContent = full ? 'Mantap! Semua benar 🎉' : 'Ringkasan Nilai';
+            scoreDesc.textContent = `Skor kamu: ${correct} / ${total}. ${full ? 'Lanjut ke materi berikutnya.' : 'Periksa kembali jawaban yang salah, lalu coba lagi.'}`;
+        }
+
+        // ===== Reset Quiz =====
+        function resetQuiz() {
+            document.querySelectorAll('#quiz input[type="radio"]').forEach(i => { i.checked = false; });
+            practices[currentIndex].quiz.forEach((_, qi) => {
+                const card = document.getElementById(`card-${qi}`);
+                const mark = document.getElementById(`mark-${qi}`);
+                card.classList.remove('ring-2', 'ring-red-400', 'ring-green-500', 'bg-red-50', 'bg-green-50');
+                mark.className = 'hidden ml-3 shrink-0';
+                mark.innerHTML = '';
+            });
+        }
+
+        // ===== Next handler =====
+        nextBtn.addEventListener('click', () => loadPractice(currentIndex + 1));
+
+        // Buttons
+        document.getElementById('submitQuiz').addEventListener('click', evaluate);
+        document.getElementById('resetQuiz').addEventListener('click', resetQuiz);
+        document.getElementById('close-modal').addEventListener('click', () => scoreModal.style.display = 'none');
+        scoreModal.addEventListener('click', (e) => { if (e.target === scoreModal) scoreModal.style.display = 'none'; });
+
+        // Sidebar: logout demo
+        document.getElementById('logoutButton')?.addEventListener('click', () => {
+            const notif = document.createElement('div');
+            notif.innerHTML = `
+                <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+                    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                        <div class="mt-3 text-center">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">Notifikasi</h3>
+                            <div class="mt-2 px-7 py-3">
+                                <p class="text-sm text-gray-500">Anda berhasil logout. (Contoh notifikasi)</p>
+                            </div>
+                            <div class="items-center px-4 py-3">
+                                <button onclick="goBack('login.html', { replace: true })" class="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
+                                    OK
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            document.body.appendChild(notif);
+        });
+
+        // Init
+        (function init() {
+            renderPlaylist();
+            loadPractice(0);
+        })();
+    </script>
+</body>
+</html>
