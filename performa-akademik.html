@@ -250,7 +250,7 @@
     <!-- Main Content -->
     <main class="main-content flex-1 p-8 pl-72">
         <div class="bg-white p-8 rounded-xl shadow-lg">
-            <h1 class="text-2xl font-bold text-gray-800 mb-6">Profil Gaya Belajar</h1>
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">Profil Performa Akademik</h1>
 
             <!-- Question Navigation -->
             <div class="mb-8">
@@ -301,8 +301,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.964 3.785 1.517 5.455 1.31A23.847 23.847 0 0018 17.082" />
                 </svg>
             </div>
-            <h3 class="text-lg font-semibold mb-2">Pengisian Gaya Belajar kamu sudah selesai.</h3>
-            <p class="text-gray-600 text-sm">Silahkan Lanjut ke Halaman Performa Akademik kamu</p>
+            <h3 class="text-lg font-semibold mb-2">Pengisian Gaya Belajar dan Perfroma Akademik kamu sudah selesai.</h3>
+            <p class="text-gray-600 text-sm">Silahkan cek di Halaman Dashboard</p>
         </div>
     </div>
 
@@ -333,16 +333,16 @@
         
         // Array of questions
         const questions = [
-            "1. Saya lebih paham jika mencoba langsung daripada hanya membaca teori.",
-            "2. Saya sering menggambarkan konsep dengan skema visual.",
-            "3. Saya terbiasa menyimak podcast, audio, atau penjelasan lisan.",
-            "4. Saya memahami materi dengan mengerjakan latihan langsung.",
-            "5. Saya lebih nyaman belajar dari modul teks daripada menonton video penjelasan.",
-            "6. Saya suka membuat rangkuman dalam bentuk teks ketika belajar hal baru.",
-            "7. Saya terbantu ketika melihat contoh diagram atau alur proses.",
-            "8. Saya merasa lebih paham jika berdiskusi langsung dengan orang lain.",
-            "9. Saya belajar lebih cepat saat diberi kesempatan mencoba dan membuat kesalahan.",
-            "10. Saya merasa mudah memahami materi jika saya menulis ulang dengan kata-kata saya sendiri."
+            "1. Saya dapat memahami dan menyelesaikan soal logika berpola (pattern logic) seperti deret angka atau simbol.",
+            "2. Saya mampu memecahkan masalah algoritmik sederhana seperti menemukan pola urutan dalam teka-teki logika.",
+            "3. Saya dapat membuat keputusan logis berdasarkan kondisi tertentu (if-then-else).",
+            "4.	Saya terbiasa menyelesaikan persoalan logika seperti puzzle, Sudoku, atau permainan strategi.",
+            "5.	Saya bisa memetakan suatu masalah ke dalam bentuk langkah-langkah logis (algoritmik).",
+            "6.	Saya memahami konsep variabel, tipe data, dan operator dalam bahasa pemrograman.",
+            "7. Saya dapat membuat program sederhana menggunakan perulangan dan percabangan.",
+            "8. Saya mengerti perbedaan antara array dan list, serta dapat menggunakannya sesuai kebutuhan.",
+            "9. Saya memahami konsep fungsi/subprogram dan cara penggunaannya dalam pemrograman.",
+            "10. Saya dapat menulis pseudocode atau flowchart dari suatu masalah sederhana. (cara penilaian hasil dari chart pie, dari penilaian angka)"
         ];
 
         let currentQuestionIndex = 0;
@@ -399,7 +399,7 @@
                 notificationModal.style.display = 'flex';
                 // Redirect after a delay
                 setTimeout(() => {
-                    window.location.href = 'sebelum-performa-akademik.html'; // Redirect to the main page
+                    window.location.href = 'indexhasil.html'; // Redirect to the main page
                 }, 3000); // 3 seconds delay
             }
         });
