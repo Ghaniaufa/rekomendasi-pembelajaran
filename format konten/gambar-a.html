@@ -29,6 +29,12 @@
         input:checked + .toggle-slider{background:#20235c}
         input:checked + .toggle-slider:before{transform:translateX(20px)}
         .badge{font-size:.75rem}
+
+        /* Efek visual ringan saat Lite Mode ON (opsional) */
+        body.lite .content-scroll,
+        body.lite .playlist-item,
+        body.lite .sidebar { filter: saturate(0.9); }
+        body.lite .playlist-item { box-shadow: none !important; }
     </style>
 </head>
 <body class="main-container">
@@ -114,17 +120,22 @@
         </div>
     </main>
 
+    <!-- Modal Notifikasi Lite Mode -->
+    <div id="lite-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50">
+        <div class="bg-white rounded-xl p-5 w-[90%] max-w-sm text-center shadow-lg">
+            <div class="w-14 h-14 mx-auto mb-3 rounded-full flex items-center justify-center bg-emerald-50 text-emerald-600">
+                <i class="fa-solid fa-bolt text-xl"></i>
+            </div>
+            <h3 id="lite-modal-title" class="text-lg font-semibold mb-1">Lite Mode Diaktifkan</h3>
+            <p id="lite-modal-desc" class="text-sm text-gray-600">Mode ringan sudah menyala. Beberapa efek visual diperkecil.</p>
+        </div>
+    </div>
+
     <script>
         // ====== Tombol Back: selalu ke URL yang ditentukan ======
-        // options.replace === true => gunakan window.location.replace
         function goBack(url = '/materi-pembelajaran.html', options = { replace: false }) {
-            // Encode spasi agar path seperti "/format konten/.." aman
             const safeUrl = url.replace(/\s/g, '%20');
-            if (options.replace) {
-                window.location.replace(safeUrl);
-            } else {
-                window.location.href = safeUrl;
-            }
+            options.replace ? window.location.replace(safeUrl) : window.location.href = safeUrl;
         }
 
         // ====== Data contoh playlist ======
@@ -220,6 +231,41 @@
         document.addEventListener('DOMContentLoaded', () => {
             renderPlaylist();
             loadMateri(0);
+
+            // ===== Lite Mode + Modal =====
+            const toggle = document.getElementById('lite-mode-toggle');
+            const liteModal = document.getElementById('lite-modal');
+            const titleElM = document.getElementById('lite-modal-title');
+            const descElM = document.getElementById('lite-modal-desc');
+
+            // Init dari localStorage
+            try {
+                const saved = localStorage.getItem('lite_mode');
+                if (saved === '1') {
+                    toggle.checked = true;
+                    document.body.classList.add('lite');
+                }
+            } catch {}
+
+            function showLiteModal(on = true) {
+                titleElM.textContent = on ? 'Lite Mode Diaktifkan' : 'Lite Mode Dimatikan';
+                descElM.textContent = on
+                    ? 'Mode ringan sudah menyala. Beberapa efek visual diperkecil.'
+                    : 'Mode ringan dimatikan. Tampilan kembali normal.';
+                liteModal.classList.remove('hidden');
+                liteModal.classList.add('flex');
+                setTimeout(() => {
+                    liteModal.classList.add('hidden');
+                    liteModal.classList.remove('flex');
+                }, 2000);
+            }
+
+            toggle.addEventListener('change', (e) => {
+                const on = e.target.checked;
+                document.body.classList.toggle('lite', on);
+                try { localStorage.setItem('lite_mode', on ? '1' : '0'); } catch {}
+                showLiteModal(on);
+            });
         });
 
         // ====== Logout Notifikasi demo ======

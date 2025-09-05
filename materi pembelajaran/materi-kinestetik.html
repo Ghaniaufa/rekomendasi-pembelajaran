@@ -38,6 +38,15 @@
         input:checked + .toggle-slider { background-color: #20235c; }
         input:checked + .toggle-slider:before { transform: translateX(20px); }
         .sidebar svg, .sidebar i, .sidebar h2, .sidebar p, .sidebar span { color: white; }
+
+        /* Modal Lite Mode (toast) */
+        .modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.0); display:none; align-items:flex-start; justify-content:center; z-index:50; pointer-events:none; }
+        .modal-overlay .toast{ margin-top: 16px; pointer-events:auto; }
+
+        /* Efek Lite Mode (ringankan visual) */
+        body.lite .video-content { filter: saturate(.92) contrast(.98); }
+        body.lite .playlist-item { box-shadow:none !important; }
+        body.lite .video-wrapper video { filter: brightness(.98) saturate(.95); }
     </style>
 </head>
 <body class="main-container">
@@ -109,8 +118,6 @@
             <h1 id="video-title" class="text-3xl font-bold text-gray-800 mb-2">BAB 1 : Pengenalan Algoritma</h1>
             <p id="video-description" class="text-gray-600 mb-4">Deskripsi materi akan ditampilkan di sini.</p>
 
-            <!-- (DIHAPUS) baris ikon koin & bintang -->
-
             <!-- Next Video Section -->
             <div class="mt-8 p-4 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-between">
                 <div class="flex items-center space-x-4">
@@ -126,6 +133,19 @@
             </div>
         </div>
     </main>
+
+    <!-- Toast Modal Lite Mode -->
+    <div id="lite-modal" class="modal-overlay">
+        <div class="toast bg-white rounded-xl p-4 shadow-lg w-[90%] max-w-sm">
+            <div class="flex items-start gap-3">
+                <div id="lite-icon" class="w-10 h-10 rounded-full flex items-center justify-center"></div>
+                <div>
+                    <h3 id="lite-title" class="text-base font-semibold mb-0.5"></h3>
+                    <p id="lite-desc" class="text-xs text-gray-600"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Tombol Back: selalu ke URL yang ditentukan
@@ -163,6 +183,14 @@
         const nextVideoTitle = document.getElementById('next-video-title');
         const nextVideoBtn = document.getElementById('next-video-btn');
         const nextVideoThumb = document.getElementById('next-video-thumb');
+
+        // Lite Mode elems
+        const liteToggle = document.getElementById('lite-mode-toggle');
+        const liteModal = document.getElementById('lite-modal');
+        const liteIcon = document.getElementById('lite-icon');
+        const liteTitle = document.getElementById('lite-title');
+        const liteDesc = document.getElementById('lite-desc');
+
         let currentVideoIndex = 0;
 
         function loadVideo(index) {
@@ -174,11 +202,9 @@
             videoDescription.textContent = video.description;
             currentVideoIndex = index;
 
-            // Update active class
             document.querySelectorAll('.playlist-item').forEach(item => item.classList.remove('active'));
             document.getElementById(`item-${index}`)?.classList.add('active');
             
-            // Update next video section
             if (index + 1 < playlistData.length) {
                 const nextVideo = playlistData[index + 1];
                 nextVideoTitle.textContent = nextVideo.title;
@@ -207,7 +233,6 @@
                     </div>
                     <div class="flex-grow">
                         <p class="font-medium text-sm">${video.title}</p>
-                        <!-- (DIHAPUS) baris poin & level -->
                     </div>
                 `;
                 item.onclick = () => loadVideo(index);
@@ -217,9 +242,37 @@
 
         nextVideoBtn.addEventListener('click', () => loadVideo(currentVideoIndex + 1));
 
+        // ===== Lite Mode helpers =====
+        function showLiteToast(isOn) {
+            document.body.classList.toggle('lite', isOn);
+            try { localStorage.setItem('lite_mode', isOn ? '1' : '0'); } catch {}
+
+            liteIcon.className = `w-10 h-10 rounded-full flex items-center justify-center ${isOn ? 'bg-emerald-50 text-emerald-600' : 'bg-gray-100 text-gray-700'}`;
+            liteIcon.innerHTML = `<i class="fa-solid ${isOn ? 'fa-bolt' : 'fa-power-off'}"></i>`;
+            liteTitle.textContent = isOn ? 'Lite Mode Diaktifkan' : 'Lite Mode Dimatikan';
+            liteDesc.textContent = isOn
+                ? 'Efek visual diperingan untuk performa lebih halus.'
+                : 'Tampilan kembali normal.';
+
+            liteModal.style.display = 'flex';
+            setTimeout(()=>{ liteModal.style.display = 'none'; }, 1500);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             renderPlaylist();
             loadVideo(0);
+
+            // Pulihkan preferensi Lite Mode
+            try {
+                const saved = localStorage.getItem('lite_mode');
+                if (saved === '1') {
+                    document.body.classList.add('lite');
+                    liteToggle.checked = true;
+                }
+            } catch {}
+
+            // Toggle handler
+            liteToggle.addEventListener('change', e => showLiteToast(e.target.checked));
         });
     </script>
 </body>

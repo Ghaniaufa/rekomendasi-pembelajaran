@@ -8,58 +8,39 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F8F9FA;
-            color: #333;
-            overflow: hidden; /* Prevent body scroll */
-        }
-        .main-container {
-            display: flex;
-            height: 100vh;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #F8F9FA; color: #333; overflow: hidden; }
+        .main-container { display: flex; height: 100vh; }
         .sidebar {
-            width: 25%;
-            background-color: #1470F9;
-            border-right: 1px solid #E2E8F0;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            padding: 1rem;
-            color: white;
+            width: 25%; background-color: #1470F9; border-right: 1px solid #E2E8F0;
+            overflow-y: auto; display: flex; flex-direction: column; padding: 1rem; color: white;
         }
         .sidebar a { color: white; }
         .sidebar a:hover { background-color: rgba(255, 255, 255, 0.2); }
         .text-content-container { flex: 1; display: flex; flex-direction: column; background-color: #FFF; }
         .text-content { padding: 1.5rem; flex-grow: 1; overflow-y: auto; }
         .playlist-item {
-            display: flex; align-items: center;
-            border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.75rem;
+            display: flex; align-items: center; border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.75rem;
             cursor: pointer; transition: all 0.2s; position: relative;
         }
         .playlist-item:hover { background-color: #E2E8F0; }
         .playlist-item.active {
             background-color: #3B82F6; color: white;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            position: relative;
         }
-        .video-progress-bar {
-            height: 4px; background-color: #6B7280;
-            position: absolute; bottom: 0; left: 0; transition: width 0.3s ease;
-        }
+        .video-progress-bar { height: 4px; background-color: #6B7280; position: absolute; bottom: 0; left: 0; transition: width 0.3s ease; }
+
         .toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .toggle-slider {
-            position: absolute; cursor: pointer; inset: 0;
-            background-color: #4a5568; transition: .4s; border-radius: 24px;
-        }
-        .toggle-slider:before {
-            position: absolute; content: ""; height: 20px; width: 20px;
-            left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%;
-        }
+        .toggle-slider { position: absolute; cursor: pointer; inset: 0; background-color: #4a5568; transition: .4s; border-radius: 24px; }
+        .toggle-slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; }
         input:checked + .toggle-slider { background-color: #20235c; }
         input:checked + .toggle-slider:before { transform: translateX(20px); }
+
         .sidebar svg, .sidebar i, .sidebar h2, .sidebar p, .sidebar span { color: white; }
+
+        /* Efek visual saat Lite Mode ON (opsional, ringan) */
+        body.lite .text-content, body.lite .sidebar, body.lite .playlist-item { filter: saturate(0.92); }
+        body.lite .playlist-item { box-shadow: none !important; }
     </style>
 </head>
 <body class="main-container">
@@ -80,11 +61,11 @@
             </div>
             <!-- Profile Card -->
             <a href="profile.html"
-                class="p-3 rounded-lg flex items-center justify-start text-white hover:bg-gray-200 transition-colors duration-200">
+                class="p-3 rounded-lg flex items-center justify-start text-white hover:bg-gray-200/10 transition-colors duration-200">
                 <img src="https://placehold.co/40x40/94a3b8/ffffff?text=U" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
                 <div class="flex-grow">
                     <p class="font-medium">Culaccino_</p>
-                    <p class="text-sm text-gray-500">UX Designer</p>
+                    <p class="text-sm text-white/80">UX Designer</p>
                 </div>
             </a>
             <!-- Logout Button -->
@@ -103,7 +84,6 @@
     <main class="text-content-container">
         <!-- Toolbar: Back + Format Switcher -->
         <div class="p-4 flex items-center justify-between bg-gray-200 border-b border-gray-300">
-            <!-- Tombol Back: arahkan ke halaman tertentu (bukan history.back) -->
             <button type="button"
                     onclick="goBack('/materi-pembelajaran.html')"
                     class="bg-gray-300 text-gray-800 p-3 rounded-full hover:bg-gray-400">
@@ -125,8 +105,6 @@
 
             <div id="material-text" class="prose max-w-none text-gray-700"></div>
 
-            <!-- (DIHAPUS) Baris ikon koin & bintang -->
-
             <!-- Next Material Section -->
             <div class="mt-8 p-4 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-between">
                 <div class="flex items-center space-x-4">
@@ -143,85 +121,79 @@
         </div>
     </main>
 
+    <!-- Modal Notifikasi Lite Mode -->
+    <div id="lite-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50">
+        <div class="bg-white rounded-xl p-5 w-[90%] max-w-sm text-center shadow-lg">
+            <div class="w-14 h-14 mx-auto mb-3 rounded-full flex items-center justify-center bg-emerald-50 text-emerald-600">
+                <i class="fa-solid fa-bolt text-xl"></i>
+            </div>
+            <h3 id="lite-modal-title" class="text-lg font-semibold mb-1">Lite Mode Diaktifkan</h3>
+            <p id="lite-modal-desc" class="text-sm text-gray-600">Mode ringan sudah menyala. Beberapa efek visual diperkecil.</p>
+        </div>
+    </div>
+
     <script>
-        // Tombol Back: selalu ke URL yang ditentukan
-        // options.replace === true => window.location.replace (tidak menambah riwayat)
+        // Back ke URL tertentu
         function goBack(url = '/materi-pembelajaran.html', options = { replace: false }) {
-            const safeUrl = url.replace(/\s/g, '%20'); // encode spasi agar aman
+            const safeUrl = url.replace(/\s/g, '%20');
             if (options.replace) window.location.replace(safeUrl);
             else window.location.href = safeUrl;
         }
 
+        // ===== Data materi (algoritma) =====
         const playlistData = [
-    {
-        id: '1',
-        title: 'BAB 1 : Pengenalan Algoritma',
-        thumbnail: 'https://placehold.co/160x90/B0E0E6/000?text=ALGORITMA',
-        description: 'Materi ini memperkenalkan konsep dasar algoritma dan karakteristiknya.',
-        progress: 100,
-        isCompleted: true,
-        content: `
-            <h2>Apa itu Algoritma?</h2>
-            <p>Algoritma adalah serangkaian langkah sistematis dan logis yang digunakan untuk menyelesaikan suatu masalah. 
-            Dalam pemrograman, algoritma menjadi dasar untuk merancang program komputer yang efisien dan terstruktur.</p>
+            {
+                id: '1',
+                title: 'BAB 1 : Pengenalan Algoritma',
+                thumbnail: 'https://placehold.co/160x90/B0E0E6/000?text=ALGORITMA',
+                description: 'Materi ini memperkenalkan konsep dasar algoritma dan karakteristiknya.',
+                progress: 100,
+                isCompleted: true,
+                content: `
+                    <h2>Apa itu Algoritma?</h2>
+                    <p>Algoritma adalah serangkaian langkah sistematis dan logis untuk menyelesaikan masalah. 
+                    Dalam pemrograman, algoritma adalah dasar perancangan program yang efisien.</p>
 
-            <h3>Ciri-ciri Algoritma</h3>
-            <ul>
-                <li><b>Jelas dan terdefinisi</b>: Setiap langkah harus mudah dipahami.</li>
-                <li><b>Terbatas</b>: Algoritma harus berakhir setelah sejumlah langkah tertentu.</li>
-                <li><b>Efektif</b>: Langkah-langkahnya dapat dilakukan secara nyata.</li>
-                <li><b>Urut</b>: Instruksi harus disusun dalam urutan yang logis.</li>
-            </ul>
+                    <h3>Ciri-ciri Algoritma</h3>
+                    <ul>
+                        <li><b>Jelas</b>: tiap langkah mudah dipahami.</li>
+                        <li><b>Terbatas</b>: berakhir setelah sejumlah langkah.</li>
+                        <li><b>Efektif</b>: dapat dilaksanakan secara nyata.</li>
+                        <li><b>Berurutan</b>: instruksi disusun logis.</li>
+                    </ul>
 
-            <h3>Bentuk Penyajian Algoritma</h3>
-            <p>Algoritma dapat dituliskan dalam berbagai bentuk, misalnya:</p>
-            <ol>
-                <li><b>Pseudocode</b>: Menuliskan algoritma dengan bahasa sederhana mirip kode.</li>
-                <li><b>Diagram Alir</b>: Menyajikan algoritma dalam bentuk simbol-simbol visual.</li>
-                <li><b>Deskripsi Naratif</b>: Menjelaskan langkah-langkah dalam bahasa natural.</li>
-            </ol>
-
-            <h3>Contoh Algoritma Sederhana</h3>
-            <p>Algoritma untuk membuat teh:</p>
-            <ol>
-                <li>Panaskan air hingga mendidih.</li>
-                <li>Masukkan teh ke dalam gelas.</li>
-                <li>Tuang air panas ke gelas.</li>
-                <li>Tambahkan gula sesuai selera.</li>
-                <li>Aduk hingga merata, teh siap diminum.</li>
-            </ol>
-        `
-    },
-    {
-        id: '2',
-        title: 'BAB 2 : Struktur Kontrol Algoritma',
-        thumbnail: 'https://placehold.co/160x90/ADD8E6/000?text=ALGORITMA',
-        description: 'Materi ini membahas percabangan dan perulangan dalam algoritma.',
-        progress: 50,
-        isCompleted: false,
-        content: `
-            <h2>Struktur Kontrol Algoritma</h2>
-            <p>Struktur kontrol adalah mekanisme yang menentukan urutan eksekusi langkah dalam algoritma.</p>
-
-            <h3>Jenis Struktur Kontrol</h3>
-            <ul>
-                <li><b>Sekuensial</b>: Instruksi dijalankan secara berurutan dari atas ke bawah.</li>
-                <li><b>Percabangan (Selection)</b>: Menentukan jalannya program berdasarkan kondisi (IF, IF-ELSE, SWITCH).</li>
-                <li><b>Perulangan (Looping)</b>: Mengulang perintah tertentu sampai kondisi tertentu terpenuhi (FOR, WHILE, DO-WHILE).</li>
-            </ul>
-
-            <h3>Contoh</h3>
-            <pre>
-IF nilai >= 60 THEN
-    Cetak "Lulus"
+                    <h3>Bentuk Penyajian</h3>
+                    <ol>
+                        <li><b>Pseudocode</b></li>
+                        <li><b>Diagram Alir</b></li>
+                        <li><b>Deskripsi Naratif</b></li>
+                    </ol>
+                `
+            },
+            {
+                id: '2',
+                title: 'BAB 2 : Struktur Kontrol Algoritma',
+                thumbnail: 'https://placehold.co/160x90/ADD8E6/000?text=ALGORITMA',
+                description: 'Materi ini membahas percabangan dan perulangan dalam algoritma.',
+                progress: 50,
+                isCompleted: false,
+                content: `
+                    <h2>Struktur Kontrol</h2>
+                    <ul>
+                        <li><b>Sekuensial</b>: langkah berurutan.</li>
+                        <li><b>Percabangan</b>: IF/ELSE, SWITCH.</li>
+                        <li><b>Perulangan</b>: FOR, WHILE, DO-WHILE.</li>
+                    </ul>
+                    <pre>
+IF nilai &gt;= 60 THEN
+  Cetak "Lulus"
 ELSE
-    Cetak "Tidak Lulus"
+  Cetak "Tidak Lulus"
 END IF
-            </pre>
-        `
-    },
-];
-
+                    </pre>
+                `
+            },
+        ];
 
         const playlistContainer = document.getElementById('playlist');
         const textTitle = document.getElementById('text-title');
@@ -241,11 +213,11 @@ END IF
             materialText.innerHTML = material.content;
             currentMaterialIndex = index;
 
-            // Update active class
+            // Active state
             document.querySelectorAll('.playlist-item').forEach(item => item.classList.remove('active'));
             document.getElementById(`item-${index}`).classList.add('active');
             
-            // Update next material section
+            // Next section
             if (index + 1 < playlistData.length) {
                 const nextMaterial = playlistData[index + 1];
                 nextMaterialTitle.textContent = nextMaterial.title;
@@ -267,14 +239,13 @@ END IF
                 item.innerHTML = `
                     <div class="relative w-24 h-16 mr-4 flex-shrink-0">
                         <img src="${material.thumbnail}" alt="Thumbnail" class="w-full h-full object-cover rounded-md">
-                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center rounded-md">
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center rounded-md">
                             <i class="fas fa-file-alt text-white text-xl"></i>
                         </div>
                         <div class="video-progress-bar" style="width: ${material.progress}%;"></div>
                     </div>
                     <div class="flex-grow">
                         <p class="font-medium text-sm">${material.title}</p>
-                        <!-- (DIHAPUS) baris poin & level -->
                     </div>
                 `;
                 item.onclick = () => loadMaterial(index);
@@ -282,13 +253,47 @@ END IF
             });
         }
 
-        nextMaterialBtn.addEventListener('click', () => {
-            loadMaterial(currentMaterialIndex + 1);
-        });
+        nextMaterialBtn.addEventListener('click', () => loadMaterial(currentMaterialIndex + 1));
 
+        // ===== Lite Mode + Modal =====
+        const toggle = document.getElementById('lite-mode-toggle');
+        const liteModal = document.getElementById('lite-modal');
+        const titleElM = document.getElementById('lite-modal-title');
+        const descElM = document.getElementById('lite-modal-desc');
+
+        function showLiteModal(on = true) {
+            titleElM.textContent = on ? 'Lite Mode Diaktifkan' : 'Lite Mode Dimatikan';
+            descElM.textContent = on
+                ? 'Mode ringan sudah menyala. Beberapa efek visual diperkecil.'
+                : 'Mode ringan dimatikan. Tampilan kembali normal.';
+            liteModal.classList.remove('hidden');
+            liteModal.classList.add('flex');
+            setTimeout(() => {
+                liteModal.classList.add('hidden');
+                liteModal.classList.remove('flex');
+            }, 2000);
+        }
+
+        // Init
         document.addEventListener('DOMContentLoaded', () => {
             renderPlaylist();
             loadMaterial(0);
+
+            // init dari localStorage
+            try {
+                const saved = localStorage.getItem('lite_mode');
+                if (saved === '1') {
+                    toggle.checked = true;
+                    document.body.classList.add('lite');
+                }
+            } catch {}
+
+            toggle.addEventListener('change', (e) => {
+                const on = e.target.checked;
+                document.body.classList.toggle('lite', on);
+                try { localStorage.setItem('lite_mode', on ? '1' : '0'); } catch {}
+                showLiteModal(on);
+            });
         });
     </script>
 </body>

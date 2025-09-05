@@ -8,50 +8,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F8F9FA;
-            color: #333;
-            overflow: hidden; /* Prevent body scroll */
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #F8F9FA; color: #333; overflow: hidden; }
         .main-container { display: flex; height: 100vh; }
-        .sidebar {
-            width: 25%;
-            background-color: #1470F9;
-            border-right: 1px solid #E2E8F0;
-            overflow-y: auto;
-            display: flex; flex-direction: column;
-            padding: 1rem; color: white;
-        }
+        .sidebar { width: 25%; background-color: #1470F9; border-right: 1px solid #E2E8F0; overflow-y: auto; display: flex; flex-direction: column; padding: 1rem; color: white; }
         .sidebar a { color: white; }
         .sidebar a:hover { background-color: rgba(255, 255, 255, 0.2); }
         .audio-player-container { flex: 1; display: flex; flex-direction: column; background-color: #FFF; }
         .audio-wrapper { background-color: #F0F4F8; display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .audio-content { padding: 1.5rem; flex-grow: 1; overflow-y: auto; }
-        .playlist-item {
-            display: flex; align-items: center;
-            border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.75rem;
-            cursor: pointer; transition: all 0.2s; position: relative;
-        }
+        .playlist-item { display: flex; align-items: center; border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.75rem; cursor: pointer; transition: all 0.2s; position: relative; }
         .playlist-item:hover { background-color: #E2E8F0; }
-        .playlist-item.active {
-            background-color: #3B82F6; color: white;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        }
+        .playlist-item.active { background-color: #3B82F6; color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
         .video-progress-bar { height: 4px; background-color: #6B7280; position: absolute; bottom: 0; left: 0; transition: width 0.3s ease; }
         .toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .toggle-slider {
-            position: absolute; cursor: pointer; inset: 0;
-            background-color: #4a5568; transition: .4s; border-radius: 24px;
-        }
-        .toggle-slider:before {
-            position: absolute; content: ""; height: 20px; width: 20px;
-            left: 2px; bottom: 2px; background-color: white;
-            transition: .4s; border-radius: 50%;
-        }
+        .toggle-slider { position: absolute; cursor: pointer; inset: 0; background-color: #4a5568; transition: .4s; border-radius: 24px; }
+        .toggle-slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; }
         input:checked + .toggle-slider { background-color: #20235c; }
         input:checked + .toggle-slider:before { transform: translateX(20px); }
+
+        /* Efek visual ringan saat Lite Mode ON (opsional) */
+        body.lite .audio-content, body.lite .playlist-item, body.lite .sidebar { filter: saturate(0.9); }
+        body.lite .playlist-item { box-shadow: none !important; }
     </style>
 </head>
 <body class="main-container">
@@ -62,7 +40,7 @@
         <div id="playlist" class="flex-grow overflow-y-auto"></div>
 
         <!-- Sidebar bottom -->
-        <div class="mt-auto pt-4 border-t border-gray-300">
+        <div class="mt-auto pt-4 border-t border-gray-300/30">
             <div class="flex items-center justify-between mb-4">
                 <span class="text-sm font-medium">Lite Mode</span>
                 <label class="toggle-switch">
@@ -70,16 +48,14 @@
                     <span class="toggle-slider"></span>
                 </label>
             </div>
-            <a href="profile.html"
-               class="p-3 rounded-lg flex items-center text-white hover:bg-gray-200 transition">
-                <img src="https://placehold.co/40x40/94a3b8/ffffff?text=U" class="w-10 h-10 rounded-full mr-3">
+            <a href="profile.html" class="p-3 rounded-lg flex items-center text-white hover:bg-white/20 transition">
+                <img src="https://placehold.co/40x40/94a3b8/ffffff?text=U" class="w-10 h-10 rounded-full mr-3" alt="User">
                 <div class="flex-grow">
                     <p class="font-medium">Culaccino_</p>
-                    <p class="text-sm text-gray-500">UX Designer</p>
+                    <p class="text-sm text-white/80">UX Designer</p>
                 </div>
             </a>
-            <button id="logoutButton"
-                    class="w-full p-3 mt-2 rounded-lg bg-red-500 text-white flex items-center justify-center">
+            <button id="logoutButton" class="w-full p-3 mt-2 rounded-lg bg-red-500 text-white flex items-center justify-center">
                 <i class="fa-solid fa-right-from-bracket mr-2"></i> Keluar
             </button>
         </div>
@@ -89,9 +65,7 @@
     <main class="audio-player-container">
         <!-- Toolbar: Back + Format Switcher -->
         <div class="p-4 flex items-center justify-between bg-gray-200 border-b border-gray-300">
-            <button type="button"
-                    onclick="goBack('/materi-pembelajaran.html')"
-                    class="bg-gray-300 text-gray-800 p-3 rounded-full hover:bg-gray-400">
+            <button type="button" onclick="goBack('/materi-pembelajaran.html')" class="bg-gray-300 text-gray-800 p-3 rounded-full hover:bg-gray-400">
                 <i class="fa-solid fa-arrow-left"></i>
             </button>
             <div class="flex justify-center space-x-4">
@@ -112,13 +86,13 @@
 
         <!-- Konten Audio -->
         <div class="audio-content">
-            <h1 id="audio-title" class="text-3xl font-bold text-gray-800 mb-2">Pengenalan Teks Argumentasi</h1>
+            <h1 id="audio-title" class="text-3xl font-bold text-gray-800 mb-2">BAB 1 : Pengenalan Algoritma</h1>
             <p id="audio-description" class="text-gray-600 mb-4">Deskripsi materi akan ditampilkan di sini.</p>
 
             <!-- Next Section -->
             <div class="mt-8 p-4 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-between">
                 <div class="flex items-center space-x-4">
-                    <img id="next-audio-thumb" src="https://placehold.co/80x50/FFF/000?text=Next" class="rounded-md">
+                    <img id="next-audio-thumb" src="https://placehold.co/80x50/FFF/000?text=Next" class="rounded-md" alt="thumb">
                     <div>
                         <p class="text-sm text-gray-600 font-medium">Selanjutnya</p>
                         <p id="next-audio-title" class="font-semibold text-gray-800">Materi Selanjutnya</p>
@@ -131,11 +105,21 @@
         </div>
     </main>
 
+    <!-- Modal Notifikasi Lite Mode -->
+    <div id="lite-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50">
+        <div class="bg-white rounded-xl p-5 w-[90%] max-w-sm text-center shadow-lg">
+            <div class="w-14 h-14 mx-auto mb-3 rounded-full flex items-center justify-center bg-emerald-50 text-emerald-600">
+                <i class="fa-solid fa-bolt text-xl"></i>
+            </div>
+            <h3 id="lite-modal-title" class="text-lg font-semibold mb-1">Lite Mode Diaktifkan</h3>
+            <p id="lite-modal-desc" class="text-sm text-gray-600">Mode ringan sudah menyala. Beberapa efek visual diperkecil.</p>
+        </div>
+    </div>
+
     <script>
         function goBack(url = '/materi-pembelajaran.html', options = { replace: false }) {
             const safeUrl = url.replace(/\s/g, '%20');
-            if (options.replace) window.location.replace(safeUrl);
-            else window.location.href = safeUrl;
+            options.replace ? window.location.replace(safeUrl) : window.location.href = safeUrl;
         }
 
         const playlistData = [
@@ -154,7 +138,7 @@
                 description: 'Audio ini menjelaskan konsep kontrol Algoritma.',
                 progress: 50,
                 audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'
-            },
+            }
         ];
 
         const playlistContainer = document.getElementById('playlist');
@@ -197,7 +181,7 @@
                 item.id = `item-${idx}`;
                 item.innerHTML = `
                     <div class="relative w-24 h-16 mr-4 flex-shrink-0">
-                        <img src="${audio.thumbnail}" class="w-full h-full object-cover rounded-md">
+                        <img src="${audio.thumbnail}" class="w-full h-full object-cover rounded-md" alt="thumb">
                         <div class="video-progress-bar" style="width:${audio.progress}%;"></div>
                     </div>
                     <div class="flex-grow">
@@ -210,8 +194,45 @@
         }
 
         nextAudioBtn.addEventListener('click', () => loadAudio(currentAudioIndex + 1));
+
         document.addEventListener('DOMContentLoaded', () => {
-            renderPlaylist(); loadAudio(0);
+            renderPlaylist();
+            loadAudio(0);
+
+            // ===== Lite Mode + Modal =====
+            const toggle = document.getElementById('lite-mode-toggle');
+            const liteModal = document.getElementById('lite-modal');
+            const titleEl = document.getElementById('lite-modal-title');
+            const descEl = document.getElementById('lite-modal-desc');
+
+            // Init dari localStorage
+            try {
+                const saved = localStorage.getItem('lite_mode');
+                if (saved === '1') {
+                    toggle.checked = true;
+                    document.body.classList.add('lite');
+                }
+            } catch {}
+
+            function showLiteModal(on = true) {
+                titleEl.textContent = on ? 'Lite Mode Diaktifkan' : 'Lite Mode Dimatikan';
+                descEl.textContent = on
+                    ? 'Mode ringan sudah menyala. Beberapa efek visual diperkecil.'
+                    : 'Mode ringan dimatikan. Tampilan kembali normal.';
+                liteModal.classList.remove('hidden');
+                liteModal.classList.add('flex');
+                setTimeout(() => {
+                    liteModal.classList.add('hidden');
+                    liteModal.classList.remove('flex');
+                }, 2000);
+            }
+
+            toggle.addEventListener('change', (e) => {
+                const on = e.target.checked;
+                document.body.classList.toggle('lite', on);
+                try { localStorage.setItem('lite_mode', on ? '1' : '0'); } catch {}
+                showLiteModal(on);
+            });
         });
     </script>
 </body>

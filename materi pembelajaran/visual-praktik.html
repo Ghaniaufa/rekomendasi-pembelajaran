@@ -29,7 +29,15 @@
         input:checked + .toggle-slider{background:#20235c}
         input:checked + .toggle-slider:before{transform:translateX(20px)}
         .badge{font-size:.75rem}
+
+        /* Modal overlay (Lite + Score) */
         .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:50}
+
+        /* Efek Lite Mode (visual only) */
+        body.lite .content-scroll{filter:saturate(.92)}
+        body.lite .playlist-item,
+        body.lite .content-scroll,
+        body.lite .video-player-container{box-shadow:none!important}
     </style>
 </head>
 <body class="main-container">
@@ -67,7 +75,6 @@
     <main class="video-player-container">
         <!-- Toolbar: Back + Switcher -->
         <div class="p-4 flex items-center justify-between bg-gray-200 border-b border-gray-300">
-            <!-- Tombol Back ke halaman tertentu (bukan history.back) -->
             <button type="button"
                     onclick="goBack('/materi-pembelajaran.html')"
                     class="bg-gray-300 text-gray-800 p-3 rounded-full hover:bg-gray-400">
@@ -78,7 +85,7 @@
                 <a href="/materi pembelajaran/materi-visual.html"
                    class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100">Video</a>
                 <a href="/materi pembelajaran/visual-audio.html" 
-                class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100">Audio</a>
+                   class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100">Audio</a>
                 <a href="/materi pembelajaran/visual-gambar.html"
                    class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100">Gambar</a>
                 <a href="/materi pembelajaran/visual-teks.html"
@@ -102,8 +109,6 @@
             <p id="practice-desc" class="text-gray-600 mb-4">
                 Uji pemahaman Anda setelah menonton video, kemudian jawab pertanyaan di bawah ini.
             </p>
-
-            <!-- (DIHAPUS) Baris poin & kesulitan -->
 
             <section id="quiz" class="space-y-4"></section>
 
@@ -133,6 +138,7 @@
         </div>
     </main>
 
+    <!-- Modal skor -->
     <div id="score-modal" class="modal-overlay">
         <div class="bg-white rounded-xl p-6 w-[90%] max-w-md text-center">
             <div id="score-icon"
@@ -146,108 +152,89 @@
         </div>
     </div>
 
+    <!-- Modal Lite Mode -->
+    <div id="lite-modal" class="modal-overlay">
+        <div class="bg-white rounded-xl p-6 w-[90%] max-w-md text-center">
+            <div class="w-14 h-14 mx-auto mb-3 rounded-full flex items-center justify-center bg-emerald-50 text-emerald-600">
+                <i class="fa-solid fa-bolt text-xl"></i>
+            </div>
+            <h3 id="lite-title" class="text-lg font-semibold mb-1">Lite Mode Diaktifkan</h3>
+            <p id="lite-desc" class="text-sm text-gray-600">Mode ringan sudah menyala. Beberapa efek visual diperkecil.</p>
+        </div>
+    </div>
+
     <script>
-        // ===== Tombol Back: arahkan ke URL tertentu =====
+        // ===== Back to page =====
         function goBack(url = '/materi-pembelajaran.html', options = { replace: false }) {
-            const safeUrl = url.replace(/\s/g, '%20'); // encode spasi
-            if (options.replace) window.location.replace(safeUrl);
-            else window.location.href = safeUrl;
+            const safeUrl = url.replace(/\s/g, '%20');
+            options.replace ? window.location.replace(safeUrl) : window.location.href = safeUrl;
         }
 
         // ===== Data =====
         const practices = [
-    {
-        id: 'p1',
-        title: 'BAB 1 : Pengenalan Algoritma',
-        description: 'Praktik ini menjelaskan konsep pengenalan Algoritma.',
-        progress: 60,
-        thumbnail: 'https://placehold.co/160x90/1f2937/ffffff?text=PRAKTIK',
-        videoUrl: 'praktik-1.mp4',
-        quiz: [
             {
-                q: 'Apa yang dimaksud dengan algoritma?',
-                options: [
-                    'Bahasa pemrograman tingkat tinggi',
-                    'Langkah-langkah sistematis untuk menyelesaikan masalah',
-                    'Instruksi komputer berbentuk kode mesin',
-                    'Hanya perintah dalam bentuk diagram alir'
-                ],
-                answer: 1
+                id: 'p1',
+                title: 'BAB 1 : Pengenalan Algoritma',
+                description: 'Praktik ini menjelaskan konsep pengenalan Algoritma.',
+                progress: 60,
+                thumbnail: 'https://placehold.co/160x90/1f2937/ffffff?text=PRAKTIK',
+                videoUrl: 'praktik-1.mp4',
+                quiz: [
+                    { q:'Apa yang dimaksud dengan algoritma?', options:[
+                        'Bahasa pemrograman tingkat tinggi',
+                        'Langkah-langkah sistematis untuk menyelesaikan masalah',
+                        'Instruksi komputer berbentuk kode mesin',
+                        'Hanya perintah dalam bentuk diagram alir'
+                    ], answer:1 },
+                    { q:'Ciri utama dari algoritma yang baik adalah…', options:[
+                        'Langkah-langkahnya jelas dan berurutan',
+                        'Menggunakan bahasa pemrograman tertentu',
+                        'Hanya bisa dijalankan oleh komputer',
+                        'Harus selalu dalam bentuk diagram'
+                    ], answer:0 },
+                    { q:'Contoh penerapan algoritma dalam kehidupan sehari-hari adalah…', options:[
+                        'Membaca buku cerita',
+                        'Membuat resep masakan dengan langkah-langkah urut',
+                        'Menonton televisi',
+                        'Menggambar bebas tanpa aturan'
+                    ], answer:1 },
+                    { q:'Struktur penyajian algoritma dapat dituliskan dalam bentuk…', options:[
+                        'Puisi dan cerita',
+                        'Pseudocode atau diagram alir',
+                        'Gambar pemandangan',
+                        'Hanya bahasa pemrograman Python'
+                    ], answer:1 },
+                    { q:'Tujuan utama mempelajari algoritma adalah…', options:[
+                        'Menambah koleksi kode program',
+                        'Memahami cara berpikir logis dalam pemecahan masalah',
+                        'Meningkatkan kemampuan menggambar',
+                        'Menghafal semua bahasa pemrograman'
+                    ], answer:1 },
+                ]
             },
             {
-                q: 'Ciri utama dari algoritma yang baik adalah…',
-                options: [
-                    'Langkah-langkahnya jelas dan berurutan',
-                    'Menggunakan bahasa pemrograman tertentu',
-                    'Hanya bisa dijalankan oleh komputer',
-                    'Harus selalu dalam bentuk diagram'
-                ],
-                answer: 0
-            },
-            {
-                q: 'Contoh penerapan algoritma dalam kehidupan sehari-hari adalah…',
-                options: [
-                    'Membaca buku cerita',
-                    'Membuat resep masakan dengan langkah-langkah urut',
-                    'Menonton televisi',
-                    'Menggambar bebas tanpa aturan'
-                ],
-                answer: 1
-            },
-            {
-                q: 'Struktur penyajian algoritma dapat dituliskan dalam bentuk…',
-                options: [
-                    'Puisi dan cerita',
-                    'Pseudocode atau diagram alir',
-                    'Gambar pemandangan',
-                    'Hanya bahasa pemrograman Python'
-                ],
-                answer: 1
-            },
-            {
-                q: 'Tujuan utama mempelajari algoritma adalah…',
-                options: [
-                    'Menambah koleksi kode program',
-                    'Memahami cara berpikir logis dalam pemecahan masalah',
-                    'Meningkatkan kemampuan menggambar',
-                    'Menghafal semua bahasa pemrograman'
-                ],
-                answer: 1
+                id: 'p2',
+                title: 'BAB 2 : Struktur Kontrol Algoritma',
+                description: 'Praktik ini menjelaskan konsep kontrol Algoritma.',
+                progress: 10,
+                thumbnail: 'https://placehold.co/160x90/334155/ffffff?text=PRAKTIK',
+                videoUrl: 'praktik-2.mp4',
+                quiz: [
+                    { q:'Struktur kontrol percabangan digunakan untuk…', options:[
+                        'Menjalankan perintah secara berulang',
+                        'Menentukan pilihan jalannya algoritma berdasarkan kondisi',
+                        'Mengurutkan data secara otomatis',
+                        'Menghentikan program secara paksa'
+                    ], answer:1 },
+                    { q:'Struktur kontrol perulangan (looping) berfungsi untuk…', options:[
+                        'Mengulang instruksi sampai kondisi tertentu terpenuhi',
+                        'Menjalankan hanya satu instruksi sekali saja',
+                        'Mengatur tampilan antarmuka program',
+                        'Menentukan variabel dalam algoritma'
+                    ], answer:0 },
+                ]
             }
-        ]
-    },
-    {
-        id: 'p2',
-        title: 'BAB 2 : Struktur Kontrol Algoritma',
-        description: 'Praktik ini menjelaskan konsep kontrol Algoritma.',
-        progress: 10,
-        thumbnail: 'https://placehold.co/160x90/334155/ffffff?text=PRAKTIK',
-        videoUrl: 'praktik-2.mp4',
-        quiz: [
-            {
-                q: 'Struktur kontrol percabangan digunakan untuk…',
-                options: [
-                    'Menjalankan perintah secara berulang',
-                    'Menentukan pilihan jalannya algoritma berdasarkan kondisi',
-                    'Mengurutkan data secara otomatis',
-                    'Menghentikan program secara paksa'
-                ],
-                answer: 1
-            },
-            {
-                q: 'Struktur kontrol perulangan (looping) berfungsi untuk…',
-                options: [
-                    'Mengulang instruksi sampai kondisi tertentu terpenuhi',
-                    'Menjalankan hanya satu instruksi sekali saja',
-                    'Mengatur tampilan antarmuka program',
-                    'Menentukan variabel dalam algoritma'
-                ],
-                answer: 0
-            }
-        ]
-    }
-];
-
+        ];
 
         // ===== Elements =====
         const playlistEl = document.getElementById('playlist');
@@ -257,13 +244,17 @@
         const quizEl = document.getElementById('quiz');
         const nextTitleEl = document.getElementById('next-title');
         const nextBtn = document.getElementById('next-btn');
-        const submitBtn = document.getElementById('submitQuiz');
-        const resetBtn = document.getElementById('resetQuiz');
         const scoreModal = document.getElementById('score-modal');
         const scoreIcon = document.getElementById('score-icon');
         const scoreTitle = document.getElementById('score-title');
         const scoreDesc = document.getElementById('score-desc');
         const closeModal = document.getElementById('close-modal');
+
+        // Lite Mode
+        const liteToggle = document.getElementById('lite-mode-toggle');
+        const liteModal = document.getElementById('lite-modal');
+        const liteTitle = document.getElementById('lite-title');
+        const liteDesc = document.getElementById('lite-desc');
 
         let currentIndex = 0;
 
@@ -284,7 +275,6 @@
                     </div>
                     <div class="flex-grow">
                         <p class="font-medium text-sm">${p.title}</p>
-                        <!-- (DIHAPUS) badge coins & star -->
                     </div>`;
                 item.addEventListener('click', () => loadPractice(idx));
                 playlistEl.appendChild(item);
@@ -297,18 +287,13 @@
             if (!p) return;
             currentIndex = idx;
 
-            // Active item
             document.querySelectorAll('.playlist-item').forEach(i => i.classList.remove('active'));
             document.getElementById(`pl-${idx}`).classList.add('active');
 
-            // Meta
             titleEl.textContent = p.title;
             descEl.textContent = p.description;
-
-            // Video
             videoEl.src = p.videoUrl;
 
-            // Next
             if (idx + 1 < practices.length) {
                 nextTitleEl.textContent = practices[idx + 1].title;
                 nextBtn.style.display = 'block';
@@ -317,7 +302,6 @@
                 nextBtn.style.display = 'none';
             }
 
-            // Quiz
             renderQuiz(p.quiz);
             resetQuiz();
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -355,15 +339,15 @@
                 const selected = document.querySelector(`input[name="q-${qi}"]:checked`);
                 const card = document.getElementById(`card-${qi}`);
                 const mark = document.getElementById(`mark-${qi}`);
-                card.classList.remove('ring-2', 'ring-red-400', 'ring-green-500', 'bg-red-50', 'bg-green-50');
+                card.classList.remove('ring-2','ring-red-400','ring-green-500','bg-red-50','bg-green-50');
                 mark.className = 'ml-3 shrink-0';
 
                 if (selected && Number(selected.value) === q.answer) {
                     correct++;
-                    card.classList.add('ring-2', 'ring-green-500', 'bg-green-50');
+                    card.classList.add('ring-2','ring-green-500','bg-green-50');
                     mark.innerHTML = `<span class="inline-flex items-center text-green-700 text-sm"><i class="fa-solid fa-circle-check mr-1"></i> Benar</span>`;
                 } else {
-                    card.classList.add('ring-2', 'ring-red-400', 'bg-red-50');
+                    card.classList.add('ring-2','ring-red-400','bg-red-50');
                     mark.innerHTML = `<span class="inline-flex items-center text-red-700 text-sm"><i class="fa-solid fa-circle-xmark mr-1"></i> Salah</span>`;
                 }
                 mark.classList.remove('hidden');
@@ -387,20 +371,33 @@
             practices[currentIndex].quiz.forEach((_, qi) => {
                 const card = document.getElementById(`card-${qi}`);
                 const mark = document.getElementById(`mark-${qi}`);
-                card.classList.remove('ring-2', 'ring-red-400', 'ring-green-500', 'bg-red-50', 'bg-green-50');
+                card.classList.remove('ring-2','ring-red-400','ring-green-500','bg-red-50','bg-green-50');
                 mark.className = 'hidden ml-3 shrink-0';
                 mark.innerHTML = '';
             });
         }
 
         // ===== Next handler =====
-        nextBtn.addEventListener('click', () => loadPractice(currentIndex + 1));
+        document.getElementById('next-btn').addEventListener('click', () => loadPractice(currentIndex + 1));
 
-        // Buttons
+        // Quiz buttons
         document.getElementById('submitQuiz').addEventListener('click', evaluate);
         document.getElementById('resetQuiz').addEventListener('click', resetQuiz);
         document.getElementById('close-modal').addEventListener('click', () => scoreModal.style.display = 'none');
         scoreModal.addEventListener('click', (e) => { if (e.target === scoreModal) scoreModal.style.display = 'none'; });
+
+        // ===== Lite Mode =====
+        function showLiteModal(on = true) {
+            document.body.classList.toggle('lite', on);
+            // copy UI text
+            document.getElementById('lite-title').textContent = on ? 'Lite Mode Diaktifkan' : 'Lite Mode Dimatikan';
+            document.getElementById('lite-desc').textContent = on
+                ? 'Mode ringan sudah menyala. Beberapa efek visual diperkecil.'
+                : 'Mode ringan dimatikan. Tampilan kembali normal.';
+            liteModal.style.display = 'flex';
+            setTimeout(()=>{ liteModal.style.display = 'none'; }, 1800);
+            try { localStorage.setItem('lite_mode', on ? '1' : '0'); } catch {}
+        }
 
         // Sidebar: logout demo
         document.getElementById('logoutButton')?.addEventListener('click', () => {
@@ -428,6 +425,18 @@
         (function init() {
             renderPlaylist();
             loadPractice(0);
+
+            // Restore Lite Mode
+            try {
+                const saved = localStorage.getItem('lite_mode');
+                if (saved === '1') {
+                    document.body.classList.add('lite');
+                    liteToggle.checked = true;
+                }
+            } catch {}
+
+            // Bind toggle
+            liteToggle.addEventListener('change', e => showLiteModal(e.target.checked));
         })();
     </script>
 </body>

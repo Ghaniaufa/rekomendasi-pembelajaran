@@ -5,53 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Materi Audio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F8F9FA;
-            color: #333;
-            overflow: hidden; /* Prevent body scroll */
-        }
-        .main-container { display: flex; height: 100vh; }
-        .sidebar {
-            width: 25%;
-            background-color: #1470F9;
-            border-right: 1px solid #E2E8F0;
-            overflow-y: auto;
-            display: flex; flex-direction: column;
-            padding: 1rem; color: white;
-        }
-        .sidebar a { color: white; }
-        .sidebar a:hover { background-color: rgba(255, 255, 255, 0.2); }
-        .audio-player-container { flex: 1; display: flex; flex-direction: column; background-color: #FFF; }
-        .audio-wrapper { background-color: #F0F4F8; display: flex; justify-content: center; align-items: center; padding: 2rem; }
-        .audio-content { padding: 1.5rem; flex-grow: 1; overflow-y: auto; }
-        .playlist-item {
-            display: flex; align-items: center;
-            border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.75rem;
-            cursor: pointer; transition: all 0.2s; position: relative;
-        }
-        .playlist-item:hover { background-color: #E2E8F0; }
-        .playlist-item.active {
-            background-color: #3B82F6; color: white;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        }
-        .video-progress-bar { height: 4px; background-color: #6B7280; position: absolute; bottom: 0; left: 0; transition: width 0.3s ease; }
-        .toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
-        .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .toggle-slider {
-            position: absolute; cursor: pointer; inset: 0;
-            background-color: #4a5568; transition: .4s; border-radius: 24px;
-        }
-        .toggle-slider:before {
-            position: absolute; content: ""; height: 20px; width: 20px;
-            left: 2px; bottom: 2px; background-color: white;
-            transition: .4s; border-radius: 50%;
-        }
-        input:checked + .toggle-slider { background-color: #20235c; }
-        input:checked + .toggle-slider:before { transform: translateX(20px); }
+        body{font-family:'Inter',sans-serif;background:#F8F9FA;color:#333;overflow:hidden;}
+        .main-container{display:flex;height:100vh;}
+        .sidebar{width:25%;background:#1470F9;border-right:1px solid #E2E8F0;overflow-y:auto;display:flex;flex-direction:column;padding:1rem;color:#fff}
+        .sidebar a{color:#fff}
+        .sidebar a:hover{background-color:rgba(255,255,255,.2)}
+        .audio-player-container{flex:1;display:flex;flex-direction:column;background:#fff}
+        .audio-wrapper{background:#F0F4F8;display:flex;justify-content:center;align-items:center;padding:2rem}
+        .audio-content{padding:1.5rem;flex-grow:1;overflow-y:auto}
+        .playlist-item{display:flex;align-items:center;border-radius:.5rem;padding:.75rem;margin-bottom:.75rem;cursor:pointer;transition:all .2s;position:relative}
+        .playlist-item:hover{background:#E2E8F0}
+        .playlist-item.active{background:#3B82F6;color:#fff;box-shadow:0 4px 6px -1px rgb(0 0 0 / .1),0 2px 4px -2px rgb(0 0 0 / .1)}
+        .video-progress-bar{height:4px;background:#6B7280;position:absolute;bottom:0;left:0;transition:width .3s}
+        .toggle-switch{position:relative;display:inline-block;width:44px;height:24px}
+        .toggle-switch input{opacity:0;width:0;height:0}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#4a5568;transition:.4s;border-radius:24px}
+        .toggle-slider:before{content:"";position:absolute;height:20px;width:20px;left:2px;bottom:2px;background:#fff;transition:.4s;border-radius:50%}
+        input:checked + .toggle-slider{background:#20235c}
+        input:checked + .toggle-slider:before{transform:translateX(20px)}
+        /* Modal overlay */
+        .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:50}
+        /* Efek Lite Mode ringan */
+        body.lite .playlist-item, body.lite .audio-content { filter:saturate(.92); }
+        body.lite .playlist-item { box-shadow:none !important; }
     </style>
 </head>
 <body class="main-container">
@@ -62,7 +41,7 @@
         <div id="playlist" class="flex-grow overflow-y-auto"></div>
 
         <!-- Sidebar bottom -->
-        <div class="mt-auto pt-4 border-t border-gray-300">
+        <div class="mt-auto pt-4 border-t border-white/30">
             <div class="flex items-center justify-between mb-4">
                 <span class="text-sm font-medium">Lite Mode</span>
                 <label class="toggle-switch">
@@ -70,14 +49,16 @@
                     <span class="toggle-slider"></span>
                 </label>
             </div>
+
             <a href="profile.html"
-               class="p-3 rounded-lg flex items-center text-white hover:bg-gray-200 transition">
-                <img src="https://placehold.co/40x40/94a3b8/ffffff?text=U" class="w-10 h-10 rounded-full mr-3">
+               class="p-3 rounded-lg flex items-center hover:bg-white/20 transition">
+                <img src="https://placehold.co/40x40/94a3b8/ffffff?text=U" class="w-10 h-10 rounded-full mr-3" alt="User">
                 <div class="flex-grow">
                     <p class="font-medium">Culaccino_</p>
-                    <p class="text-sm text-gray-500">UX Designer</p>
+                    <p class="text-sm text-white/80">UX Designer</p>
                 </div>
             </a>
+
             <button id="logoutButton"
                     class="w-full p-3 mt-2 rounded-lg bg-red-500 text-white flex items-center justify-center">
                 <i class="fa-solid fa-right-from-bracket mr-2"></i> Keluar
@@ -95,7 +76,7 @@
                 <i class="fa-solid fa-arrow-left"></i>
             </button>
             <div class="flex justify-center space-x-4">
-                <a href="/rekomendasi visual A/materi-visual-rekomendasi.html" class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100">Video</a>
+                <a href="/materi pembelajaran/materi-visual.html" class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100">Video</a>
                 <a href="/materi pembelajaran/visual-audio.html" class="px-6 py-2 rounded-full font-medium text-white bg-[#1470F9] shadow-md hover:bg-[#0f54b6]">Audio</a>
                 <a href="/materi pembelajaran/visual-gambar.html" class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100">Gambar</a>
                 <a href="/materi pembelajaran/visual-teks.html" class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100">Teks</a>
@@ -118,7 +99,7 @@
             <!-- Next Section -->
             <div class="mt-8 p-4 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-between">
                 <div class="flex items-center space-x-4">
-                    <img id="next-audio-thumb" src="https://placehold.co/80x50/FFF/000?text=Next" class="rounded-md">
+                    <img id="next-audio-thumb" src="https://placehold.co/80x50/FFF/000?text=Next" class="rounded-md" alt="Next">
                     <div>
                         <p class="text-sm text-gray-600 font-medium">Selanjutnya</p>
                         <p id="next-audio-title" class="font-semibold text-gray-800">Materi Selanjutnya</p>
@@ -131,30 +112,42 @@
         </div>
     </main>
 
+    <!-- Modal Lite Mode -->
+    <div id="lite-modal" class="modal-overlay">
+        <div class="bg-white rounded-xl p-6 w-[90%] max-w-md text-center">
+            <div class="w-14 h-14 mx-auto mb-3 rounded-full flex items-center justify-center bg-emerald-50 text-emerald-600">
+                <i class="fa-solid fa-bolt text-xl"></i>
+            </div>
+            <h3 id="lite-title" class="text-lg font-semibold mb-1">Lite Mode Diaktifkan</h3>
+            <p id="lite-desc" class="text-sm text-gray-600">Mode ringan sudah menyala. Beberapa efek visual diperkecil.</p>
+        </div>
+    </div>
+
     <script>
-        function goBack(url = '/rekomendasi-pembelajaran-hasil.html', options = { replace: false }) {
+        // Back helper
+        function goBack(url = '/rekomendasi-pembelajaran-hasil.html', options = { replace:false }) {
             const safeUrl = url.replace(/\s/g, '%20');
-            if (options.replace) window.location.replace(safeUrl);
-            else window.location.href = safeUrl;
+            options.replace ? window.location.replace(safeUrl) : window.location.href = safeUrl;
         }
 
+        // Dummy data playlist
         const playlistData = [
             {
-                id: '1',
-                title: 'BAB 1 : Pengenalan Algoritma',
-                thumbnail: 'https://placehold.co/160x90/B0E0E6/000?text=ADAPTO',
-                description: 'Audio ini menjelaskan konsep pengenalan Algoritma.',
-                progress: 100,
-                audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
+                id:'1',
+                title:'BAB 1 : Pengenalan Algoritma',
+                thumbnail:'https://placehold.co/160x90/B0E0E6/000?text=ADAPTO',
+                description:'Audio ini menjelaskan konsep pengenalan Algoritma.',
+                progress:100,
+                audioUrl:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
             },
             {
-                id: '2',
-                title: 'BAB 2 : Struktur Kontrol Algoritma',
-                thumbnail: 'https://placehold.co/160x90/ADD8E6/000?text=ADAPTO',
-                description: 'Audio ini menjelaskan konsep kontrol Algoritma.',
-                progress: 50,
-                audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'
-            },
+                id:'2',
+                title:'BAB 2 : Struktur Kontrol Algoritma',
+                thumbnail:'https://placehold.co/160x90/ADD8E6/000?text=ADAPTO',
+                description:'Audio ini menjelaskan konsep kontrol Algoritma.',
+                progress:50,
+                audioUrl:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'
+            }
         ];
 
         const playlistContainer = document.getElementById('playlist');
@@ -164,19 +157,29 @@
         const nextAudioTitle = document.getElementById('next-audio-title');
         const nextAudioBtn = document.getElementById('next-audio-btn');
         const nextAudioThumb = document.getElementById('next-audio-thumb');
+
+        // Lite Mode elements
+        const liteToggle = document.getElementById('lite-mode-toggle');
+        const liteModal = document.getElementById('lite-modal');
+        const liteTitle = document.getElementById('lite-title');
+        const liteDesc = document.getElementById('lite-desc');
+
         let currentAudioIndex = 0;
 
         function loadAudio(index) {
             const audio = playlistData[index];
             if (!audio) return;
+
             audioPlayer.src = audio.audioUrl;
             audioTitle.textContent = audio.title;
             audioDescription.textContent = audio.description;
             currentAudioIndex = index;
 
-            document.querySelectorAll('.playlist-item').forEach(i => i.classList.remove('active'));
-            document.getElementById(`item-${index}`).classList.add('active');
+            // Active state
+            document.querySelectorAll('.playlist-item').forEach(el => el.classList.remove('active'));
+            document.getElementById(`item-${index}`)?.classList.add('active');
 
+            // Next
             if (index + 1 < playlistData.length) {
                 const next = playlistData[index + 1];
                 nextAudioTitle.textContent = next.title;
@@ -197,21 +200,46 @@
                 item.id = `item-${idx}`;
                 item.innerHTML = `
                     <div class="relative w-24 h-16 mr-4 flex-shrink-0">
-                        <img src="${audio.thumbnail}" class="w-full h-full object-cover rounded-md">
+                        <img src="${audio.thumbnail}" class="w-full h-full object-cover rounded-md" alt="Thumb">
                         <div class="video-progress-bar" style="width:${audio.progress}%;"></div>
                     </div>
                     <div class="flex-grow">
                         <p class="font-medium text-sm">${audio.title}</p>
-                    </div>
-                `;
+                    </div>`;
                 item.onclick = () => loadAudio(idx);
                 playlistContainer.appendChild(item);
             });
         }
 
         nextAudioBtn.addEventListener('click', () => loadAudio(currentAudioIndex + 1));
+
+        // Lite Mode helpers
+        function showLiteModal(on = true) {
+            document.body.classList.toggle('lite', on);
+            liteTitle.textContent = on ? 'Lite Mode Diaktifkan' : 'Lite Mode Dimatikan';
+            liteDesc.textContent = on
+                ? 'Mode ringan sudah menyala. Beberapa efek visual diperkecil.'
+                : 'Mode ringan dimatikan. Tampilan kembali normal.';
+            liteModal.style.display = 'flex';
+            setTimeout(()=>{ liteModal.style.display = 'none'; }, 1800);
+            try { localStorage.setItem('lite_mode', on ? '1' : '0'); } catch {}
+        }
+
+        // Init
         document.addEventListener('DOMContentLoaded', () => {
-            renderPlaylist(); loadAudio(0);
+            renderPlaylist();
+            loadAudio(0);
+
+            // Restore Lite Mode
+            try {
+                const saved = localStorage.getItem('lite_mode');
+                if (saved === '1') {
+                    liteToggle.checked = true;
+                    document.body.classList.add('lite');
+                }
+            } catch {}
+
+            liteToggle.addEventListener('change', e => showLiteModal(e.target.checked));
         });
     </script>
 </body>

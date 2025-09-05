@@ -38,6 +38,12 @@
         input:checked + .toggle-slider { background-color: #20235c; }
         input:checked + .toggle-slider:before { transform: translateX(20px); }
         .sidebar svg, .sidebar i, .sidebar h2, .sidebar p, .sidebar span { color: white; }
+
+        /* Efek visual ringan saat Lite Mode ON (opsional) */
+        body.lite .playlist-item,
+        body.lite .video-content,
+        body.lite .sidebar { filter: saturate(0.9); }
+        body.lite .playlist-item { box-shadow: none !important; }
     </style>
 </head>
 <body class="main-container">
@@ -79,7 +85,7 @@
     <main class="video-player-container">
         <!-- Toolbar: Back + Format Switcher -->
         <div class="p-4 flex items-center justify-between bg-gray-200 border-b border-gray-300">
-            <!-- Tombol Back (menuju halaman tertentu, bukan history.back) -->
+            <!-- Tombol Back -->
             <button type="button"
                     onclick="goBack('/materi-pembelajaran.html')"
                     class="bg-gray-300 text-gray-800 p-3 rounded-full hover:bg-gray-400">
@@ -109,8 +115,6 @@
             <h1 id="video-title" class="text-3xl font-bold text-gray-800 mb-2">BAB 1 : Pengenalan Algoritma</h1>
             <p id="video-description" class="text-gray-600 mb-4">Deskripsi materi akan ditampilkan di sini.</p>
 
-            <!-- (DIHAPUS) baris ikon koin & bintang -->
-
             <!-- Next Video Section -->
             <div class="mt-8 p-4 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-between">
                 <div class="flex items-center space-x-4">
@@ -127,14 +131,26 @@
         </div>
     </main>
 
+    <!-- Modal Notifikasi Lite Mode -->
+    <div id="lite-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50">
+        <div class="bg-white rounded-xl p-5 w-[90%] max-w-sm text-center shadow-lg">
+            <div class="w-14 h-14 mx-auto mb-3 rounded-full flex items-center justify-center bg-emerald-50 text-emerald-600">
+                <i class="fa-solid fa-bolt text-xl"></i>
+            </div>
+            <h3 id="lite-modal-title" class="text-lg font-semibold mb-1">Lite Mode Diaktifkan</h3>
+            <p id="lite-modal-desc" class="text-sm text-gray-600">Mode ringan sudah menyala. Beberapa efek visual diperkecil.</p>
+        </div>
+    </div>
+
     <script>
-        // Tombol Back: selalu ke URL yang ditentukan
+        // Tombol Back
         function goBack(url = '/materi-pembelajaran.html', options = { replace: false }) {
             const safeUrl = url.replace(/\s/g, '%20');
             if (options.replace) window.location.replace(safeUrl);
             else window.location.href = safeUrl;
         }
 
+        // Data playlist
         const playlistData = [
             {
                 id: '1',
@@ -174,11 +190,9 @@
             videoDescription.textContent = video.description;
             currentVideoIndex = index;
 
-            // Update active class
             document.querySelectorAll('.playlist-item').forEach(item => item.classList.remove('active'));
             document.getElementById(`item-${index}`)?.classList.add('active');
             
-            // Update next video section
             if (index + 1 < playlistData.length) {
                 const nextVideo = playlistData[index + 1];
                 nextVideoTitle.textContent = nextVideo.title;
@@ -207,7 +221,6 @@
                     </div>
                     <div class="flex-grow">
                         <p class="font-medium text-sm">${video.title}</p>
-                        <!-- (DIHAPUS) baris poin & level -->
                     </div>
                 `;
                 item.onclick = () => loadVideo(index);
@@ -220,6 +233,41 @@
         document.addEventListener('DOMContentLoaded', () => {
             renderPlaylist();
             loadVideo(0);
+
+            // ===== Lite Mode + Modal =====
+            const toggle = document.getElementById('lite-mode-toggle');
+            const liteModal = document.getElementById('lite-modal');
+            const titleElM = document.getElementById('lite-modal-title');
+            const descElM = document.getElementById('lite-modal-desc');
+
+            // Init dari localStorage
+            try {
+                const saved = localStorage.getItem('lite_mode');
+                if (saved === '1') {
+                    toggle.checked = true;
+                    document.body.classList.add('lite');
+                }
+            } catch {}
+
+            function showLiteModal(on = true) {
+                titleElM.textContent = on ? 'Lite Mode Diaktifkan' : 'Lite Mode Dimatikan';
+                descElM.textContent = on
+                    ? 'Mode ringan sudah menyala. Beberapa efek visual diperkecil.'
+                    : 'Mode ringan dimatikan. Tampilan kembali normal.';
+                liteModal.classList.remove('hidden');
+                liteModal.classList.add('flex');
+                setTimeout(() => {
+                    liteModal.classList.add('hidden');
+                    liteModal.classList.remove('flex');
+                }, 2000);
+            }
+
+            toggle.addEventListener('change', (e) => {
+                const on = e.target.checked;
+                document.body.classList.toggle('lite', on);
+                try { localStorage.setItem('lite_mode', on ? '1' : '0'); } catch {}
+                showLiteModal(on);
+            });
         });
     </script>
 </body>

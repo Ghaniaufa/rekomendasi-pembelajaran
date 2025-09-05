@@ -30,6 +30,11 @@
         input:checked + .toggle-slider:before{transform:translateX(20px)}
         .badge{font-size:.75rem}
         .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:50}
+
+        /* Efek visual Lite Mode (ringan) */
+        body.lite .playlist-item,
+        body.lite .content-scroll { filter: saturate(0.92); }
+        body.lite .playlist-item { box-shadow: none !important; }
     </style>
 </head>
 <body class="main-container">
@@ -132,6 +137,7 @@
         </div>
     </main>
 
+    <!-- Modal Skor -->
     <div id="score-modal" class="modal-overlay">
         <div class="bg-white rounded-xl p-6 w-[90%] max-w-md text-center">
             <div id="score-icon"
@@ -145,6 +151,17 @@
         </div>
     </div>
 
+    <!-- Modal Lite Mode -->
+    <div id="lite-modal" class="modal-overlay">
+        <div class="bg-white rounded-xl p-6 w-[90%] max-w-md text-center">
+            <div id="lite-icon" class="w-14 h-14 mx-auto mb-3 rounded-full flex items-center justify-center bg-emerald-50 text-emerald-600">
+                <i class="fa-solid fa-bolt text-xl"></i>
+            </div>
+            <h3 id="lite-title" class="text-lg font-semibold mb-1">Lite Mode Diaktifkan</h3>
+            <p id="lite-desc" class="text-sm text-gray-600">Mode ringan sudah menyala. Beberapa efek visual diperkecil.</p>
+        </div>
+    </div>
+
     <script>
         // ===== Tombol Back: arahkan ke URL tertentu =====
         function goBack(url = '/materi-pembelajaran.html', options = { replace: false }) {
@@ -155,98 +172,97 @@
 
         // ===== Data =====
         const practices = [
-    {
-        id: 'p1',
-        title: 'BAB 1 : Pengenalan Algoritma',
-        description: 'Praktik ini menjelaskan konsep pengenalan Algoritma.',
-        progress: 60,
-        thumbnail: 'https://placehold.co/160x90/1f2937/ffffff?text=PRAKTIK',
-        videoUrl: 'praktik-1.mp4',
-        quiz: [
             {
-                q: 'Apa yang dimaksud dengan algoritma?',
-                options: [
-                    'Bahasa pemrograman tingkat tinggi',
-                    'Langkah-langkah sistematis untuk menyelesaikan masalah',
-                    'Instruksi komputer berbentuk kode mesin',
-                    'Hanya perintah dalam bentuk diagram alir'
-                ],
-                answer: 1
+                id: 'p1',
+                title: 'BAB 1 : Pengenalan Algoritma',
+                description: 'Praktik ini menjelaskan konsep pengenalan Algoritma.',
+                progress: 60,
+                thumbnail: 'https://placehold.co/160x90/1f2937/ffffff?text=PRAKTIK',
+                videoUrl: 'praktik-1.mp4',
+                quiz: [
+                    {
+                        q: 'Apa yang dimaksud dengan algoritma?',
+                        options: [
+                            'Bahasa pemrograman tingkat tinggi',
+                            'Langkah-langkah sistematis untuk menyelesaikan masalah',
+                            'Instruksi komputer berbentuk kode mesin',
+                            'Hanya perintah dalam bentuk diagram alir'
+                        ],
+                        answer: 1
+                    },
+                    {
+                        q: 'Ciri utama dari algoritma yang baik adalah…',
+                        options: [
+                            'Langkah-langkahnya jelas dan berurutan',
+                            'Menggunakan bahasa pemrograman tertentu',
+                            'Hanya bisa dijalankan oleh komputer',
+                            'Harus selalu dalam bentuk diagram'
+                        ],
+                        answer: 0
+                    },
+                    {
+                        q: 'Contoh penerapan algoritma dalam kehidupan sehari-hari adalah…',
+                        options: [
+                            'Membaca buku cerita',
+                            'Membuat resep masakan dengan langkah-langkah urut',
+                            'Menonton televisi',
+                            'Menggambar bebas tanpa aturan'
+                        ],
+                        answer: 1
+                    },
+                    {
+                        q: 'Struktur penyajian algoritma dapat dituliskan dalam bentuk…',
+                        options: [
+                            'Puisi dan cerita',
+                            'Pseudocode atau diagram alir',
+                            'Gambar pemandangan',
+                            'Hanya bahasa pemrograman Python'
+                        ],
+                        answer: 1
+                    },
+                    {
+                        q: 'Tujuan utama mempelajari algoritma adalah…',
+                        options: [
+                            'Menambah koleksi kode program',
+                            'Memahami cara berpikir logis dalam pemecahan masalah',
+                            'Meningkatkan kemampuan menggambar',
+                            'Menghafal semua bahasa pemrograman'
+                        ],
+                        answer: 1
+                    }
+                ]
             },
             {
-                q: 'Ciri utama dari algoritma yang baik adalah…',
-                options: [
-                    'Langkah-langkahnya jelas dan berurutan',
-                    'Menggunakan bahasa pemrograman tertentu',
-                    'Hanya bisa dijalankan oleh komputer',
-                    'Harus selalu dalam bentuk diagram'
-                ],
-                answer: 0
-            },
-            {
-                q: 'Contoh penerapan algoritma dalam kehidupan sehari-hari adalah…',
-                options: [
-                    'Membaca buku cerita',
-                    'Membuat resep masakan dengan langkah-langkah urut',
-                    'Menonton televisi',
-                    'Menggambar bebas tanpa aturan'
-                ],
-                answer: 1
-            },
-            {
-                q: 'Struktur penyajian algoritma dapat dituliskan dalam bentuk…',
-                options: [
-                    'Puisi dan cerita',
-                    'Pseudocode atau diagram alir',
-                    'Gambar pemandangan',
-                    'Hanya bahasa pemrograman Python'
-                ],
-                answer: 1
-            },
-            {
-                q: 'Tujuan utama mempelajari algoritma adalah…',
-                options: [
-                    'Menambah koleksi kode program',
-                    'Memahami cara berpikir logis dalam pemecahan masalah',
-                    'Meningkatkan kemampuan menggambar',
-                    'Menghafal semua bahasa pemrograman'
-                ],
-                answer: 1
+                id: 'p2',
+                title: 'BAB 2 : Struktur Kontrol Algoritma',
+                description: 'Praktik ini menjelaskan konsep kontrol Algoritma.',
+                progress: 10,
+                thumbnail: 'https://placehold.co/160x90/334155/ffffff?text=PRAKTIK',
+                videoUrl: 'praktik-2.mp4',
+                quiz: [
+                    {
+                        q: 'Struktur kontrol percabangan digunakan untuk…',
+                        options: [
+                            'Menjalankan perintah secara berulang',
+                            'Menentukan pilihan jalannya algoritma berdasarkan kondisi',
+                            'Mengurutkan data secara otomatis',
+                            'Menghentikan program secara paksa'
+                        ],
+                        answer: 1
+                    },
+                    {
+                        q: 'Struktur kontrol perulangan (looping) berfungsi untuk…',
+                        options: [
+                            'Mengulang instruksi sampai kondisi tertentu terpenuhi',
+                            'Menjalankan hanya satu instruksi sekali saja',
+                            'Mengatur tampilan antarmuka program',
+                            'Menentukan variabel dalam algoritma'
+                        ],
+                        answer: 0
+                    }
+                ]
             }
-        ]
-    },
-    {
-        id: 'p2',
-        title: 'BAB 2 : Struktur Kontrol Algoritma',
-        description: 'Praktik ini menjelaskan konsep kontrol Algoritma.',
-        progress: 10,
-        thumbnail: 'https://placehold.co/160x90/334155/ffffff?text=PRAKTIK',
-        videoUrl: 'praktik-2.mp4',
-        quiz: [
-            {
-                q: 'Struktur kontrol percabangan digunakan untuk…',
-                options: [
-                    'Menjalankan perintah secara berulang',
-                    'Menentukan pilihan jalannya algoritma berdasarkan kondisi',
-                    'Mengurutkan data secara otomatis',
-                    'Menghentikan program secara paksa'
-                ],
-                answer: 1
-            },
-            {
-                q: 'Struktur kontrol perulangan (looping) berfungsi untuk…',
-                options: [
-                    'Mengulang instruksi sampai kondisi tertentu terpenuhi',
-                    'Menjalankan hanya satu instruksi sekali saja',
-                    'Mengatur tampilan antarmuka program',
-                    'Menentukan variabel dalam algoritma'
-                ],
-                answer: 0
-            }
-        ]
-    }
-];
-
+        ];
 
         // ===== Elements =====
         const playlistEl = document.getElementById('playlist');
@@ -263,6 +279,12 @@
         const scoreTitle = document.getElementById('score-title');
         const scoreDesc = document.getElementById('score-desc');
         const closeModal = document.getElementById('close-modal');
+
+        // Lite Mode elements
+        const liteToggle = document.getElementById('lite-mode-toggle');
+        const liteModal = document.getElementById('lite-modal');
+        const liteTitle = document.getElementById('lite-title');
+        const liteDesc = document.getElementById('lite-desc');
 
         let currentIndex = 0;
 
@@ -423,10 +445,36 @@
             document.body.appendChild(notif);
         });
 
+        // ===== Lite Mode (modal + persist) =====
+        function showLiteModal(on = true) {
+            document.body.classList.toggle('lite', on);
+            // isi modal
+            liteTitle.textContent = on ? 'Lite Mode Diaktifkan' : 'Lite Mode Dimatikan';
+            liteDesc.textContent = on
+                ? 'Mode ringan sudah menyala. Beberapa efek visual diperkecil.'
+                : 'Mode ringan dimatikan. Tampilan kembali normal.';
+            // tampilkan modal 2 detik
+            liteModal.style.display = 'flex';
+            setTimeout(() => { liteModal.style.display = 'none'; }, 2000);
+            // simpan
+            try { localStorage.setItem('lite_mode', on ? '1' : '0'); } catch {}
+        }
+
         // Init
         (function init() {
             renderPlaylist();
             loadPractice(0);
+
+            // Init Lite Mode dari storage
+            try {
+                const saved = localStorage.getItem('lite_mode');
+                if (saved === '1') {
+                    liteToggle.checked = true;
+                    document.body.classList.add('lite');
+                }
+            } catch {}
+
+            liteToggle.addEventListener('change', (e) => showLiteModal(e.target.checked));
         })();
     </script>
 </body>
