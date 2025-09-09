@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quiz • Visual</title>
+  <title>Quiz • Audio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
 </head>
 <body class="bg-gray-100">
 
-  <!-- Sidebar (copy sama seperti halaman video) -->
+  <!-- Sidebar (disamakan) -->
   <aside class="fixed left-0 top-0 z-40 h-screen w-64 bg-[#1470F9] text-white flex flex-col p-4 shadow-lg
                 transition-transform duration-200 -translate-x-full md:translate-x-0">
     <div class="flex-grow">
@@ -75,7 +75,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                       d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21H6.737a2 2 0 01-1.789-2.894l3.5-7A2 2 0 019.263 9h5.474a2 2 0 012 2v.894"></path>
               </svg>
-              Performa Akademik
+              Performa akademik
             </a>
           </li>
           
@@ -121,12 +121,12 @@
       <header class="mb-6">
         <div class="flex items-center justify-between">
           <div>
-            <h2 class="text-2xl font-bold text-gray-900">Quiz • Visual</h2>
+            <h2 class="text-2xl font-bold text-gray-900">Quiz • Audio</h2>
             <p class="text-gray-600 text-sm">Jawab semua pertanyaan lalu klik “Kumpulkan Jawaban”.</p>
           </div>
-          <a href="materi-visual-rekomendasi.html"
+          <a href="audio-a.html"
              class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">
-            <i class="fa-solid fa-arrow-left"></i> Kembali ke Video
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Audio
           </a>
         </div>
       </header>
@@ -156,6 +156,7 @@
               <span id="scoreText" class="text-2xl font-bold text-gray-900">0/10</span>
               <span id="scoreBadge" class="text-xs px-2 py-1 rounded bg-gray-100 text-gray-700">Level</span>
             </div>
+            <p class="mt-2 text-xs text-gray-500">Level: 0–2 Beginner • 3–4 Basic • 5–7 Intermediate • 8–10 Advanced</p>
           </div>
           <div class="w-48">
             <div class="mini-progress"><span id="scoreBar" style="width:0%"></span></div>
@@ -181,42 +182,57 @@
       }
     } catch {}
 
-    // Soal (contoh)
+    // Soal (contoh – bisa kamu ganti)
     const questions = [
       {
-        q: 'Apa yang dimaksud algoritma?',
+        q: 'Algoritma adalah…',
         options: [
-          'Sintaks khusus bahasa pemrograman',
+          'Kumpulan library standar',
           'Langkah-langkah sistematis untuk menyelesaikan masalah',
           'Hanya diagram alir tanpa teks',
-          'Kumpulan library bawaan'
+          'Sintaks khusus satu bahasa'
         ],
         answer: 1
       },
       {
-        q: 'Struktur kontrol yang mengulang perintah adalah...',
-        options: ['Percabangan', 'Perulangan', 'Fungsi', 'Array'],
-        answer: 1
-      },
-      {
-        q: 'Pseudocode adalah...',
+        q: 'Tujuan mempelajari algoritma adalah…',
         options: [
-          'Bahasa mesin 1 dan 0',
-          'Deskripsi algoritma dengan bahasa natural mirip kode',
-          'Gambar pemandangan',
-          'Sintaks spesifik Python'
+          'Berpikir logis dalam pemecahan masalah',
+          'Menghafal semua framework',
+          'Meningkatkan grafik game',
+          'Mengubah tema editor'
+        ],
+        answer: 0
+      },
+      {
+        q: 'Struktur kontrol “percabangan” digunakan untuk…',
+        options: [
+          'Mengulang instruksi',
+          'Menentukan jalur eksekusi berdasarkan kondisi',
+          'Menyimpan banyak nilai berurutan',
+          'Mengatur style tampilan'
         ],
         answer: 1
       },
       {
-        q: 'Contoh kehidupan sehari-hari yang mirip algoritma adalah...',
-        options: ['Menghafal lirik', 'Menyusun resep masakan langkah-per-langkah', 'Menggambar bebas', 'Menyortir warna acak tanpa aturan'],
-        answer: 1
+        q: 'Contoh algoritma dalam kehidupan sehari-hari…',
+        options: [
+          'Menyusun resep memasak langkah-per-langkah',
+          'Mendengarkan musik acak',
+          'Menggambar bebas',
+          'Scroll media sosial'
+        ],
+        answer: 0
       },
       {
-        q: 'Percabangan digunakan untuk...',
-        options: ['Menentukan jalur berdasarkan kondisi', 'Mengelola layout UI', 'Mendefinisikan tipe data baru', 'Membuat file'],
-        answer: 0
+        q: 'Pseudocode adalah…',
+        options: [
+          'Bahasa mesin (0 dan 1)',
+          'Deskripsi algoritma dengan bahasa natural mirip kode',
+          'File audio instruksi',
+          'Gambar UI aplikasi'
+        ],
+        answer: 1
       }
     ];
 
@@ -232,7 +248,7 @@
       if(score <= 2)   return {label:'Beginner',    cls:'bg-red-100 text-red-700'};
       if(score <= 4)   return {label:'Basic',       cls:'bg-orange-100 text-orange-700'};
       if(score <= 7)   return {label:'Intermediate',cls:'bg-yellow-100 text-yellow-700'};
-      return {label:'Advanced',   cls:'bg-green-100 text-green-700'};
+      return            {label:'Advanced',   cls:'bg-green-100 text-green-700'};
     }
 
     function renderQuiz(){
@@ -275,7 +291,7 @@
         }
       });
 
-      // Konversi ke skala 1–10 (pembulatan sederhana)
+      // Skor skala 1–10 (samakan dengan template visual)
       const score10 = Math.max(1, Math.round((correct / questions.length) * 10));
       const lvl = scoreLevel(score10);
 
