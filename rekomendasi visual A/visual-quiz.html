@@ -15,14 +15,12 @@
     .toggle-slider:before{content:"";position:absolute;height:20px;width:20px;left:2px;bottom:2px;background:#fff;border-radius:999px;transition:.3s}
     input:checked + .toggle-slider{background:#20235c}
     input:checked + .toggle-slider:before{transform:translateX(20px)}
-    .mini-progress{height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden}
-    .mini-progress > span{display:block;height:100%;background:#1470F9}
     body.lite .card, body.lite .sidebar { filter: saturate(0.9); }
   </style>
 </head>
 <body class="bg-gray-100">
 
-  <!-- Sidebar (copy sama seperti halaman video) -->
+  <!-- Sidebar -->
   <aside class="fixed left-0 top-0 z-40 h-screen w-64 bg-[#1470F9] text-white flex flex-col p-4 shadow-lg
                 transition-transform duration-200 -translate-x-full md:translate-x-0">
     <div class="flex-grow">
@@ -78,19 +76,11 @@
               Performa Akademik
             </a>
           </li>
-          
         </ul>
       </nav>
     </div>
 
-    <div class="mt-auto pt-4 border-t border-indigo-700/60">
-      <div class="flex items-center justify-between mb-4">
-        <span class="text-sm font-medium">Lite Mode</span>
-        <label class="toggle-switch">
-          <input type="checkbox" id="lite-mode-toggle">
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
+   
 
       <a href="profile.html" class="p-3 rounded-lg flex items-center text-white hover:bg-white hover:text-blue-600 transition">
         <img src="https://placehold.co/40x40/94a3b8/ffffff?text=U" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
@@ -147,21 +137,7 @@
         </button>
       </div>
 
-      <!-- Ringkasan skor -->
-      <div id="scoreCard" class="card mt-6 p-4 bg-white rounded-xl border hidden">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-sm text-gray-500">Skor Kamu (skala 1–10)</p>
-            <div class="flex items-center gap-3">
-              <span id="scoreText" class="text-2xl font-bold text-gray-900">0/10</span>
-              <span id="scoreBadge" class="text-xs px-2 py-1 rounded bg-gray-100 text-gray-700">Level</span>
-            </div>
-          </div>
-          <div class="w-48">
-            <div class="mini-progress"><span id="scoreBar" style="width:0%"></span></div>
-          </div>
-        </div>
-      </div>
+      <!-- (Score/Level dihapus) -->
     </div>
   </main>
 
@@ -223,17 +199,6 @@
     const quizEl = document.getElementById('quiz');
     const submitBtn = document.getElementById('submitQuiz');
     const resetBtn  = document.getElementById('resetQuiz');
-    const scoreCard = document.getElementById('scoreCard');
-    const scoreText = document.getElementById('scoreText');
-    const scoreBar  = document.getElementById('scoreBar');
-    const scoreBadge= document.getElementById('scoreBadge');
-
-    function scoreLevel(score){
-      if(score <= 2)   return {label:'Beginner',    cls:'bg-red-100 text-red-700'};
-      if(score <= 4)   return {label:'Basic',       cls:'bg-orange-100 text-orange-700'};
-      if(score <= 7)   return {label:'Intermediate',cls:'bg-yellow-100 text-yellow-700'};
-      return {label:'Advanced',   cls:'bg-green-100 text-green-700'};
-    }
 
     function renderQuiz(){
       quizEl.innerHTML = '';
@@ -256,17 +221,14 @@
         `;
         quizEl.appendChild(card);
       });
-      scoreCard.classList.add('hidden');
     }
 
     function evaluate(){
-      let correct = 0;
       questions.forEach((q, i)=>{
         const sel = document.querySelector(`input[name="q-${i}"]:checked`);
         const mark = document.getElementById(`mark-${i}`);
         mark.classList.remove('hidden');
         if(sel && Number(sel.value) === q.answer){
-          correct++;
           mark.className = 'ml-3 text-green-600 text-sm';
           mark.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> Benar';
         }else{
@@ -274,16 +236,6 @@
           mark.innerHTML = '<i class="fa-solid fa-circle-xmark mr-1"></i> Salah';
         }
       });
-
-      // Konversi ke skala 1–10 (pembulatan sederhana)
-      const score10 = Math.max(1, Math.round((correct / questions.length) * 10));
-      const lvl = scoreLevel(score10);
-
-      scoreText.textContent = `${score10}/10`;
-      scoreBar.style.width  = `${(score10/10)*100}%`;
-      scoreBadge.textContent = lvl.label;
-      scoreBadge.className = `text-xs px-2 py-1 rounded ${lvl.cls}`;
-      scoreCard.classList.remove('hidden');
     }
 
     function resetQuiz(){
@@ -294,6 +246,7 @@
     submitBtn.addEventListener('click', evaluate);
     resetBtn.addEventListener('click', resetQuiz);
 
+    // init
     renderQuiz();
   </script>
 </body>

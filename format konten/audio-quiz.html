@@ -147,16 +147,16 @@
         </button>
       </div>
 
-      <!-- Ringkasan skor -->
+      <!-- Ringkasan skor (level dihapus) -->
       <div id="scoreCard" class="card mt-6 p-4 bg-white rounded-xl border hidden">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm text-gray-500">Skor Kamu (skala 1–10)</p>
+            <p class="text-sm text-gray-500">Skor Kamu </p>
             <div class="flex items-center gap-3">
               <span id="scoreText" class="text-2xl font-bold text-gray-900">0/10</span>
-              <span id="scoreBadge" class="text-xs px-2 py-1 rounded bg-gray-100 text-gray-700">Level</span>
+              <!-- scoreBadge dihapus -->
             </div>
-            <p class="mt-2 text-xs text-gray-500">Level: 0–2 Beginner • 3–4 Basic • 5–7 Intermediate • 8–10 Advanced</p>
+            <!-- Paragraf deskripsi level dihapus -->
           </div>
           <div class="w-48">
             <div class="mini-progress"><span id="scoreBar" style="width:0%"></span></div>
@@ -242,14 +242,7 @@
     const scoreCard = document.getElementById('scoreCard');
     const scoreText = document.getElementById('scoreText');
     const scoreBar  = document.getElementById('scoreBar');
-    const scoreBadge= document.getElementById('scoreBadge');
-
-    function scoreLevel(score){
-      if(score <= 2)   return {label:'Beginner',    cls:'bg-red-100 text-red-700'};
-      if(score <= 4)   return {label:'Basic',       cls:'bg-orange-100 text-orange-700'};
-      if(score <= 7)   return {label:'Intermediate',cls:'bg-yellow-100 text-yellow-700'};
-      return            {label:'Advanced',   cls:'bg-green-100 text-green-700'};
-    }
+    // scoreBadge & scoreLevel DIHAPUS
 
     function renderQuiz(){
       quizEl.innerHTML = '';
@@ -291,14 +284,11 @@
         }
       });
 
-      // Skor skala 1–10 (samakan dengan template visual)
+      // Skor skala 1–10 (tetap ada, tanpa level)
       const score10 = Math.max(1, Math.round((correct / questions.length) * 10));
-      const lvl = scoreLevel(score10);
 
       scoreText.textContent = `${score10}/10`;
       scoreBar.style.width  = `${(score10/10)*100}%`;
-      scoreBadge.textContent = lvl.label;
-      scoreBadge.className = `text-xs px-2 py-1 rounded ${lvl.cls}`;
       scoreCard.classList.remove('hidden');
     }
 
