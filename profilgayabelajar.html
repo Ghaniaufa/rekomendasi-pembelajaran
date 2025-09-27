@@ -316,101 +316,113 @@
     </div>
 
     <script>
-        
-        // Array of questions
-        const questions = [
-            "1. Saya lebih paham jika mencoba langsung daripada hanya membaca teori.",
-            "2. Saya sering menggambarkan konsep dengan skema visual.",
-            "3. Saya terbiasa menyimak podcast, audio, atau penjelasan lisan.",
-            "4. Saya memahami materi dengan mengerjakan latihan langsung.",
-            "5. Saya lebih nyaman belajar dari modul teks daripada menonton video penjelasan.",
-            "6. Saya suka membuat rangkuman dalam bentuk teks ketika belajar hal baru.",
-            "7. Saya terbantu ketika melihat contoh diagram atau alur proses.",
-            "8. Saya merasa lebih paham jika berdiskusi langsung dengan orang lain.",
-            "9. Saya belajar lebih cepat saat diberi kesempatan mencoba dan membuat kesalahan.",
-            "10. Saya merasa mudah memahami materi jika saya menulis ulang dengan kata-kata saya sendiri."
-        ];
+  // --- tetap: daftar pertanyaan ---
+  const questions = [
+    "1. Saya lebih paham jika mencoba langsung daripada hanya membaca teori.",
+    "2. Saya sering menggambarkan konsep dengan skema visual.",
+    "3. Saya terbiasa menyimak podcast, audio, atau penjelasan lisan.",
+    "4. Saya memahami materi dengan mengerjakan latihan langsung.",
+    "5. Saya lebih nyaman belajar dari modul teks daripada menonton video penjelasan.",
+    "6. Saya suka membuat rangkuman dalam bentuk teks ketika belajar hal baru.",
+    "7. Saya terbantu ketika melihat contoh diagram atau alur proses.",
+    "8. Saya merasa lebih paham jika berdiskusi langsung dengan orang lain.",
+    "9. Saya belajar lebih cepat saat diberi kesempatan mencoba dan membuat kesalahan.",
+    "10. Saya merasa mudah memahami materi jika saya menulis ulang dengan kata-kata saya sendiri."
+  ];
 
-        let currentQuestionIndex = 0;
-        const questionText = document.getElementById('question-text');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const questionNavItems = document.querySelectorAll('.question-nav-item');
-        const answerChoices = document.querySelectorAll('.answer-choice');
-        const notificationModal = document.getElementById('notification-modal');
-        
-        
-        
+  // --- TAMBAHKAN: mapping gaya per nomor (V/A/K) + state jawaban ---
+  const groupMap = ['K','V','A','K','V','V','V','A','K','V']; // 1..10 → K/V/A
+  const answers  = Array(questions.length).fill(null);        // simpan skala 1..5
 
-        // Function to update the question and navigation UI
-        function updateUI() {
-            questionText.textContent = questions[currentQuestionIndex];
-            
-            // Update active question navigation indicator
-            questionNavItems.forEach((item, index) => {
-                if (index === currentQuestionIndex) {
-                    item.classList.add('active');
-                } else {
-                    item.classList.remove('active');
-                }
-            });
+  let currentQuestionIndex = 0;
+  const questionText = document.getElementById('question-text');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const questionNavItems = document.querySelectorAll('.question-nav-item');
+  const answerChoices = document.querySelectorAll('.answer-choice');
+  const notificationModal = document.getElementById('notification-modal');
 
-            // Handle button visibility
-            prevBtn.style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
-            nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next';
-        }
+  function updateUI() {
+    questionText.textContent = questions[currentQuestionIndex];
+    questionNavItems.forEach((item, idx)=> item.classList.toggle('active', idx===currentQuestionIndex));
+    // restore pilihan yang pernah dipilih
+    answerChoices.forEach(c => c.classList.toggle('active', Number(c.dataset.value) === answers[currentQuestionIndex]));
+    prevBtn.style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
+    nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next';
+  }
 
-        // Event listener for Next button
-        nextBtn.addEventListener('click', () => {
-            if (currentQuestionIndex < questions.length - 1) {
-                currentQuestionIndex++;
-                updateUI();
-            } else {
-                // Show modal on Finish
-                notificationModal.style.display = 'flex';
-                // Redirect after a delay
-                setTimeout(() => {
-                    window.location.href = 'indexhasil.html'; // Redirect to the main page
-                }, 3000); // 3 seconds delay
-            }
-        });
-
-        // Event listener for Previous button
-        prevBtn.addEventListener('click', () => {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                updateUI();
-            }
-        });
-
-        // Event listeners for answer choices
-        answerChoices.forEach(choice => {
-            choice.addEventListener('click', () => {
-                // Remove active class from all choices
-                answerChoices.forEach(c => c.classList.remove('active'));
-                // Add active class to the clicked choice
-                choice.classList.add('active');
-                // You can add logic here to store the user's answer
-                console.log(`Jawaban untuk pertanyaan ${currentQuestionIndex + 1}: ${choice.dataset.value}`);
-            });
-        });
-
-        // JavaScript untuk menangani fungsi logout
-const logoutButton = document.getElementById('logoutButton');
-const logoutModal = document.getElementById('logout-modal');
-if (logoutButton) {
-    logoutButton.addEventListener('click', function() {
-        // Tampilkan modal notifikasi logout
-        logoutModal.style.display = 'flex';
-        // Mengarahkan pengguna kembali ke halaman login setelah 3 detik
-        setTimeout(() => {
-            window.location.href = 'login.html';
-        }, 3000);
+  // simpan pilihan 1..5
+  answerChoices.forEach(choice => {
+    choice.addEventListener('click', () => {
+      const val = Number(choice.dataset.value);   // 1..5
+      answers[currentQuestionIndex] = val;
+      answerChoices.forEach(c => c.classList.remove('active'));
+      choice.classList.add('active');
     });
-}
-        
-        // Initial UI setup
-        updateUI();
-    </script>
+  });
+
+  // tombol Next/Finish
+  nextBtn.addEventListener('click', () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      currentQuestionIndex++;
+      updateUI();
+      return;
+    }
+
+    // pastikan semua terisi
+    const miss = answers.findIndex(a => a === null);
+    if (miss !== -1) {
+      alert(`Pertanyaan nomor ${miss+1} belum dijawab.`);
+      currentQuestionIndex = miss; updateUI(); return;
+    }
+
+    // ---- HITUNG V/A/K → simpan ke localStorage ----
+    const to01 = v => (v - 1) / 4; // skala 1..5 → 0..1
+    const sums   = { V:0, A:0, K:0 }, counts = { V:0, A:0, K:0 };
+    answers.forEach((ans, i) => { const g = groupMap[i]; sums[g] += to01(ans); counts[g]++; });
+    const mean = {
+      V: counts.V ? sums.V / counts.V : 0,
+      A: counts.A ? sums.A / counts.A : 0,
+      K: counts.K ? sums.K / counts.K : 0
+    };
+    const total = Math.max(1e-6, mean.V + mean.A + mean.K);
+    const pct = {
+      visual:     Math.round((mean.V / total) * 100),
+      audiotori:  Math.round((mean.A / total) * 100),
+      kinestetik: Math.round((mean.K / total) * 100),
+    };
+    const primary =
+      pct.visual >= pct.audiotori && pct.visual >= pct.kinestetik ? 'visual' :
+      pct.audiotori >= pct.kinestetik ? 'audiotori' : 'kinestetik';
+
+    try {
+      localStorage.setItem('vark_visual',     String(pct.visual));
+      localStorage.setItem('vark_audiotori',  String(pct.audiotori));
+      localStorage.setItem('vark_kinestetik', String(pct.kinestetik));
+      localStorage.setItem('vark_primary',    primary);
+      localStorage.setItem('vark_timestamp',  new Date().toISOString());
+    } catch {}
+
+    // tampilkan modal lalu arahkan ke halaman rekomendasi (router akan mengirim ke halaman sesuai gaya)
+    if (notificationModal) {
+      notificationModal.style.display = 'flex';
+      setTimeout(()=>{ window.location.href = 'rekomendasi-pembelajaran-hasil.html'; }, 1500);
+    } else {
+      window.location.href = 'rekomendasi-pembelajaran-hasil.html';
+    }
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentQuestionIndex > 0) { currentQuestionIndex--; updateUI(); }
+  });
+
+  // (opsional) klik nav bulatan
+  questionNavItems.forEach((item, idx) => item.addEventListener('click', () => { currentQuestionIndex = idx; updateUI(); }));
+
+  // init
+  updateUI();
+</script>
+
+
 </body>
 </html>

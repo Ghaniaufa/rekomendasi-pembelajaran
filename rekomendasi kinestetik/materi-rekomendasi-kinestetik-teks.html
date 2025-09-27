@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Halaman Materi Teks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FA;
+            color: #333;
+            overflow: hidden; /* Prevent body scroll */
+        }
+        .main-container {
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 25%;
+            background-color: #1470F9;
+            border-right: 1px solid #E2E8F0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            color: white;
+        }
+        .sidebar a { color: white; }
+        .sidebar a:hover { background-color: rgba(255, 255, 255, 0.2); }
+        .text-content-container { flex: 1; display: flex; flex-direction: column; background-color: #FFF; }
+        .text-content { padding: 1.5rem; flex-grow: 1; overflow-y: auto; }
+        .playlist-item {
+            display: flex; align-items: center;
+            border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.75rem;
+            cursor: pointer; transition: all 0.2s; position: relative;
+        }
+        .playlist-item:hover { background-color: #E2E8F0; }
+        .playlist-item.active {
+            background-color: #3B82F6; color: white;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            position: relative;
+        }
+        .video-progress-bar {
+            height: 4px; background-color: #6B7280;
+            position: absolute; bottom: 0; left: 0; transition: width 0.3s ease;
+        }
+        .toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider {
+            position: absolute; cursor: pointer; inset: 0;
+            background-color: #4a5568; transition: .4s; border-radius: 24px;
+        }
+        .toggle-slider:before {
+            position: absolute; content: ""; height: 20px; width: 20px;
+            left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%;
+        }
+        input:checked + .toggle-slider { background-color: #20235c; }
+        input:checked + .toggle-slider:before { transform: translateX(20px); }
+        .sidebar svg, .sidebar i, .sidebar h2, .sidebar p, .sidebar span { color: white; }
+    </style>
+</head>
+<body class="main-container">
+
+    <!-- Sidebar (Playlist) -->
+    <aside class="sidebar">
+        <h2 class="text-2xl font-bold mb-4">Daftar Materi</h2>
+        <div id="playlist" class="flex-grow overflow-y-auto"></div>
+
+        
+            <!-- Profile Card -->
+            <a href="profile.html"
+                class="p-3 rounded-lg flex items-center justify-start text-white hover:bg-gray-200 transition-colors duration-200">
+                <img src="https://placehold.co/40x40/94a3b8/ffffff?text=U" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
+                <div class="flex-grow">
+                    <p class="font-medium">Culaccino_</p>
+                    <p class="text-sm text-gray-500">UX Designer</p>
+                </div>
+            </a>
+            <!-- Logout Button -->
+            <button id="logoutButton"
+                    class="w-full p-3 text-left rounded-lg bg-red-500 text-white
+                    transition-colors duration-200 flex items-center justify-center mt-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                </svg>
+                Keluar
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content (Text Content) -->
+    <main class="text-content-container">
+        <!-- Toolbar: Back + Format Switcher -->
+        <div class="p-4 flex items-center justify-between bg-gray-200 border-b border-gray-300">
+            <!-- Tombol Back: arahkan ke halaman tertentu (bukan history.back) -->
+            <button type="button"
+                    onclick="goBack('/rekomendasi-pembelajaran-hasil.html')"
+                    class="bg-gray-300 text-gray-800 p-3 rounded-full hover:bg-gray-400">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <div class="flex justify-center space-x-4">
+                <a href="/rekomendasi kinestetik/materi-rekomendasi-kinestetik-teks.html" class="px-6 py-2 rounded-full font-medium text-white bg-[#1470F9] shadow-md hover:bg-[#0f54b6] transition-colors">Teks</a>
+                <a href="/rekomendasi kinestetik/materi-rekomendasi-kinestetik.html" class="px-6 py-2 rounded-full font-medium text-gray-700 bg-white shadow-md hover:bg-gray-100 transition-colors">Praktik Langsung</a>
+            </div>
+        </div>
+
+        <div class="text-content">
+            <h1 id="text-title" class="text-3xl font-bold text-gray-800 mb-4"></h1>
+            <p id="text-description" class="text-gray-600 mb-6"></p>
+
+            <div id="material-text" class="prose max-w-none text-gray-700"></div>
+
+            <!-- (DIHAPUS) Baris ikon koin & bintang -->
+
+            <!-- Next Material Section -->
+            <div class="mt-8 p-4 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img id="next-material-thumb" src="https://placehold.co/80x50/FFF/000?text=Next" alt="Thumbnail" class="rounded-md">
+                    <div>
+                        <p class="text-sm text-gray-600 font-medium">Selanjutnya</p>
+                        <p id="next-material-title" class="font-semibold text-gray-800">Materi Selanjutnya</p>
+                    </div>
+                </div>
+                <button id="next-material-btn" class="bg-gray-300 text-gray-800 p-3 rounded-full hover:bg-gray-400 transition-colors">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Tombol Back: selalu ke URL yang ditentukan
+        // options.replace === true => window.location.replace (tidak menambah riwayat)
+        function goBack(url = '/deskripsi-kinestetik.html', options = { replace: false }) {
+            const safeUrl = url.replace(/\s/g, '%20'); // encode spasi agar aman
+            if (options.replace) window.location.replace(safeUrl);
+            else window.location.href = safeUrl;
+        }
+
+        const playlistData = [
+    {
+        id: '1',
+        title: 'BAB 1 : Pengenalan Algoritma',
+        thumbnail: 'https://placehold.co/160x90/B0E0E6/000?text=ALGORITMA',
+        description: 'Materi ini memperkenalkan konsep dasar algoritma dan karakteristiknya.',
+        progress: 100,
+        isCompleted: true,
+        content: `
+            <h2>Apa itu Algoritma?</h2>
+            <p>Algoritma adalah serangkaian langkah sistematis dan logis yang digunakan untuk menyelesaikan suatu masalah. 
+            Dalam pemrograman, algoritma menjadi dasar untuk merancang program komputer yang efisien dan terstruktur.</p>
+
+            <h3>Ciri-ciri Algoritma</h3>
+            <ul>
+                <li><b>Jelas dan terdefinisi</b>: Setiap langkah harus mudah dipahami.</li>
+                <li><b>Terbatas</b>: Algoritma harus berakhir setelah sejumlah langkah tertentu.</li>
+                <li><b>Efektif</b>: Langkah-langkahnya dapat dilakukan secara nyata.</li>
+                <li><b>Urut</b>: Instruksi harus disusun dalam urutan yang logis.</li>
+            </ul>
+
+            <h3>Bentuk Penyajian Algoritma</h3>
+            <p>Algoritma dapat dituliskan dalam berbagai bentuk, misalnya:</p>
+            <ol>
+                <li><b>Pseudocode</b>: Menuliskan algoritma dengan bahasa sederhana mirip kode.</li>
+                <li><b>Diagram Alir</b>: Menyajikan algoritma dalam bentuk simbol-simbol visual.</li>
+                <li><b>Deskripsi Naratif</b>: Menjelaskan langkah-langkah dalam bahasa natural.</li>
+            </ol>
+
+            <h3>Contoh Algoritma Sederhana</h3>
+            <p>Algoritma untuk membuat teh:</p>
+            <ol>
+                <li>Panaskan air hingga mendidih.</li>
+                <li>Masukkan teh ke dalam gelas.</li>
+                <li>Tuang air panas ke gelas.</li>
+                <li>Tambahkan gula sesuai selera.</li>
+                <li>Aduk hingga merata, teh siap diminum.</li>
+            </ol>
+        `
+    },
+    {
+        id: '2',
+        title: 'BAB 2 : Struktur Kontrol Algoritma',
+        thumbnail: 'https://placehold.co/160x90/ADD8E6/000?text=ALGORITMA',
+        description: 'Materi ini membahas percabangan dan perulangan dalam algoritma.',
+        progress: 50,
+        isCompleted: false,
+        content: `
+            <h2>Struktur Kontrol Algoritma</h2>
+            <p>Struktur kontrol adalah mekanisme yang menentukan urutan eksekusi langkah dalam algoritma.</p>
+
+            <h3>Jenis Struktur Kontrol</h3>
+            <ul>
+                <li><b>Sekuensial</b>: Instruksi dijalankan secara berurutan dari atas ke bawah.</li>
+                <li><b>Percabangan (Selection)</b>: Menentukan jalannya program berdasarkan kondisi (IF, IF-ELSE, SWITCH).</li>
+                <li><b>Perulangan (Looping)</b>: Mengulang perintah tertentu sampai kondisi tertentu terpenuhi (FOR, WHILE, DO-WHILE).</li>
+            </ul>
+
+            <h3>Contoh</h3>
+            <pre>
+IF nilai >= 60 THEN
+    Cetak "Lulus"
+ELSE
+    Cetak "Tidak Lulus"
+END IF
+            </pre>
+        `
+    },
+];
+
+
+        const playlistContainer = document.getElementById('playlist');
+        const textTitle = document.getElementById('text-title');
+        const textDescription = document.getElementById('text-description');
+        const materialText = document.getElementById('material-text');
+        const nextMaterialTitle = document.getElementById('next-material-title');
+        const nextMaterialBtn = document.getElementById('next-material-btn');
+        const nextMaterialThumb = document.getElementById('next-material-thumb');
+        let currentMaterialIndex = 0;
+
+        function loadMaterial(index) {
+            const material = playlistData[index];
+            if (!material) return;
+
+            textTitle.textContent = material.title;
+            textDescription.textContent = material.description;
+            materialText.innerHTML = material.content;
+            currentMaterialIndex = index;
+
+            // Update active class
+            document.querySelectorAll('.playlist-item').forEach(item => item.classList.remove('active'));
+            document.getElementById(`item-${index}`).classList.add('active');
+            
+            // Update next material section
+            if (index + 1 < playlistData.length) {
+                const nextMaterial = playlistData[index + 1];
+                nextMaterialTitle.textContent = nextMaterial.title;
+                nextMaterialThumb.src = nextMaterial.thumbnail;
+                nextMaterialBtn.style.display = 'block';
+            } else {
+                nextMaterialTitle.textContent = 'Tidak ada materi selanjutnya';
+                nextMaterialThumb.src = 'https://placehold.co/80x50/FFF/000?text=Next';
+                nextMaterialBtn.style.display = 'none';
+            }
+        }
+        
+        function renderPlaylist() {
+            playlistContainer.innerHTML = '';
+            playlistData.forEach((material, index) => {
+                const item = document.createElement('div');
+                item.className = `playlist-item ${index === 0 ? 'active' : ''}`;
+                item.id = `item-${index}`;
+                item.innerHTML = `
+                    <div class="relative w-24 h-16 mr-4 flex-shrink-0">
+                        <img src="${material.thumbnail}" alt="Thumbnail" class="w-full h-full object-cover rounded-md">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center rounded-md">
+                            <i class="fas fa-file-alt text-white text-xl"></i>
+                        </div>
+                        <div class="video-progress-bar" style="width: ${material.progress}%;"></div>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="font-medium text-sm">${material.title}</p>
+                        <!-- (DIHAPUS) baris poin & level -->
+                    </div>
+                `;
+                item.onclick = () => loadMaterial(index);
+                playlistContainer.appendChild(item);
+            });
+        }
+
+        nextMaterialBtn.addEventListener('click', () => {
+            loadMaterial(currentMaterialIndex + 1);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPlaylist();
+            loadMaterial(0);
+        });
+    </script>
+</body>
+</html>

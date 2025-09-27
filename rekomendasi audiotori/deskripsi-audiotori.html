@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Detail Materi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FA;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .progress-bar-container {
+            background-color: #E2E8F0;
+            border-radius: 9999px;
+            height: 8px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #1470F9;
+            transition: width 0.3s ease-in-out;
+        }
+        .collapse-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .rotated {
+            transform: rotate(180deg);
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #4a5568;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .toggle-slider {
+            background-color: #20235c;
+        }
+        input:checked + .toggle-slider:before {
+            transform: translateX(20px);
+        }
+        /* Modal styling */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        .modal-bell-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen bg-gray-100">
+    <!-- Sidebar -->
+    <aside class="w-64 text-white flex flex-col p-4 shadow-lg fixed h-full" style="background-color: #1470F9;">
+        <div class="flex-grow">
+            <h1 class="text-2xl font-bold mb-8">
+                <a href="/indexhasil.html" class="text-white hover:text-indigo-200 transition duration-300">Lorem Ipsum</a>
+            </h1>
+            <ul class="space-y-2">
+                <li>
+                    <!-- Link navigasi Dashboard -->
+                    <a href="/index.html"
+                        class="flex items-center p-3 rounded-lg 
+                                hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 8v8m-4-4v4m-4-4v4m-2-12h10a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"></path>
+                        </svg>
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <!-- Link navigasi Profil Gaya Belajar -->
+                    <a href="/profilgayabelajar.html"
+                        class="flex items-center p-3 rounded-lg
+                                hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                        </svg>
+                        Profil Gaya Belajar
+                    </a>
+                </li>
+
+                <li>
+                    <!-- Link navigasi Rekomendasi Pembelajaran -->
+                    <a href="/rekomendasipembelajaran.html"
+                        class="flex items-center p-3 rounded-lg
+                                hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.435 9.177 5 7.5 5S4.168 5.435 3 6.253v13C4.168 18.435 5.823 18 7.5 18s3.332.435 4.5 1.253m0-13C13.168 5.435 14.823 5 16.5 5S19.832 5.435 21 6.253v13C19.832 18.435 18.177 18 16.5 18s-3.332.435-4.5 1.253"></path>
+                        </svg>
+                        Rekomendasi Pembelajaran
+                    </a>
+                </li>
+                <li>
+                    <!-- Link navigasi Materi Pembelajaran -->
+                    <a href="/materi-pembelajaran.html"
+                            class="flex items-center p-3 rounded-lg
+                                    hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3 lucide lucide-files">
+                            <path d="M15.5 2H8.6c-.6 0-1.1.2-1.4.6-.3.4-.6.9-.6 1.4V20c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V7.5L15.5 2Z"/>
+                            <path d="M8 4v11c0 .6.4 1 1 1h10"/>
+                        </svg>
+                        <span class="ml-3">Materi Pembelajaran</span>
+                    </a>
+                </li>
+                <li>
+                    <!-- Link navigasi Riwayat Pembelajaran -->
+                    <a href="/riwayat-pembelajaran.html"
+                        class="flex items-center p-3 rounded-lg
+                                hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21H6.737a2 2 0 01-1.789-2.894l3.5-7A2 2 0 019.263 9h5.474a2 2 0 012 2v.894"></path>
+                        </svg>
+                        Riwayat Pembelajaran
+                    </a>
+                </li>
+               
+            </ul>
+        </nav>
+        </div>
+
+       
+
+            <!-- Card Profil -->
+            <a href="profile.html"
+                class="p-3 rounded-lg flex items-center justify-start  text-white
+                        hover:bg-white hover:text-blue-600 transition-colors duration-200">
+                <img src="https://placehold.co/40x40/94a3b8/ffffff?text=U" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
+                <div class="flex-grow">
+                    <p class="font-medium">Culaccino_</p>
+                    <p class="text-sm">UX Designer</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+                </svg>
+            </a>
+            
+            <!-- Tombol Keluar -->
+            <button id="logoutButton"
+                    class="w-full p-3 text-left rounded-lg bg-red-500 text-white
+                    transition-colors duration-200 flex items-center justify-center mt-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                </svg>
+                Keluar
+            </button>
+        </div>
+
+        <!-- Modal Notifikasi Lite Mode -->
+        <div id="lite-mode-modal" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-bell-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-blue-600">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.964 3.785 1.517 5.455 1.31A23.847 23.847 0 0018 17.082" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Lite Mode Sudah Diaktifkan</h3>
+                <p class="text-gray-600 text-sm">Silahkan akses kembali materi tersebut</p>
+            </div>
+        </div>
+        <!-- Modal Notifikasi Logout -->
+        <div id="logout-modal" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-bell-icon">
+                    <!-- SVG icon here -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Anda Berhasil Logout</h3>
+                <p class="text-gray-600 text-sm">Anda akan dialihkan ke halaman login.</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Konten Utama (disesuaikan agar tidak tertutup sidebar) -->
+    <div class="flex-1 ml-64 p-8">
+        
+        <!-- Bagian Utama Materi -->
+        <div class="card p-8">
+            <div class="flex flex-col md:flex-row items-start md:space-x-8">
+                <div class="mb-6 md:mb-0 w-full md:w-1/3">
+                    <!-- Image of headphones on a book -->
+                    <img src="https://placehold.co/400x300/E2E8F0/A0AEC0?text=Visualisasi+Data" alt="Video Placeholder" class="rounded-lg w-full">
+                </div>
+                <div class="w-full md:w-2/3">
+                    <h1 class="text-4xl font-bold text-gray-800 mb-2">Logika Pemrogramman A</h1>
+                    <div class="flex items-center text-gray-500 mb-4 text-sm">
+                        <span class="text-purple-500 font-medium mr-2">Auditori</span>
+                        <div class="flex items-center text-yellow-400 mr-2">
+                        </div>
+                    </div>
+                    <div class="flex space-x-4">
+                        <button class="bg-[#1470F9] text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-[#3469d6] transition duration-300" onclick="window.location.href='materi-rekomendasi-audiotori.html'">Mulai Belajar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Bagian Deskripsi & Bab Materi -->
+            <div class="md:col-span-2">
+                <div class="card">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Deskripsi</h2>
+                    <p class="text-gray-600 leading-relaxed">Materi ini dirancang untuk pembelajaran visual berbasis diagram dan konsep nyata. Misalkan visual terkadang lebih mudah dimengerti untuk setiap ide dengan menyatukan materi interaktif dan audio-suara nyata. Mari kita mulai!</p>
+                </div>
+
+                <div class="card">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Bab & Submateri</h2>
+                    <div class="space-y-4">
+                        <!-- Accordion Bab 1 -->
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200 cursor-pointer transition-all duration-300" onclick="toggleAccordion('bab1')">
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-medium text-gray-800">Bab 1: Pengenalan Algoritma</h3>
+                                <svg id="icon-bab1" class="w-5 h-5 text-gray-500 collapse-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                            <div id="content-bab1" class="hidden mt-2 text-gray-600">
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>Apa itu algoritma?</li>
+                                    <li>Konsep dasar visualisasi</li>
+                                    <li>Studi kasus sederhana</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Accordion Bab 2 -->
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200 cursor-pointer transition-all duration-300" onclick="toggleAccordion('bab2')">
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-medium text-gray-800">Bab 2: Struktur Kontrol</h3>
+                                <svg id="icon-bab2" class="w-5 h-5 text-gray-500 collapse-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                            <div id="content-bab2" class="hidden mt-2 text-gray-600">
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>Struktur sekuensial</li>
+                                    <li>Struktur pemilihan (if-else)</li>
+                                    <li>Struktur pengulangan (for, while)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Tambahkan lebih banyak bab di sini -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kolom Samping -->
+            <div class="md:col-span-1 space-y-6">
+                <!-- Bagian Pengajar -->
+                <div class="card">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Pengajar</h2>
+                    <div class="flex items-center space-x-4">
+                        <img src="https://placehold.co/60x60/B28CFF/FFFFFF?text=BS" alt="Foto Pengajar" class="w-16 h-16 rounded-full">
+                        <div>
+                            <p class="font-medium text-gray-800">Budi Santoso</p>
+                            <p class="text-sm text-gray-500">Software Engineer</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bagian Rekomendasi -->
+                <div class="card">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Rekomendasi</h2>
+                    <div class="flex items-center space-x-4">
+                        <img src="https://placehold.co/100x70/FF8C9C/FFFFFF?text=Rekomendasi" alt="Gambar Rekomendasi" class="w-24 h-auto rounded-lg">
+                        <div>
+                            <p class="font-medium text-gray-800">Dasar Teknik Pemrograman</p>
+                            <p class="text-sm text-gray-500">Tingkat Lanjut</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk mengontrol accordion (bab materi)
+        function toggleAccordion(id) {
+            const content = document.getElementById('content-' + id);
+            const icon = document.getElementById('icon-' + id);
+            
+            // Toggle visibility
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotated');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotated');
+            }
+        }
+        // JavaScript untuk menangani fungsi logout
+        const logoutButton = document.getElementById('logoutButton');
+        const logoutModal = document.getElementById('logout-modal');
+        if (logoutButton) {
+            logoutButton.addEventListener('click', function() {
+                // Tampilkan modal notifikasi logout
+                logoutModal.style.display = 'flex';
+                // Mengarahkan pengguna kembali ke halaman login setelah 3 detik
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 3000);
+            });
+        }
+        
+        // Event listener for Lite Mode toggle
+        const liteModeToggle = document.getElementById('lite-mode-toggle');
+        const liteModeModal = document.getElementById('lite-mode-modal');
+        if (liteModeToggle) {
+            liteModeToggle.addEventListener('change', () => {
+                if (liteModeToggle.checked) {
+                    // Show Lite Mode modal when toggled on
+                    liteModeModal.style.display = 'flex';
+                    // Hide modal after a delay
+                    setTimeout(() => {
+                        liteModeModal.style.display = 'none';
+                    }, 3000);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
