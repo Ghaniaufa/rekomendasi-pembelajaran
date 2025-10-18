@@ -9,6 +9,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
+    /* CSS Tambahan untuk Logo Header */
+    .header-logo {
+      height: 32px; /* Menyesuaikan tinggi logo agar pas di header */
+      width: auto; /* Memastikan rasio aspek terjaga */
+      margin-right: 8px; /* Jarak antara logo dan judul */
+      /* Logo asli Anda memiliki latar belakang hitam, jadi mungkin perlu penyesuaian
+         jika logo tidak memiliki transparansi */
     body{font-family:'Inter',sans-serif;background:#F8F9FA;}
     .toggle-switch{position:relative;display:inline-block;width:44px;height:24px;}
     .toggle-switch input{opacity:0;width:0;height:0;}
@@ -23,11 +30,11 @@
 
   <!-- Sidebar (fixed) -->
   <aside id="sidebar"
-         class="fixed left-0 top-0 z-40 h-screen w-64 bg-[#1470F9] text-white flex flex-col p-4 shadow-lg
-                transition-transform duration-200 -translate-x-full md:translate-x-0">
+        class="fixed left-0 top-0 z-40 h-screen w-64 bg-[#1470F9] text-white flex flex-col p-4 shadow-lg
+               transition-transform duration-200 -translate-x-full md:translate-x-0">
     <div class="flex-grow">
       <h1 class="text-2xl font-bold mb-8">
-        <a href="#" class="text-white hover:text-indigo-200 transition">Lorem Ipsum</a>
+        <a href="#" class="text-white hover:text-indigo-200 transition">Ayo Belajar!</a>
       </h1>
 
       <nav>
@@ -95,7 +102,7 @@
       <!-- Card Profil -->
       <a href="profile.html"
          class="p-3 rounded-lg flex items-center text-white hover:bg-white hover:text-blue-600 transition">
-        <img src="https://placehold.co/40x40/94a3b8/ffffff?text=U" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
+        <img src="assets/24.png" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
         <div class="flex-grow">
           <p class="font-medium">Culaccino_</p>
           <p class="text-sm">UX Designer</p>
@@ -119,14 +126,19 @@
 
   <!-- Header (mobile) -->
   <header class="md:hidden sticky top-0 z-30 bg-white border-b">
-    <div class="flex items-center justify-between px-4 py-3">
-      <button id="openSidebar" class="p-2 rounded-md border">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+  <div class="flex items-center justify-between px-4 py-3">
+    <button id="openSidebar" class="p-2 rounded-md border">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    
+    <div class="flex items-center"> 
+      <img src="assets/Logo (1) 1.png" alt="Logo Perusahaan" class="header-logo">
       <h1 class="font-semibold">Dashboard</h1>
-      <div class="w-9"></div>
     </div>
-  </header>
+    
+    <div class="w-9"></div>
+  </div>
+</header>
 
   <!-- Main Content: beri offset ml-64 di md+ agar tidak tertutup sidebar -->
   <main class="min-h-screen px-6 py-6 md:py-8 md:pl-10 md:pr-8 md:ml-64">
@@ -160,10 +172,10 @@
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-white rounded-xl shadow p-4">
-          <img src="https://placehold.co/800x420/94a3b8/ffffff?text=Visual" class="rounded-lg mb-4 w-full h-auto" alt="Visual Materi"/>
+          <img src="assets/24.png" class="rounded-lg mb-4 w-full h-auto" alt="Visual Materi"/>
           <h3 class="font-bold text-lg mb-2">Dasar Pemrograman A</h3>
           <div class="flex items-center text-gray-600 text-sm">
-            <img src="https://placehold.co/60x60/94a3b8/ffffff?text=BS" class="w-8 h-8 rounded-full mr-2" alt="Teacher"/>
+            <img src="assets/24.png" class="w-8 h-8 rounded-full mr-2" alt="Teacher"/>
             <div>
               <p class="font-medium">Budi Santoso</p>
               <p class="text-xs">Software Engineer</p>
@@ -172,10 +184,10 @@
         </div>
 
         <div class="bg-white rounded-xl shadow p-4">
-          <img src="https://placehold.co/800x420/94a3b8/ffffff?text=Visual" class="rounded-lg mb-4 w-full h-auto" alt="Visual Materi"/>
+          <img src="assets/24.png" class="rounded-lg mb-4 w-full h-auto" alt="Visual Materi"/>
           <h3 class="font-bold text-lg mb-2">Dasar Pemrograman B</h3>
           <div class="flex items-center text-gray-600 text-sm">
-            <img src="https://placehold.co/60x60/94a3b8/ffffff?text=BS" class="w-8 h-8 rounded-full mr-2" alt="Teacher"/>
+            <img src="assets/24.png" class="w-8 h-8 rounded-full mr-2" alt="Teacher"/>
             <div>
               <p class="font-medium">Budi Santoso</p>
               <p class="text-xs">Software Engineer</p>
@@ -184,10 +196,10 @@
         </div>
 
         <div class="bg-white rounded-xl shadow p-4">
-          <img src="https://placehold.co/800x420/94a3b8/ffffff?text=Visual" class="rounded-lg mb-4 w-full h-auto" alt="Visual Materi"/>
+          <img src="assets/24.png" class="rounded-lg mb-4 w-full h-auto" alt="Visual Materi"/>
           <h3 class="font-bold text-lg mb-2">Dasar Pemrograman C</h3>
           <div class="flex items-center text-gray-600 text-sm">
-            <img src="https://placehold.co/60x60/94a3b8/ffffff?text=BS" class="w-8 h-8 rounded-full mr-2" alt="Teacher"/>
+            <img src="assets/24.png" class="w-8 h-8 rounded-full mr-2" alt="Teacher"/>
             <div>
               <p class="font-medium">Budi Santoso</p>
               <p class="text-xs">Software Engineer</p>
@@ -205,10 +217,10 @@
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-white rounded-xl shadow p-4">
-          <img src="https://placehold.co/800x420/1f2937/ffffff?text=Code" class="rounded-lg mb-4 w-full h-auto" alt="Materi"/>
+          <img src="assets/19.png" class="rounded-lg mb-4 w-full h-auto" alt="Materi"/>
           <h3 class="font-bold text-lg mb-2">Logika Pemrogramman A</h3>
           <div class="flex items-center text-gray-600 text-sm">
-            <img src="https://placehold.co/60x60/94a3b8/ffffff?text=BS" class="w-8 h-8 rounded-full mr-2" alt="Teacher"/>
+            <img src="assets/19.png" class="w-8 h-8 rounded-full mr-2" alt="Teacher"/>
             <div>
               <p class="font-medium">Budi Santoso</p>
               <p class="text-xs">Software Engineer</p>
@@ -216,10 +228,10 @@
           </div>
         </div>
         <div class="bg-white rounded-xl shadow p-4">
-          <img src="https://placehold.co/800x420/1f2937/ffffff?text=Code" class="rounded-lg mb-4 w-full h-auto" alt="Materi"/>
+          <img src="assets/20.png" class="rounded-lg mb-4 w-full h-auto" alt="Materi"/>
           <h3 class="font-bold text-lg mb-2">Logika Pemrogramman B</h3>
           <div class="flex items-center text-gray-600 text-sm">
-            <img src="https://placehold.co/60x60/94a3b8/ffffff?text=BS" class="w-8 h-8 rounded-full mr-2" alt="Teacher"/>
+            <img src="assets/20.png" class="w-8 h-8 rounded-full mr-2" alt="Teacher"/>
             <div>
               <p class="font-medium">Budi Santoso</p>
               <p class="text-xs">Software Engineer</p>
@@ -227,10 +239,10 @@
           </div>
         </div>
         <div class="bg-white rounded-xl shadow p-4">
-          <img src="https://placehold.co/800x420/1f2937/ffffff?text=Hands" class="rounded-lg mb-4 w-full h-auto" alt="Materi"/>
+          <img src="assets/23.png" class="rounded-lg mb-4 w-full h-auto" alt="Materi"/>
           <h3 class="font-bold text-lg mb-2">Logika Pemrogramman C</h3>
           <div class="flex items-center text-gray-600 text-sm">
-            <img src="https://placehold.co/60x60/94a3b8/ffffff?text=BS" class="w-8 h-8 rounded-full mr-2" alt="Teacher"/>
+            <img src="assets/23.png" class="w-8 h-8 rounded-full mr-2" alt="Teacher"/>
             <div>
               <p class="font-medium">Budi Santoso</p>
               <p class="text-xs">Software Engineer</p>

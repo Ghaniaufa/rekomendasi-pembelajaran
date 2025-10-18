@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PT. Garish Plastik Indoespec</title>
+    <!-- Memuat Tailwind CSS untuk styling yang mudah dan responsif -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom font family */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+
+        /* Styling untuk hero section dengan background image */
+        .hero-section {
+            background-image: url('https://placehold.co/1200x600/343a40/ffffff?text=Latar+Belakang+Pabrik'); /* Ganti dengan URL gambar Anda */
+            background-size: cover;
+            background-position: center;
+            height: 80vh; /* Tinggi viewport 80% */
+            position: relative;
+        }
+
+        .hero-overlay {
+            background-color: rgba(0, 0, 0, 0.5); /* Overlay gelap 50% */
+        }
+
+        /* Styling untuk 'Tentang Perusahaan' section */
+        .about-card {
+            background-color: #273747; /* Warna biru tua sesuai gambar */
+            color: white;
+            border-radius: 1.5rem; /* Sudut melengkung */
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            border: 3px solid #cb3234; /* Border merah */
+        }
+
+        /* Styling untuk footer */
+        .footer-section {
+            background-color: #273747; /* Warna biru tua sesuai gambar */
+            color: #d1d5db; /* Teks abu-abu terang */
+        }
+
+        .logo-placeholder {
+            /* Placeholder untuk logo Garish */
+            background-color: #e5e7eb;
+            color: #273747;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navbar -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+            <!-- Logo Kiri -->
+            <div class="text-xl font-bold text-red-600">
+                G<span class="text-gray-800">ARISH</span>
+            </div>
+            
+            <!-- Menu Utama -->
+            <nav class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#home" class="text-gray-600 hover:text-red-600 transition duration-150">Home</a>
+                <a href="#produk" class="text-gray-600 hover:text-red-600 transition duration-150">Produk</a>
+                <a href="#transaksi" class="text-gray-600 hover:text-red-600 transition duration-150">Transaksi</a>
+            </nav>
+
+            <!-- Tombol Kanan -->
+            <div class="flex items-center space-x-4">
+                <a href="#" class="text-gray-600 hover:text-red-600 text-sm font-medium hidden sm:block">Masuk</a>
+                <a href="#" class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition duration-150 shadow-md">Daftar</a>
+                <!-- Tombol Menu Mobile (hanya terlihat di layar kecil) -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-red-600 p-2 rounded-md transition duration-150">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile (Tersembunyi secara default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <a href="#home" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Home</a>
+            <a href="#produk" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Produk</a>
+            <a href="#transaksi" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Transaksi</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Masuk</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-overlay absolute inset-0 flex flex-col justify-center items-center text-center p-4">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+                Ingin Menemukan <br> Produk Lebih Banyak ?
+            </h1>
+            <a href="formatkonten.html" class="bg-white text-gray-900 font-medium px-8 py-3 rounded-xl hover:bg-gray-200 transition duration-300 shadow-xl">
+                Cek Disini
+            </a>
+        </div>
+    </section>
+
+    <!-- Tentang Perusahaan Section -->
+    <section class="max-w-5xl mx-auto py-20 px-4 -mt-24 md:-mt-32 relative z-10">
+        <div class="about-card p-8 md:p-12 lg:p-16 flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-10">
+            <!-- Logo/Gambar Kiri -->
+            <div class="w-full md:w-1/3 flex justify-center flex-shrink-0">
+                <div class="logo-placeholder p-6 w-full max-w-xs h-auto aspect-[4/3]">
+                    <span class="text-3xl font-bold">Garish</span>
+                </div>
+            </div>
+            
+            <!-- Konten Kanan -->
+            <div class="w-full md:w-2/3">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-red-400">
+                    Tentang Perusahaan
+                </h2>
+                <p class="text-lg leading-relaxed text-gray-200">
+                    Lorem ipsum dolor sit amet consectetur. Fermentum nunc sit faucibus diam faucibus in. Urna condimentum aliquet aliquam metus leo a. Quis facilisi nec eu ipsum solidus viverra vivamus et. Iaculis volutpat leo dictum lacus interdum.
+                </p>
+                <p class="text-lg leading-relaxed text-gray-200 mt-3 hidden sm:block">
+                    Kami berdedikasi untuk memberikan solusi injeksi plastik terbaik dengan spesifikasi industri yang tinggi.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/628123456789" target="_blank" class="fixed bottom-6 right-6 z-50 bg-green-500 p-3 rounded-full shadow-lg hover:bg-green-600 transition duration-300">
+        <!-- Ikon WhatsApp (Inline SVG untuk kemudahan) -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.031 2.015c-5.521 0-9.998 4.477-9.998 9.999 0 1.767.465 3.456 1.354 4.939l-1.42 5.184 5.325-1.393c1.455.792 3.097 1.205 4.739 1.205 5.522 0 10.001-4.477 10.001-9.998s-4.478-10.001-10.001-10.001zm0 18.175c-1.579 0-3.136-.454-4.468-1.311l-.317-.189-3.295.861.872-3.242-.206-.328c-.854-1.357-1.311-2.924-1.311-4.576 0-4.577 3.72-8.298 8.298-8.298s8.297 3.721 8.297 8.298-3.72 8.298-8.297 8.298zm4.568-6.844c-.248-.124-.541-.248-.834-.372-.248-.124-.28-.155-.453-.372s-.217-.504-.403-.778c-.186-.273-.342-.248-.497-.248-.155 0-.311-.008-.465-.008-.155 0-.311.054-.465.217s-.58.58-.704.729c-.124.155-.248.155-.496.082s-.984-.372-1.874-1.151c-.689-.58-1.151-1.176-1.311-1.424s-.016-.217.108-.444c.124-.217.273-.372.403-.589s.155-.418.217-.541c.063-.124.031-.233-.008-.311s-.248-.58-.337-.778c-.089-.186-.186-.155-.248-.155-.062 0-.155-.008-.248-.008s-.248.016-.372.248c-.124.232-.465.453-.704.685s-.372.465-.496.589c-.124.124-.273.217-.403.311-.124.092-.28.186-.434.273-.155.089-.311.155-.465.217-.155.062-.273.082-.403.082s-.273-.008-.541-.124c-.269-.124-.704-.248-1.311-.58s-1.026-.889-1.401-1.558c-.372-.668-.418-1.275-.418-1.557 0-.311.082-.465.186-.589s.444-.611.58-.918c.135-.306.186-.541.155-.778s-.217-.465-.311-.589c-.092-.124-.217-.248-.342-.372-.124-.124-.273-.306-.186-.541.082-.232.541-1.311.778-1.785.232-.473.465-.504.685-.504s.342.023.497.023.403.062.58.273c.178.217.311.453.403.611.092.155.186.372.372.589s.403.453.611.58c.207.124.465.155.651.054.186-.092.778-.28 1.482-.918.704-.638 1.151-1.033 1.151-1.311 0-.273-.031-.504-.092-.704s-.124-.418-.186-.541c-.063-.124-.124-.217-.155-.273s-.089-.186-.054-.342.108-.342.273-.704c.164-.363.342-.778.541-.889.186-.124.403-.186.611-.186s.418.008.611.108.372.311.541.541.273.504.342.704.186.342.403.465c.217.124.58.186 1.111-.008.531-.194 1.341-.541 1.744-.729.395-.194.651-.273.837-.273s.342.031.541.124.311.217.403.342.124.273.186.496.062.504-.062.918c-.124.418-.739 1.139-1.033 1.424s-.372.372-.611.611z"/>
+        </svg>
+    </a>
+
+    <!-- Footer Section -->
+    <footer class="footer-section pt-16 pb-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+            
+            <!-- Contact Us -->
+            <div>
+                <h3 class="text-white text-xl font-semibold mb-6">Contact us</h3>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-start">
+                        <!-- Icon Placeholder -->
+                        <span class="mr-3 text-red-500 font-bold text-lg">📞</span>
+                        <div>
+                            <p>0822 49XX 49XX</p>
+                            <p>0852 49XX 49XX</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <!-- Icon Placeholder -->
+                        <span class="mr-3 text-red-500 font-bold text-lg">📧</span>
+                        <div>
+                            <p>garish_1996 832</p>
+                            <p>garish@gmail</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <!-- Icon Placeholder -->
+                        <span class="mr-3 text-red-500 font-bold text-lg">🏢</span>
+                        <p>Kantor Pusat</p>
+                    </li>
+                    <li class="flex items-start">
+                        <!-- Icon Placeholder -->
+                        <span class="mr-3 text-red-500 font-bold text-lg">🌐</span>
+                        <p>Website Perusahaan</p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Temukan Kami (Find Us) -->
+            <div>
+                <h3 class="text-white text-xl font-semibold mb-6">Temukan Kami</h3>
+                <div class="space-y-4 text-sm">
+                    <div>
+                        <p class="font-bold text-white mb-1">Alamat Pabrik</p>
+                        <p>JL. RAYA SERAYU KM 6.5 DESA KUTOSARI, KEC. KUTOSARI, KEC. KEJOBONG, KAB. PURBALINGGA, JAWA TENGAH 53372</p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-white mb-1">Alamat Kantor</p>
+                        <p>JL. RUNGKUT INDUSTRI KM 7, NO. 10B, KEL. KUTISARI, KEC. TENGGILIS MEJOYO, KOTA SURABAYA, JAWA TIMUR 60292</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PT. GARISH PLASTIK INDOESPEC -->
+            <div>
+                <h3 class="text-white text-xl font-semibold mb-6">PT. GARISH PLASTIK INDOESPEC</h3>
+                <p class="text-sm leading-relaxed">
+                    JASA INJECTION MANUFACTURE, PLASTIK PACKAGING, LAMINASI BONDING, APPLICATION KULIT PU FOAM TAPE, EPDM FOAM TAPE, PU FOAM & RUBBER, RUBBER.
+                </p>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="mt-16 pt-6 border-t border-gray-700 text-center text-xs text-gray-500">
+            &copy; 2024 PT. GARISH PLASTIK INDOESPEC. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- JavaScript untuk fungsionalitas menu mobile -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const button = document.getElementById('mobile-menu-button');
+            const menu = document.getElementById('mobile-menu');
+
+            if (button && menu) {
+                button.addEventListener('click', () => {
+                    // Toggle visibility of the mobile menu
+                    menu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
